@@ -1,0 +1,27 @@
+# AL Packages cache (símbolos descargados)
+.alpackages/
+
+# Snapshots de traducción
+.snapshots/
+
+# Apps compiladas
+*.app
+
+# Backups
+*.bak
+
+# Logs
+*.log
+
+# VS Code local settings y caché
+.vscode/settings.json
+.vscode/rad.json
+
+# Claude settings
+.claude/
+
+# Setup scripts con credenciales
+scripts/
+
+# Archivos de credenciales
+credenciales.txt

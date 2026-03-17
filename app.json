@@ -1,0 +1,37 @@
+﻿{
+    "id":  "db319f5e-fbf9-4fda-bfab-dff378c42e41",
+    "platform":  "27.0.0.0",
+    "version":  "1.0.1.0",
+    "help":  "",
+    "features":  [
+                     "NoImplicitWith"
+                 ],
+    "description":  "Mi primera extension de Business Central",
+    "dependencies":  [
+
+                     ],
+    "logo":  "",
+    "target":  "Cloud",
+    "screenshots":  [
+
+                    ],
+    "idRanges":  [
+                     {
+                         "to":  50149,
+                         "from":  50100
+                     }
+                 ],
+    "brief":  "Hello World AL Extension",
+    "resourceExposurePolicy":  {
+                                   "allowDownloadingSource":  true,
+                                   "allowDebugging":  true,
+                                   "includeSourceInSymbolFile":  true
+                               },
+    "EULA":  "",
+    "privacyStatement":  "",
+    "application":  "27.0.0.0",
+    "name":  "HelloWorldAL",
+    "runtime":  "13.0",
+    "publisher":  "Arbentia",
+    "url":  ""
+}
