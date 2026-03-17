@@ -89,9 +89,61 @@ src/
 
 ---
 
-## Cómo usar
+## Cómo usar en tu entorno
 
-1. Clona el repo y ábrelo en VS Code con la extensión AL Language instalada
-2. Levanta el contenedor BC con Docker (`scripts/setup-bc-container.ps1`)
-3. `Ctrl+Shift+P` → **AL: Download Symbols**
-4. `F5` para publicar y depurar
+### Requisitos previos
+- [Visual Studio Code](https://code.visualstudio.com/)
+- Extensión [AL Language](https://marketplace.visualstudio.com/items?itemName=ms-dynamics-smb.al) instalada en VS Code
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) en modo **Windows Containers**
+- PowerShell con el módulo `BcContainerHelper`:
+  ```powershell
+  Install-Module BcContainerHelper -Force
+  ```
+
+### Pasos
+
+**1. Clona el repo**
+```bash
+git clone https://github.com/ZabaHD4K/PruebasAl.git
+cd PruebasAl
+```
+
+**2. Crea un contenedor BC local**
+
+Abre PowerShell como Administrador y ejecuta:
+```powershell
+Import-Module BcContainerHelper
+
+$credential = Get-Credential -UserName "admin" -Message "Elige una contraseña para BC"
+
+New-BcContainer `
+    -accept_eula `
+    -containerName "bc-dev" `
+    -artifactUrl (Get-BCArtifactUrl -type Sandbox -country "es" -select Latest) `
+    -credential $credential `
+    -auth NavUserPassword `
+    -updateHosts `
+    -includeAL `
+    -memoryLimit 8G
+```
+> La primera vez tarda ~15-20 min descargando la imagen. Solo hay que hacerlo una vez.
+
+**3. Abre el proyecto en VS Code**
+```bash
+code .
+```
+
+**4. Descarga los símbolos**
+
+`Ctrl+Shift+P` → **AL: Download Symbols** → introduce usuario `admin` y la contraseña que elegiste.
+
+**5. Publica y prueba**
+
+`F5` — BC se abrirá en el navegador con la extensión activa.
+
+> Si los clientes no muestran puntos de Social Credit, ve a la lista de clientes y pulsa **Ajustar Social Credit** → los datos se inicializarán automáticamente.
+
+### Notas
+- El `launch.json` ya apunta a `http://bc-dev` — si usas otro nombre de contenedor, cámbialo ahí
+- BC version usada: **27.5 ES Sandbox**
+- ID range de la extensión: **50100 – 50149**
