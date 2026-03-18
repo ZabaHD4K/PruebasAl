@@ -2,6 +2,84 @@ pageextension 50100 "Customer List Social Credit" extends "Customer List"
 {
     layout
     {
+        addfirst(content)
+        {
+            group(SCFilterBar)
+            {
+                ShowCaption = false;
+                Visible = SCFilterBarVisible;
+
+                field(BtnVerde; BtnVerdeLabel)
+                {
+                    ApplicationArea = All;
+                    Caption = ' ';
+                    ShowCaption = false;
+                    Editable = false;
+                    StyleExpr = EstiloVerde;
+                    Width = 1;
+                    ToolTip = 'Ciudadano Ejemplar (≥ 1500 pts). Haz clic para activar/desactivar el filtro.';
+
+                    trigger OnDrillDown()
+                    begin
+                        FiltroVerde := not FiltroVerde;
+                        RefreshFilterBar();
+                        ApplySCFilter();
+                    end;
+                }
+                field(BtnAzul; BtnAzulLabel)
+                {
+                    ApplicationArea = All;
+                    Caption = ' ';
+                    ShowCaption = false;
+                    Editable = false;
+                    StyleExpr = EstiloAzul;
+                    Width = 1;
+                    ToolTip = 'Ciudadano Normal (1000–1499 pts). Haz clic para activar/desactivar el filtro.';
+
+                    trigger OnDrillDown()
+                    begin
+                        FiltroAzul := not FiltroAzul;
+                        RefreshFilterBar();
+                        ApplySCFilter();
+                    end;
+                }
+                field(BtnAmarillo; BtnAmarilloLabel)
+                {
+                    ApplicationArea = All;
+                    Caption = ' ';
+                    ShowCaption = false;
+                    Editable = false;
+                    StyleExpr = EstiloAmarillo;
+                    Width = 1;
+                    ToolTip = 'Bajo Supervisión (500–999 pts). Haz clic para activar/desactivar el filtro.';
+
+                    trigger OnDrillDown()
+                    begin
+                        FiltroAmarillo := not FiltroAmarillo;
+                        RefreshFilterBar();
+                        ApplySCFilter();
+                    end;
+                }
+                field(BtnRojo; BtnRojoLabel)
+                {
+                    ApplicationArea = All;
+                    Caption = ' ';
+                    ShowCaption = false;
+                    Editable = false;
+                    StyleExpr = EstiloRojo;
+                    Width = 1;
+                    ToolTip = 'Lista Negra (< 500 pts). Haz clic para activar/desactivar el filtro.';
+
+                    trigger OnDrillDown()
+                    begin
+                        FiltroRojo := not FiltroRojo;
+                        RefreshFilterBar();
+                        ApplySCFilter();
+                    end;
+                }
+            }
+        }
+
         modify(Name)
         {
             StyleExpr = SocialCreditStyle;
@@ -14,7 +92,6 @@ pageextension 50100 "Customer List Social Credit" extends "Customer List"
                 Caption = '';
                 Width = 1;
                 Editable = false;
-                Visible = true;
                 StyleExpr = SocialCreditStyle;
             }
         }
@@ -48,6 +125,13 @@ pageextension 50100 "Customer List Social Credit" extends "Customer List"
 
     actions
     {
+        addlast(Promoted)
+        {
+            actionref(SortSCDesc_Ref; SortSCDesc) { }
+            actionref(SortSCAsc_Ref; SortSCAsc) { }
+            actionref(ToggleFilterBar_Ref; ToggleFilterBar) { }
+        }
+
         addlast(processing)
         {
             action(RefreshSocialCredit)
@@ -66,12 +150,79 @@ pageextension 50100 "Customer List Social Credit" extends "Customer List"
                     CurrPage.Update(false);
                 end;
             }
+
+            group(SocialCreditSortGroup)
+            {
+                Caption = 'Ordenar por Social Credit';
+
+                action(SortSCDesc)
+                {
+                    ApplicationArea = All;
+                    Caption = '↓ Mayor a menor';
+                    Image = MoveDown;
+                    ToolTip = 'Ordena los clientes de mayor a menor puntuación de Social Credit.';
+
+                    trigger OnAction()
+                    begin
+                        Rec.SetCurrentKey("Social Credit Points");
+                        Rec.Ascending(false);
+                        CurrPage.Update(false);
+                    end;
+                }
+                action(SortSCAsc)
+                {
+                    ApplicationArea = All;
+                    Caption = '↑ Menor a mayor';
+                    Image = MoveUp;
+                    ToolTip = 'Ordena los clientes de menor a mayor puntuación de Social Credit.';
+
+                    trigger OnAction()
+                    begin
+                        Rec.SetCurrentKey("Social Credit Points");
+                        Rec.Ascending(true);
+                        CurrPage.Update(false);
+                    end;
+                }
+            }
+
+            action(ToggleFilterBar)
+            {
+                ApplicationArea = All;
+                Caption = 'Filtrar por nivel';
+                Image = FilterLines;
+                ToolTip = 'Muestra u oculta la barra de filtros por nivel de Social Credit.';
+
+                trigger OnAction()
+                begin
+                    SCFilterBarVisible := not SCFilterBarVisible;
+                    CurrPage.Update(false);
+                end;
+            }
         }
     }
 
     var
         SocialCreditStyle: Text;
         SocialCreditIcon: Text[10];
+        SCFilterBarVisible: Boolean;
+        FiltroVerde: Boolean;
+        FiltroAzul: Boolean;
+        FiltroAmarillo: Boolean;
+        FiltroRojo: Boolean;
+        BtnVerdeLabel: Text[30];
+        BtnAzulLabel: Text[30];
+        BtnAmarilloLabel: Text[30];
+        BtnRojoLabel: Text[30];
+        EstiloVerde: Text;
+        EstiloAzul: Text;
+        EstiloAmarillo: Text;
+        EstiloRojo: Text;
+
+    trigger OnOpenPage()
+    begin
+        SCFilterBarVisible := true;
+        RefreshFilterBar();
+    end;
 
     trigger OnAfterGetRecord()
     begin
@@ -84,5 +235,63 @@ pageextension 50100 "Customer List Social Credit" extends "Customer List"
     begin
         SocialCreditStyle := SocialCreditMgt.GetStyle(Rec."Social Credit Points");
         SocialCreditIcon := CopyStr(SocialCreditMgt.GetLabel(Rec."Social Credit Points"), 1, 2);
+    end;
+
+    local procedure RefreshFilterBar()
+    begin
+        if FiltroVerde then begin
+            BtnVerdeLabel := '🟢 ✔ Ejemplar';
+            EstiloVerde := 'Favorable';
+        end else begin
+            BtnVerdeLabel := '🟢 Ejemplar';
+            EstiloVerde := 'Standard';
+        end;
+
+        if FiltroAzul then begin
+            BtnAzulLabel := '🔵 ✔ Normal';
+            EstiloAzul := 'StandardAccent';
+        end else begin
+            BtnAzulLabel := '🔵 Normal';
+            EstiloAzul := 'Standard';
+        end;
+
+        if FiltroAmarillo then begin
+            BtnAmarilloLabel := '🟡 ✔ Supervisión';
+            EstiloAmarillo := 'Attention';
+        end else begin
+            BtnAmarilloLabel := '🟡 Supervisión';
+            EstiloAmarillo := 'Standard';
+        end;
+
+        if FiltroRojo then begin
+            BtnRojoLabel := '🔴 ✔ Negra';
+            EstiloRojo := 'Unfavorable';
+        end else begin
+            BtnRojoLabel := '🔴 Negra';
+            EstiloRojo := 'Standard';
+        end;
+    end;
+
+    local procedure ApplySCFilter()
+    var
+        Filter: Text;
+    begin
+        if FiltroVerde then
+            Filter += '|1500..';
+        if FiltroAzul then
+            Filter += '|1000..1499';
+        if FiltroAmarillo then
+            Filter += '|500..999';
+        if FiltroRojo then
+            Filter += '|..499';
+
+        Filter := Filter.TrimStart('|');
+
+        if Filter = '' then
+            Rec.SetRange("Social Credit Points")
+        else
+            Rec.SetFilter("Social Credit Points", Filter);
+
+        CurrPage.Update(false);
     end;
 }

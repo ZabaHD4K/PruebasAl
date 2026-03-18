@@ -16,12 +16,14 @@ El objetivo no es hacer algo perfecto — es **aprender haciendo**.
 ## Módulos actuales
 
 ### 🏅 Social Credit System
+
 El primer módulo implementado. Añade un sistema de **puntos de crédito social** a los clientes de BC.
 
 **Qué hace:**
 - Añade el campo `Social Credit Points` (por defecto 1000) a cada cliente
 - Muestra el estado del cliente con colores y emojis en toda la interfaz
 - Aparece en: lista de clientes, ficha de cliente, lookups, dropdowns, mini tarjetas y documentos de venta
+- Permite ajustar puntos manualmente con registro de motivo y auditoría completa
 
 **Rangos:**
 | Puntos | Icono | Rango |
@@ -31,16 +33,60 @@ El primer módulo implementado. Añade un sistema de **puntos de crédito social
 | ≥ 500  | 🟡 | Bajo Supervisión |
 | < 500  | 🔴 | Lista Negra |
 
-**Objetos AL creados:**
-- `CustomerTableExt` — extiende la tabla Customer con los nuevos campos y fieldgroups (Brick + DropDown)
-- `SocialCreditMgt` — codeunit de gestión con la lógica de estilos y etiquetas
-- `CustomerListExt` — columna + icono + FactBox en la lista de clientes
-- `CustomerCardExt` — campos en la sección General de la ficha
-- `CustomerLookupExt` — icono en el lookup de selección de clientes
-- `CustomerSocialCreditFactBox` — panel lateral siempre visible con estado y rango
-- `SalesOrderExt`, `SalesInvoiceExt`, `SalesQuoteExt`, `SalesCrMemoExt` — etiqueta bajo el nombre del cliente en documentos de venta
-- `InstallSocialCredit` — codeunit de instalación que inicializa todos los clientes a 1000 puntos
-- `UpgradeSocialCredit` — codeunit de upgrade que sincroniza datos al republicar
+---
+
+### 🔍 Filtros y Ordenación en Lista de Clientes
+
+Añadidos directamente sobre la lista de clientes para explorar la base de clientes por nivel de Social Credit de forma visual e interactiva.
+
+**Ordenación:**
+- Botón **↓ Mayor a menor** — ordena por puntos de mayor a menor
+- Botón **↑ Menor a mayor** — ordena por puntos de menor a mayor
+- Basado en un índice dedicado en la tabla (`SocialCreditKey`) para garantizar rendimiento
+
+**Filtros por nivel (barra interactiva):**
+- Barra de 4 botones visuales encima de la lista de clientes
+- Cada botón representa un nivel: 🟢 🔵 🟡 🔴
+- **Click** activa el filtro (el botón cambia de color y muestra ✔)
+- **Click de nuevo** lo desactiva
+- Se pueden **combinar varios niveles** a la vez — por ejemplo, ver solo rojos y azules simultáneamente
+- La barra se puede mostrar/ocultar con el botón **"Filtrar por nivel"** en la barra de acciones
+
+---
+
+### 🔐 Permisos (Permission Sets)
+
+Dos conjuntos de permisos incluidos en la extensión para controlar el acceso al módulo:
+
+| Permission Set | Descripción |
+|----------------|-------------|
+| `SC - Solo Lectura` | Acceso de solo lectura: ve puntos, estado e historial. Incluye permiso de lectura sobre la tabla Customer. |
+| `SC - Gestión` | Acceso completo: todo lo de Solo Lectura + puede ajustar puntos y modificar registros. Hereda `SC - Solo Lectura` vía `IncludedPermissionSets`. |
+
+---
+
+## Objetos AL
+
+| Objeto | Tipo | Descripción |
+|--------|------|-------------|
+| `CustomerTableExt` | TableExtension | Añade `Social Credit Points`, `Social Credit Label` e índice `SocialCreditKey` a Customer |
+| `SocialCreditMgt` | Codeunit | Lógica central: estilos, etiquetas, rangos, log de cambios e inicialización |
+| `SocialCreditCheckSubscriber` | Codeunit | Suscriptor de eventos para validaciones automáticas |
+| `InstallSocialCredit` | Codeunit | Inicializa todos los clientes a 1000 puntos en la instalación |
+| `UpgradeSocialCredit` | Codeunit | Sincroniza datos al republicar la extensión |
+| `CustomerListExt` | PageExtension | Columna de icono, campos de estado, barra de filtros interactiva, ordenación y FactBox |
+| `CustomerCardExt` | PageExtension | Campos Social Credit en la ficha del cliente |
+| `CustomerLookupExt` | PageExtension | Icono de estado en el lookup de selección de clientes |
+| `SalesOrderExt` | PageExtension | Etiqueta de estado bajo el nombre del cliente en pedidos de venta |
+| `SalesInvoiceExt` | PageExtension | Etiqueta de estado en facturas de venta |
+| `SalesQuoteExt` | PageExtension | Etiqueta de estado en presupuestos |
+| `SalesCreditMemoExt` | PageExtension | Etiqueta de estado en abonos de venta |
+| `CustomerSocialCreditFactBox` | Page (CardPart) | Panel lateral con estado, rango y puntos del cliente seleccionado |
+| `SocialCreditAdjustPage` | Page | Panel para subir/bajar puntos con motivo |
+| `SocialCreditHistory` | Page | Historial completo de cambios de un cliente |
+| `SocialCreditLogEntry` | Table | Tabla de auditoría con todos los cambios de puntos |
+| `SC - Solo Lectura` | PermissionSet | Permisos de solo lectura para el módulo |
+| `SC - Gestión` | PermissionSet | Permisos completos de gestión |
 
 ---
 
@@ -48,7 +94,7 @@ El primer módulo implementado. Añade un sistema de **puntos de crédito social
 
 - **BC Version:** Business Central 27.5 (ES Sandbox)
 - **AL Language Extension:** VS Code
-- **Docker:** contenedor local con BcContainerHelper
+- **Docker:** contenedor local `bc-dev` con BcContainerHelper
 - **Publisher:** Arbentia
 - **ID Range:** 50100 – 50149
 
@@ -61,27 +107,35 @@ src/
 ├── Codeunit/
 │   ├── InstallSocialCredit.Codeunit.al
 │   ├── UpgradeSocialCredit.Codeunit.al
-│   └── SocialCreditMgt.Codeunit.al
+│   ├── SocialCreditMgt.Codeunit.al
+│   └── SocialCreditCheckSubscriber.Codeunit.al
 ├── Page/
-│   └── CustomerSocialCreditFactBox.Page.al
+│   ├── CustomerSocialCreditFactBox.Page.al
+│   ├── SocialCreditAdjustPage.Page.al
+│   ├── SocialCreditHistoryChart.Page.al
+│   └── SocialCreditSelCustPart.Page.al
 ├── PageExtension/
-│   ├── CustomerListExt.PageExt.al
+│   ├── CustomerListExt.PageExt.al       ← filtros, ordenación, barra interactiva
 │   ├── CustomerCardExt.PageExt.al
 │   ├── CustomerLookupExt.PageExt.al
 │   ├── SalesOrderExt.PageExt.al
 │   ├── SalesInvoiceExt.PageExt.al
 │   ├── SalesQuoteExt.PageExt.al
 │   └── SalesCreditMemoExt.PageExt.al
+├── PermissionSet/
+│   ├── SCSoloLectura.PermissionSet.al
+│   └── SCGestion.PermissionSet.al
 └── TableExtension/
-    └── CustomerTableExt.TableExt.al
+    └── CustomerTableExt.TableExt.al     ← índice SocialCreditKey
 ```
 
 ---
 
 ## Próximos módulos (ideas)
 
-- [ ] Historial de cambios de Social Credit con log de auditoría
-- [ ] Acciones para sumar/restar puntos con motivo
+- [x] Historial de cambios de Social Credit con log de auditoría
+- [x] Acciones para sumar/restar puntos con motivo
+- [x] Filtros y ordenación por nivel en la lista de clientes
 - [ ] Alertas automáticas cuando un cliente baja de 500 puntos
 - [ ] Reportes de ranking de clientes por Social Credit
 - [ ] Integración con pedidos: penalización automática por pagos tardíos

@@ -22,6 +22,11 @@ tableextension 50100 "Customer Social Credit Ext" extends Customer
         }
     }
 
+    keys
+    {
+        key(SocialCreditKey; "Social Credit Points") { }
+    }
+
     fieldgroups
     {
         addlast(Brick; "Social Credit Label") { }
