@@ -34,7 +34,7 @@ page 50100 "Customer Social Credit FactBox"
 
     var
         SocialCreditStyle: Text;
-        SocialCreditRank: Text[30];
+        SocialCreditRank: Text[50];
 
     trigger OnAfterGetRecord()
     begin
@@ -46,15 +46,6 @@ page 50100 "Customer Social Credit FactBox"
         SocialCreditMgt: Codeunit "Social Credit Mgt";
     begin
         SocialCreditStyle := SocialCreditMgt.GetStyle(Rec."Social Credit Points");
-        case true of
-            Rec."Social Credit Points" >= 1500:
-                SocialCreditRank := 'Ciudadano Ejemplar';
-            Rec."Social Credit Points" >= 1000:
-                SocialCreditRank := 'Ciudadano Normal';
-            Rec."Social Credit Points" >= 500:
-                SocialCreditRank := 'Bajo Supervision';
-            else
-                SocialCreditRank := 'Lista Negra';
-        end;
+        SocialCreditRank := SocialCreditMgt.GetRank(Rec."Social Credit Points");
     end;
 }

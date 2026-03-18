@@ -14,7 +14,7 @@ codeunit 50101 "Social Credit Mgt"
         end;
     end;
 
-    procedure GetLabel(Points: Integer): Text[30]
+    procedure GetLabel(Points: Integer): Text[50]
     begin
         case true of
             Points >= 1500:
@@ -28,13 +28,40 @@ codeunit 50101 "Social Credit Mgt"
         end;
     end;
 
-    procedure GetCustomerLabel(CustomerNo: Code[20]): Text[30]
+    procedure GetRank(Points: Integer): Text[50]
+    begin
+        case true of
+            Points >= 1500:
+                exit('Ciudadano Ejemplar');
+            Points >= 1000:
+                exit('Ciudadano Normal');
+            Points >= 500:
+                exit('Bajo Supervision');
+            else
+                exit('Lista Negra');
+        end;
+    end;
+
+    procedure GetCustomerLabel(CustomerNo: Code[20]): Text[50]
     var
         Customer: Record Customer;
     begin
         if Customer.Get(CustomerNo) then
             exit(GetLabel(Customer."Social Credit Points"));
         exit('');
+    end;
+
+    procedure InitializeCustomers()
+    var
+        Customer: Record Customer;
+    begin
+        if Customer.FindSet(true) then
+            repeat
+                if Customer."Social Credit Points" = 0 then
+                    Customer."Social Credit Points" := 1000;
+                Customer."Social Credit Label" := GetLabel(Customer."Social Credit Points");
+                Customer.Modify();
+            until Customer.Next() = 0;
     end;
 
     procedure GetCustomerStyle(CustomerNo: Code[20]): Text
