@@ -40,6 +40,11 @@ table 50102 "Social Credit Log Entry"
             Caption = 'Usuario';
             DataClassification = EndUserIdentifiableInformation;
         }
+        field(9; "Reason"; Text[250])
+        {
+            Caption = 'Motivo';
+            DataClassification = CustomerContent;
+        }
     }
 
     keys

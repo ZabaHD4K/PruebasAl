@@ -15,7 +15,7 @@ pageextension 50104 "Sales Quote Social Credit" extends "Sales Quote"
     }
 
     var
-        SellToSocialCredit: Text[30];
+        SellToSocialCredit: Text[50];
         SellToSocialCreditStyle: Text;
 
     trigger OnAfterGetCurrRecord()

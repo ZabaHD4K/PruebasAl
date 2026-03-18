@@ -15,7 +15,7 @@ pageextension 50105 "Sales Invoice Social Credit" extends "Sales Invoice"
     }
 
     var
-        SellToSocialCredit: Text[30];
+        SellToSocialCredit: Text[50];
         SellToSocialCreditStyle: Text;
 
     trigger OnAfterGetCurrRecord()

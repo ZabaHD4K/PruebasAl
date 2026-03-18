@@ -54,6 +54,11 @@ page 50102 "Social Credit History"
                     ApplicationArea = All;
                     Caption = 'Usuario';
                 }
+                field("Reason"; Rec."Reason")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Motivo';
+                }
             }
         }
     }

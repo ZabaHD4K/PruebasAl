@@ -15,7 +15,7 @@ pageextension 50103 "Sales Order Social Credit" extends "Sales Order"
     }
 
     var
-        SellToSocialCredit: Text[30];
+        SellToSocialCredit: Text[50];
         SellToSocialCreditStyle: Text;
 
     trigger OnAfterGetCurrRecord()

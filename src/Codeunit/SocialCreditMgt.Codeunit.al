@@ -73,7 +73,7 @@ codeunit 50101 "Social Credit Mgt"
         exit('');
     end;
 
-    procedure LogChange(CustomerNo: Code[20]; CustomerName: Text[100]; PointsBefore: Integer; PointsAfter: Integer)
+    procedure LogChange(CustomerNo: Code[20]; CustomerName: Text[100]; PointsBefore: Integer; PointsAfter: Integer; Reason: Text[250])
     var
         LogEntry: Record "Social Credit Log Entry";
     begin
@@ -85,6 +85,7 @@ codeunit 50101 "Social Credit Mgt"
         LogEntry."Change" := PointsAfter - PointsBefore;
         LogEntry."Log DateTime" := CurrentDateTime();
         LogEntry."User ID" := CopyStr(UserId(), 1, 50);
+        LogEntry."Reason" := Reason;
         LogEntry.Insert(true);
     end;
 }

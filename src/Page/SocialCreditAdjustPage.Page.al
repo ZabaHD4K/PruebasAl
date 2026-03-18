@@ -47,6 +47,29 @@ page 50101 "Social Credit Adjust"
                     StyleExpr = CurrentStyle;
                 }
             }
+            group(AdjustGroup)
+            {
+                Caption = 'Ajuste';
+                field(AdjustDirection; AdjustDirection)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Dirección';
+                    ToolTip = 'Selecciona si quieres subir o bajar puntos.';
+                }
+                field(AdjustAmount; AdjustAmount)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Cantidad';
+                    MinValue = 1;
+                    ToolTip = 'Número de puntos a aplicar.';
+                }
+                field(Reason; Reason)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Motivo';
+                    ToolTip = 'Indica el motivo del ajuste.';
+                }
+            }
         }
     }
 
@@ -54,33 +77,26 @@ page 50101 "Social Credit Adjust"
     {
         area(Processing)
         {
-            action(SubirPuntos)
+            action(AplicarAjuste)
             {
                 ApplicationArea = All;
-                Caption = 'Subir +100';
-                Image = Add;
-                ToolTip = 'Añade 100 puntos de Social Credit al cliente seleccionado.';
+                Caption = 'Aplicar ajuste';
+                Image = Apply;
+                ToolTip = 'Aplica el ajuste de puntos al cliente seleccionado.';
                 trigger OnAction()
                 begin
-                    AdjustPoints(100);
-                end;
-            }
-            action(BajarPuntos)
-            {
-                ApplicationArea = All;
-                Caption = 'Bajar -100';
-                Image = Minus;
-                ToolTip = 'Resta 100 puntos de Social Credit al cliente seleccionado.';
-                trigger OnAction()
-                begin
-                    AdjustPoints(-100);
+                    case AdjustDirection of
+                        AdjustDirection::Subir:
+                            AdjustPoints(AdjustAmount);
+                        AdjustDirection::Bajar:
+                            AdjustPoints(-AdjustAmount);
+                    end;
                 end;
             }
         }
         area(Promoted)
         {
-            actionref(SubirPuntosRef; SubirPuntos) { }
-            actionref(BajarPuntosRef; BajarPuntos) { }
+            actionref(AplicarAjusteRef; AplicarAjuste) { }
         }
     }
 
@@ -88,8 +104,11 @@ page 50101 "Social Credit Adjust"
         CustomerNo: Code[20];
         CustomerName: Text[100];
         CurrentPoints: Integer;
-        CurrentLabel: Text[30];
+        CurrentLabel: Text[50];
         CurrentStyle: Text;
+        AdjustDirection: Option Subir,Bajar;
+        AdjustAmount: Integer;
+        Reason: Text[250];
 
     trigger OnOpenPage()
     begin
@@ -131,14 +150,26 @@ page 50101 "Social Credit Adjust"
             Message('Selecciona un cliente primero.');
             exit;
         end;
+        if AdjustAmount <= 0 then begin
+            Message('Introduce una cantidad mayor que cero.');
+            exit;
+        end;
+        if Reason = '' then begin
+            Message('Introduce un motivo antes de ajustar los puntos.');
+            exit;
+        end;
         Customer.Get(CustomerNo);
         PointsBefore := Customer."Social Credit Points";
-        Customer."Social Credit Points" := Customer."Social Credit Points" + Delta;
-        if Customer."Social Credit Points" < 0 then
-            Customer."Social Credit Points" := 0;
+        if (PointsBefore + Delta) < 0 then begin
+            Message('No se puede aplicar el ajuste: el cliente tiene %1 puntos y restar %2 daría un resultado negativo.', PointsBefore, AdjustAmount);
+            exit;
+        end;
+        Customer."Social Credit Points" := PointsBefore + Delta;
         Customer."Social Credit Label" := SocialCreditMgt.GetLabel(Customer."Social Credit Points");
         Customer.Modify(true);
-        SocialCreditMgt.LogChange(CustomerNo, CustomerName, PointsBefore, Customer."Social Credit Points");
+        SocialCreditMgt.LogChange(CustomerNo, CustomerName, PointsBefore, Customer."Social Credit Points", Reason);
+        Reason := '';
+        AdjustAmount := 0;
         CurrentPoints := Customer."Social Credit Points";
         CurrentLabel := Customer."Social Credit Label";
         CurrentStyle := SocialCreditMgt.GetStyle(CurrentPoints);

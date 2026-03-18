@@ -15,7 +15,7 @@ pageextension 50106 "Sales Cr. Memo Social Credit" extends "Sales Credit Memo"
     }
 
     var
-        SellToSocialCredit: Text[30];
+        SellToSocialCredit: Text[50];
         SellToSocialCreditStyle: Text;
 
     trigger OnAfterGetCurrRecord()
