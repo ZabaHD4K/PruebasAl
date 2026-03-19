@@ -7,6 +7,8 @@ permissionset 50100 "SC - Solo Lectura"
         tabledata Customer = R,
         tabledata "Social Credit Log Entry" = R,
         tabledata "SC Report Line" = RIMD,
+        tabledata "SC Chat Setup" = RIMD,
+        tabledata "SC Chat Line" = RIMD,
         page "Customer Social Credit FactBox" = X,
         page "Social Credit History" = X,
         page "SC Sel Cust Part" = X,
@@ -15,5 +17,9 @@ permissionset 50100 "SC - Solo Lectura"
         page "SC Invoice API" = X,
         codeunit "Social Credit Mgt" = X,
         codeunit "Social Credit Check Subscriber" = X,
-        codeunit "SC Overdue Notifier" = X;
+        codeunit "SC Overdue Notifier" = X,
+        page "SC Chat" = X,
+        page "SC Chat Lines" = X,
+        page "SC Chat Setup Page" = X,
+        codeunit "SC Chat Mgt" = X;
 }

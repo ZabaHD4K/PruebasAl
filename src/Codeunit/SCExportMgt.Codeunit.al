@@ -397,7 +397,7 @@ codeunit 50110 "SC Export Mgt"
 
     local procedure EscapeCSV(Value: Text): Text
     begin
-        if Value.Contains(',') or Value.Contains('"') or Value.Contains(#10) then
+        if Value.Contains(',') or Value.Contains('"') then
             exit('"' + Value.Replace('"', '""') + '"');
         exit(Value);
     end;

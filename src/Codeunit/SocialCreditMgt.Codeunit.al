@@ -56,26 +56,15 @@ codeunit 50101 "Social Credit Mgt"
     procedure InitializeCustomers()
     var
         Customer: Record Customer;
-        Errors: Integer;
     begin
         if not Customer.FindSet(true) then
             exit;
         repeat
-            if not TryInitializeCustomer(Customer) then
-                Errors += 1;
+            if Customer."Social Credit Points" = 0 then
+                Customer."Social Credit Points" := 1000;
+            Customer."Social Credit Label" := GetLabel(Customer."Social Credit Points");
+            Customer.Modify();
         until Customer.Next() = 0;
-
-        if Errors > 0 then
-            Message('Social Credit inicializado con %1 error(es). Revisa los clientes manualmente si es necesario.', Errors);
-    end;
-
-    [TryFunction]
-    local procedure TryInitializeCustomer(var Customer: Record Customer)
-    begin
-        if Customer."Social Credit Points" = 0 then
-            Customer."Social Credit Points" := 1000;
-        Customer."Social Credit Label" := GetLabel(Customer."Social Credit Points");
-        Customer.Modify();
     end;
 
     procedure GetCustomerStyle(CustomerNo: Code[20]): Text
@@ -102,13 +91,6 @@ codeunit 50101 "Social Credit Mgt"
         LogEntry."Log DateTime" := CurrentDateTime();
         LogEntry."User ID" := CopyStr(UserId(), 1, 50);
         LogEntry."Reason" := Reason;
-        if not TryInsertLog(LogEntry) then;
-        // Si el log falla, se ignora silenciosamente para no interrumpir el flujo principal
-    end;
-
-    [TryFunction]
-    local procedure TryInsertLog(var LogEntry: Record "Social Credit Log Entry")
-    begin
         LogEntry.Insert(true);
     end;
 }
