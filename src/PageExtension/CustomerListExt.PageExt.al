@@ -130,6 +130,7 @@ pageextension 50100 "Customer List Social Credit" extends "Customer List"
             actionref(SortSCDesc_Ref; SortSCDesc) { }
             actionref(SortSCAsc_Ref; SortSCAsc) { }
             actionref(ToggleFilterBar_Ref; ToggleFilterBar) { }
+            actionref(OpenSCReport_Ref; OpenSCReport) { }
         }
 
         addlast(processing)
@@ -196,6 +197,18 @@ pageextension 50100 "Customer List Social Credit" extends "Customer List"
                 begin
                     SCFilterBarVisible := not SCFilterBarVisible;
                     CurrPage.Update(false);
+                end;
+            }
+            action(OpenSCReport)
+            {
+                ApplicationArea = All;
+                Caption = 'Social Credit Report';
+                Image = Report;
+                ToolTip = 'Abre el ranking de clientes ordenado por puntuación de Social Credit.';
+
+                trigger OnAction()
+                begin
+                    Page.Run(Page::"Social Credit Report");
                 end;
             }
         }
