@@ -211,6 +211,69 @@ pageextension 50100 "Customer List Social Credit" extends "Customer List"
                     Page.Run(Page::"Social Credit Report");
                 end;
             }
+
+            group(ExportGroup)
+            {
+                Caption = 'Exportar';
+                Image = Export;
+
+                action(ExportCSV)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Exportar CSV';
+                    Image = ExportToExcel;
+                    ToolTip = 'Descarga la lista de clientes en formato CSV.';
+
+                    trigger OnAction()
+                    var
+                        ExportMgt: Codeunit "SC Export Mgt";
+                    begin
+                        ExportMgt.ExportCustomersAsCSV();
+                    end;
+                }
+                action(ExportXML)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Exportar XML';
+                    Image = XMLFile;
+                    ToolTip = 'Descarga la lista de clientes en formato XML.';
+
+                    trigger OnAction()
+                    var
+                        ExportMgt: Codeunit "SC Export Mgt";
+                    begin
+                        ExportMgt.ExportCustomersAsXML();
+                    end;
+                }
+                action(ExportJSON)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Exportar JSON';
+                    Image = Web;
+                    ToolTip = 'Descarga la lista de clientes en formato JSON.';
+
+                    trigger OnAction()
+                    var
+                        ExportMgt: Codeunit "SC Export Mgt";
+                    begin
+                        ExportMgt.ExportCustomersAsJSON();
+                    end;
+                }
+                action(ExportExcel)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Exportar Excel';
+                    Image = Excel;
+                    ToolTip = 'Descarga la lista de clientes en formato Excel (.xlsx).';
+
+                    trigger OnAction()
+                    var
+                        ExportMgt: Codeunit "SC Export Mgt";
+                    begin
+                        ExportMgt.ExportCustomersAsExcel();
+                    end;
+                }
+            }
         }
     }
 
