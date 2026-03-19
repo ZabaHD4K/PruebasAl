@@ -12,5 +12,6 @@ permissionset 50100 "SC - Solo Lectura"
         page "SC Sel Cust Part" = X,
         page "Social Credit Report" = X,
         codeunit "Social Credit Mgt" = X,
-        codeunit "Social Credit Check Subscriber" = X;
+        codeunit "Social Credit Check Subscriber" = X,
+        codeunit "SC Overdue Notifier" = X;
 }

@@ -84,7 +84,9 @@ Dos conjuntos de permisos incluidos en la extensión para controlar el acceso al
 | `CustomerSocialCreditFactBox` | Page (CardPart) | Panel lateral con estado, rango y puntos del cliente seleccionado |
 | `SocialCreditAdjustPage` | Page | Panel para subir/bajar puntos con motivo |
 | `SocialCreditHistory` | Page | Historial completo de cambios de un cliente |
+| `Social Credit Report` | Page | Ranking de todos los clientes ordenado por puntuación de Social Credit |
 | `SocialCreditLogEntry` | Table | Tabla de auditoría con todos los cambios de puntos |
+| `SC Report Line` | Table (Temporary) | Tabla temporal para las líneas del ranking de Social Credit |
 | `SC - Solo Lectura` | PermissionSet | Permisos de solo lectura para el módulo |
 | `SC - Gestión` | PermissionSet | Permisos completos de gestión |
 
@@ -113,7 +115,8 @@ src/
 │   ├── CustomerSocialCreditFactBox.Page.al
 │   ├── SocialCreditAdjustPage.Page.al
 │   ├── SocialCreditHistoryChart.Page.al
-│   └── SocialCreditSelCustPart.Page.al
+│   ├── SocialCreditSelCustPart.Page.al
+│   └── SocialCreditReport.Page.al           ← ranking de clientes por Social Credit
 ├── PageExtension/
 │   ├── CustomerListExt.PageExt.al       ← filtros, ordenación, barra interactiva
 │   ├── CustomerCardExt.PageExt.al
@@ -125,8 +128,10 @@ src/
 ├── PermissionSet/
 │   ├── SCSoloLectura.PermissionSet.al
 │   └── SCGestion.PermissionSet.al
+├── Table/
+│   └── SocialCreditReportLine.Table.al      ← tabla temporal para el ranking
 └── TableExtension/
-    └── CustomerTableExt.TableExt.al     ← índice SocialCreditKey
+    └── CustomerTableExt.TableExt.al         ← índice SocialCreditKey
 ```
 
 ---
@@ -137,7 +142,7 @@ src/
 - [x] Acciones para sumar/restar puntos con motivo
 - [x] Filtros y ordenación por nivel en la lista de clientes
 - [ ] Alertas automáticas cuando un cliente baja de 500 puntos
-- [ ] Reportes de ranking de clientes por Social Credit
+- [x] Reportes de ranking de clientes por Social Credit
 - [ ] Integración con pedidos: penalización automática por pagos tardíos
 - [ ] Y lo que se me vaya ocurriendo...
 

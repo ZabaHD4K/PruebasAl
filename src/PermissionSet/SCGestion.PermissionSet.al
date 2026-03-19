@@ -8,5 +8,7 @@ permissionset 50101 "SC - Gestion"
         tabledata "Social Credit Log Entry" = RIMD,
         page "Social Credit Adjust" = X,
         codeunit "Install Social Credit" = X,
-        codeunit "Upgrade Social Credit" = X;
+        codeunit "Upgrade Social Credit" = X,
+        codeunit "SC Deduct Morosos" = X,
+        codeunit "SC Overdue Notifier" = X;
 }
