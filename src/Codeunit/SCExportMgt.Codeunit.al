@@ -9,44 +9,41 @@ codeunit 50110 "SC Export Mgt"
         Customer: Record Customer;
         Content: TextBuilder;
     begin
+        if not Customer.FindSet() then begin
+            Message('No hay clientes para exportar.');
+            exit;
+        end;
         Content.AppendLine('No.,Nombre,Ciudad,Telefono,Email,Social Credit,Estado,Rango');
-        if Customer.FindSet() then
-            repeat
-                Content.AppendLine(StrSubstNo('%1,%2,%3,%4,%5,%6,%7,%8',
-                    EscapeCSV(Customer."No."),
-                    EscapeCSV(Customer.Name),
-                    EscapeCSV(Customer.City),
-                    EscapeCSV(Customer."Phone No."),
-                    EscapeCSV(Customer."E-Mail"),
-                    Format(Customer."Social Credit Points"),
-                    EscapeCSV(Customer."Social Credit Label"),
-                    EscapeCSV(SocialCreditMgt.GetRank(Customer."Social Credit Points"))));
-            until Customer.Next() = 0;
-        DownloadText(Content.ToText(), 'clientes.csv');
+        repeat
+            Content.AppendLine(StrSubstNo('%1,%2,%3,%4,%5,%6,%7,%8',
+                EscapeCSV(Customer."No."),
+                EscapeCSV(Customer.Name),
+                EscapeCSV(Customer.City),
+                EscapeCSV(Customer."Phone No."),
+                EscapeCSV(Customer."E-Mail"),
+                Format(Customer."Social Credit Points"),
+                EscapeCSV(Customer."Social Credit Label"),
+                EscapeCSV(SocialCreditMgt.GetRank(Customer."Social Credit Points"))));
+        until Customer.Next() = 0;
+        if not TryDownloadText(Content.ToText(), 'clientes.csv') then
+            Message('No se pudo descargar el archivo CSV. Inténtalo de nuevo.');
     end;
 
     procedure ExportCustomersAsXML()
     var
         Customer: Record Customer;
-        XmlDoc: XmlDocument;
         Root: XmlElement;
-        TempBlob: Codeunit "Temp Blob";
-        OutStr: OutStream;
-        InStr: InStream;
-        FileName: Text;
     begin
-        XmlDoc := XmlDocument.Create();
+        if not Customer.FindSet() then begin
+            Message('No hay clientes para exportar.');
+            exit;
+        end;
         Root := XmlElement.Create('Customers');
-        if Customer.FindSet() then
-            repeat
-                Root.Add(BuildCustomerXmlElement(Customer));
-            until Customer.Next() = 0;
-        XmlDoc.Add(Root);
-        TempBlob.CreateOutStream(OutStr);
-        XmlDoc.WriteTo(OutStr);
-        TempBlob.CreateInStream(InStr);
-        FileName := 'clientes.xml';
-        DownloadFromStream(InStr, '', '', 'XML Files (*.xml)|*.xml', FileName);
+        repeat
+            Root.Add(BuildCustomerXmlElement(Customer));
+        until Customer.Next() = 0;
+        if not TryDownloadXML(Root, 'clientes.xml') then
+            Message('No se pudo generar o descargar el archivo XML. Inténtalo de nuevo.');
     end;
 
     procedure ExportCustomersAsJSON()
@@ -56,21 +53,28 @@ codeunit 50110 "SC Export Mgt"
         JsonObj: JsonObject;
         JsonTxt: Text;
     begin
-        if Customer.FindSet() then
-            repeat
-                Clear(JsonObj);
-                JsonObj.Add('no', Customer."No.");
-                JsonObj.Add('name', Customer.Name);
-                JsonObj.Add('city', Customer.City);
-                JsonObj.Add('phone', Customer."Phone No.");
-                JsonObj.Add('email', Customer."E-Mail");
-                JsonObj.Add('socialCreditPoints', Customer."Social Credit Points");
-                JsonObj.Add('socialCreditLabel', Customer."Social Credit Label");
-                JsonObj.Add('rank', SocialCreditMgt.GetRank(Customer."Social Credit Points"));
-                JsonArr.Add(JsonObj);
-            until Customer.Next() = 0;
-        JsonArr.WriteTo(JsonTxt);
-        DownloadText(JsonTxt, 'clientes.json');
+        if not Customer.FindSet() then begin
+            Message('No hay clientes para exportar.');
+            exit;
+        end;
+        repeat
+            Clear(JsonObj);
+            JsonObj.Add('no', Customer."No.");
+            JsonObj.Add('name', Customer.Name);
+            JsonObj.Add('city', Customer.City);
+            JsonObj.Add('phone', Customer."Phone No.");
+            JsonObj.Add('email', Customer."E-Mail");
+            JsonObj.Add('socialCreditPoints', Customer."Social Credit Points");
+            JsonObj.Add('socialCreditLabel', Customer."Social Credit Label");
+            JsonObj.Add('rank', SocialCreditMgt.GetRank(Customer."Social Credit Points"));
+            JsonArr.Add(JsonObj);
+        until Customer.Next() = 0;
+        if not JsonArr.WriteTo(JsonTxt) then begin
+            Message('No se pudo serializar los datos a JSON.');
+            exit;
+        end;
+        if not TryDownloadText(JsonTxt, 'clientes.json') then
+            Message('No se pudo descargar el archivo JSON. Inténtalo de nuevo.');
     end;
 
     procedure ExportCustomersAsExcel()
@@ -78,6 +82,10 @@ codeunit 50110 "SC Export Mgt"
         Customer: Record Customer;
         ExcelBuffer: Record "Excel Buffer" temporary;
     begin
+        if not Customer.FindSet() then begin
+            Message('No hay clientes para exportar.');
+            exit;
+        end;
         ExcelBuffer.DeleteAll();
         ExcelBuffer.NewRow();
         AddExcelHeader(ExcelBuffer, 'No.');
@@ -88,22 +96,19 @@ codeunit 50110 "SC Export Mgt"
         AddExcelHeader(ExcelBuffer, 'Social Credit');
         AddExcelHeader(ExcelBuffer, 'Estado');
         AddExcelHeader(ExcelBuffer, 'Rango');
-        if Customer.FindSet() then
-            repeat
-                ExcelBuffer.NewRow();
-                AddExcelCell(ExcelBuffer, Customer."No.");
-                AddExcelCell(ExcelBuffer, Customer.Name);
-                AddExcelCell(ExcelBuffer, Customer.City);
-                AddExcelCell(ExcelBuffer, Customer."Phone No.");
-                AddExcelCell(ExcelBuffer, Customer."E-Mail");
-                ExcelBuffer.AddColumn(Customer."Social Credit Points", false, '', false, false, false, '#,##0', ExcelBuffer."Cell Type"::Number);
-                AddExcelCell(ExcelBuffer, Customer."Social Credit Label");
-                AddExcelCell(ExcelBuffer, SocialCreditMgt.GetRank(Customer."Social Credit Points"));
-            until Customer.Next() = 0;
-        ExcelBuffer.CreateNewBook('Clientes');
-        ExcelBuffer.WriteSheet('Clientes', CompanyName(), UserId());
-        ExcelBuffer.CloseBook();
-        ExcelBuffer.OpenExcel();
+        repeat
+            ExcelBuffer.NewRow();
+            AddExcelCell(ExcelBuffer, Customer."No.");
+            AddExcelCell(ExcelBuffer, Customer.Name);
+            AddExcelCell(ExcelBuffer, Customer.City);
+            AddExcelCell(ExcelBuffer, Customer."Phone No.");
+            AddExcelCell(ExcelBuffer, Customer."E-Mail");
+            ExcelBuffer.AddColumn(Customer."Social Credit Points", false, '', false, false, false, '#,##0', ExcelBuffer."Cell Type"::Number);
+            AddExcelCell(ExcelBuffer, Customer."Social Credit Label");
+            AddExcelCell(ExcelBuffer, SocialCreditMgt.GetRank(Customer."Social Credit Points"));
+        until Customer.Next() = 0;
+        if not TryOpenExcel(ExcelBuffer, 'Clientes') then
+            Message('No se pudo generar el archivo Excel. Inténtalo de nuevo.');
     end;
 
     // ══════════════════════════════════════════
@@ -115,45 +120,42 @@ codeunit 50110 "SC Export Mgt"
         Vendor: Record Vendor;
         Content: TextBuilder;
     begin
+        if not Vendor.FindSet() then begin
+            Message('No hay proveedores para exportar.');
+            exit;
+        end;
         Content.AppendLine('No.,Nombre,Ciudad,Telefono,Email,Saldo (DL),Terminos Pago');
-        if Vendor.FindSet() then
-            repeat
-                Vendor.CalcFields("Balance (LCY)");
-                Content.AppendLine(StrSubstNo('%1,%2,%3,%4,%5,%6,%7',
-                    EscapeCSV(Vendor."No."),
-                    EscapeCSV(Vendor.Name),
-                    EscapeCSV(Vendor.City),
-                    EscapeCSV(Vendor."Phone No."),
-                    EscapeCSV(Vendor."E-Mail"),
-                    Format(Vendor."Balance (LCY)"),
-                    EscapeCSV(Vendor."Payment Terms Code")));
-            until Vendor.Next() = 0;
-        DownloadText(Content.ToText(), 'proveedores.csv');
+        repeat
+            if not TryCalcVendorBalance(Vendor) then;
+            Content.AppendLine(StrSubstNo('%1,%2,%3,%4,%5,%6,%7',
+                EscapeCSV(Vendor."No."),
+                EscapeCSV(Vendor.Name),
+                EscapeCSV(Vendor.City),
+                EscapeCSV(Vendor."Phone No."),
+                EscapeCSV(Vendor."E-Mail"),
+                Format(Vendor."Balance (LCY)"),
+                EscapeCSV(Vendor."Payment Terms Code")));
+        until Vendor.Next() = 0;
+        if not TryDownloadText(Content.ToText(), 'proveedores.csv') then
+            Message('No se pudo descargar el archivo CSV. Inténtalo de nuevo.');
     end;
 
     procedure ExportVendorsAsXML()
     var
         Vendor: Record Vendor;
-        XmlDoc: XmlDocument;
         Root: XmlElement;
-        TempBlob: Codeunit "Temp Blob";
-        OutStr: OutStream;
-        InStr: InStream;
-        FileName: Text;
     begin
-        XmlDoc := XmlDocument.Create();
+        if not Vendor.FindSet() then begin
+            Message('No hay proveedores para exportar.');
+            exit;
+        end;
         Root := XmlElement.Create('Vendors');
-        if Vendor.FindSet() then
-            repeat
-                Vendor.CalcFields("Balance (LCY)");
-                Root.Add(BuildVendorXmlElement(Vendor));
-            until Vendor.Next() = 0;
-        XmlDoc.Add(Root);
-        TempBlob.CreateOutStream(OutStr);
-        XmlDoc.WriteTo(OutStr);
-        TempBlob.CreateInStream(InStr);
-        FileName := 'proveedores.xml';
-        DownloadFromStream(InStr, '', '', 'XML Files (*.xml)|*.xml', FileName);
+        repeat
+            if not TryCalcVendorBalance(Vendor) then;
+            Root.Add(BuildVendorXmlElement(Vendor));
+        until Vendor.Next() = 0;
+        if not TryDownloadXML(Root, 'proveedores.xml') then
+            Message('No se pudo generar o descargar el archivo XML. Inténtalo de nuevo.');
     end;
 
     procedure ExportVendorsAsJSON()
@@ -163,21 +165,28 @@ codeunit 50110 "SC Export Mgt"
         JsonObj: JsonObject;
         JsonTxt: Text;
     begin
-        if Vendor.FindSet() then
-            repeat
-                Vendor.CalcFields("Balance (LCY)");
-                Clear(JsonObj);
-                JsonObj.Add('no', Vendor."No.");
-                JsonObj.Add('name', Vendor.Name);
-                JsonObj.Add('city', Vendor.City);
-                JsonObj.Add('phone', Vendor."Phone No.");
-                JsonObj.Add('email', Vendor."E-Mail");
-                JsonObj.Add('balance', Vendor."Balance (LCY)");
-                JsonObj.Add('paymentTerms', Vendor."Payment Terms Code");
-                JsonArr.Add(JsonObj);
-            until Vendor.Next() = 0;
-        JsonArr.WriteTo(JsonTxt);
-        DownloadText(JsonTxt, 'proveedores.json');
+        if not Vendor.FindSet() then begin
+            Message('No hay proveedores para exportar.');
+            exit;
+        end;
+        repeat
+            if not TryCalcVendorBalance(Vendor) then;
+            Clear(JsonObj);
+            JsonObj.Add('no', Vendor."No.");
+            JsonObj.Add('name', Vendor.Name);
+            JsonObj.Add('city', Vendor.City);
+            JsonObj.Add('phone', Vendor."Phone No.");
+            JsonObj.Add('email', Vendor."E-Mail");
+            JsonObj.Add('balance', Vendor."Balance (LCY)");
+            JsonObj.Add('paymentTerms', Vendor."Payment Terms Code");
+            JsonArr.Add(JsonObj);
+        until Vendor.Next() = 0;
+        if not JsonArr.WriteTo(JsonTxt) then begin
+            Message('No se pudo serializar los datos a JSON.');
+            exit;
+        end;
+        if not TryDownloadText(JsonTxt, 'proveedores.json') then
+            Message('No se pudo descargar el archivo JSON. Inténtalo de nuevo.');
     end;
 
     procedure ExportVendorsAsExcel()
@@ -185,6 +194,10 @@ codeunit 50110 "SC Export Mgt"
         Vendor: Record Vendor;
         ExcelBuffer: Record "Excel Buffer" temporary;
     begin
+        if not Vendor.FindSet() then begin
+            Message('No hay proveedores para exportar.');
+            exit;
+        end;
         ExcelBuffer.DeleteAll();
         ExcelBuffer.NewRow();
         AddExcelHeader(ExcelBuffer, 'No.');
@@ -194,22 +207,19 @@ codeunit 50110 "SC Export Mgt"
         AddExcelHeader(ExcelBuffer, 'Email');
         AddExcelHeader(ExcelBuffer, 'Saldo (DL)');
         AddExcelHeader(ExcelBuffer, 'Terminos Pago');
-        if Vendor.FindSet() then
-            repeat
-                Vendor.CalcFields("Balance (LCY)");
-                ExcelBuffer.NewRow();
-                AddExcelCell(ExcelBuffer, Vendor."No.");
-                AddExcelCell(ExcelBuffer, Vendor.Name);
-                AddExcelCell(ExcelBuffer, Vendor.City);
-                AddExcelCell(ExcelBuffer, Vendor."Phone No.");
-                AddExcelCell(ExcelBuffer, Vendor."E-Mail");
-                ExcelBuffer.AddColumn(Vendor."Balance (LCY)", false, '', false, false, false, '#,##0.00', ExcelBuffer."Cell Type"::Number);
-                AddExcelCell(ExcelBuffer, Vendor."Payment Terms Code");
-            until Vendor.Next() = 0;
-        ExcelBuffer.CreateNewBook('Proveedores');
-        ExcelBuffer.WriteSheet('Proveedores', CompanyName(), UserId());
-        ExcelBuffer.CloseBook();
-        ExcelBuffer.OpenExcel();
+        repeat
+            if not TryCalcVendorBalance(Vendor) then;
+            ExcelBuffer.NewRow();
+            AddExcelCell(ExcelBuffer, Vendor."No.");
+            AddExcelCell(ExcelBuffer, Vendor.Name);
+            AddExcelCell(ExcelBuffer, Vendor.City);
+            AddExcelCell(ExcelBuffer, Vendor."Phone No.");
+            AddExcelCell(ExcelBuffer, Vendor."E-Mail");
+            ExcelBuffer.AddColumn(Vendor."Balance (LCY)", false, '', false, false, false, '#,##0.00', ExcelBuffer."Cell Type"::Number);
+            AddExcelCell(ExcelBuffer, Vendor."Payment Terms Code");
+        until Vendor.Next() = 0;
+        if not TryOpenExcel(ExcelBuffer, 'Proveedores') then
+            Message('No se pudo generar el archivo Excel. Inténtalo de nuevo.');
     end;
 
     // ══════════════════════════════════════════
@@ -221,45 +231,42 @@ codeunit 50110 "SC Export Mgt"
         Item: Record Item;
         Content: TextBuilder;
     begin
+        if not Item.FindSet() then begin
+            Message('No hay artículos para exportar.');
+            exit;
+        end;
         Content.AppendLine('No.,Descripcion,Stock,Precio Venta,Coste,Categoria,Unidad Medida');
-        if Item.FindSet() then
-            repeat
-                Item.CalcFields(Inventory);
-                Content.AppendLine(StrSubstNo('%1,%2,%3,%4,%5,%6,%7',
-                    EscapeCSV(Item."No."),
-                    EscapeCSV(Item.Description),
-                    Format(Item.Inventory),
-                    Format(Item."Unit Price"),
-                    Format(Item."Unit Cost"),
-                    EscapeCSV(Item."Item Category Code"),
-                    EscapeCSV(Item."Base Unit of Measure")));
-            until Item.Next() = 0;
-        DownloadText(Content.ToText(), 'inventario.csv');
+        repeat
+            if not TryCalcItemInventory(Item) then;
+            Content.AppendLine(StrSubstNo('%1,%2,%3,%4,%5,%6,%7',
+                EscapeCSV(Item."No."),
+                EscapeCSV(Item.Description),
+                Format(Item.Inventory),
+                Format(Item."Unit Price"),
+                Format(Item."Unit Cost"),
+                EscapeCSV(Item."Item Category Code"),
+                EscapeCSV(Item."Base Unit of Measure")));
+        until Item.Next() = 0;
+        if not TryDownloadText(Content.ToText(), 'inventario.csv') then
+            Message('No se pudo descargar el archivo CSV. Inténtalo de nuevo.');
     end;
 
     procedure ExportItemsAsXML()
     var
         Item: Record Item;
-        XmlDoc: XmlDocument;
         Root: XmlElement;
-        TempBlob: Codeunit "Temp Blob";
-        OutStr: OutStream;
-        InStr: InStream;
-        FileName: Text;
     begin
-        XmlDoc := XmlDocument.Create();
+        if not Item.FindSet() then begin
+            Message('No hay artículos para exportar.');
+            exit;
+        end;
         Root := XmlElement.Create('Items');
-        if Item.FindSet() then
-            repeat
-                Item.CalcFields(Inventory);
-                Root.Add(BuildItemXmlElement(Item));
-            until Item.Next() = 0;
-        XmlDoc.Add(Root);
-        TempBlob.CreateOutStream(OutStr);
-        XmlDoc.WriteTo(OutStr);
-        TempBlob.CreateInStream(InStr);
-        FileName := 'inventario.xml';
-        DownloadFromStream(InStr, '', '', 'XML Files (*.xml)|*.xml', FileName);
+        repeat
+            if not TryCalcItemInventory(Item) then;
+            Root.Add(BuildItemXmlElement(Item));
+        until Item.Next() = 0;
+        if not TryDownloadXML(Root, 'inventario.xml') then
+            Message('No se pudo generar o descargar el archivo XML. Inténtalo de nuevo.');
     end;
 
     procedure ExportItemsAsJSON()
@@ -269,21 +276,28 @@ codeunit 50110 "SC Export Mgt"
         JsonObj: JsonObject;
         JsonTxt: Text;
     begin
-        if Item.FindSet() then
-            repeat
-                Item.CalcFields(Inventory);
-                Clear(JsonObj);
-                JsonObj.Add('no', Item."No.");
-                JsonObj.Add('description', Item.Description);
-                JsonObj.Add('inventory', Item.Inventory);
-                JsonObj.Add('unitPrice', Item."Unit Price");
-                JsonObj.Add('unitCost', Item."Unit Cost");
-                JsonObj.Add('category', Item."Item Category Code");
-                JsonObj.Add('unitOfMeasure', Item."Base Unit of Measure");
-                JsonArr.Add(JsonObj);
-            until Item.Next() = 0;
-        JsonArr.WriteTo(JsonTxt);
-        DownloadText(JsonTxt, 'inventario.json');
+        if not Item.FindSet() then begin
+            Message('No hay artículos para exportar.');
+            exit;
+        end;
+        repeat
+            if not TryCalcItemInventory(Item) then;
+            Clear(JsonObj);
+            JsonObj.Add('no', Item."No.");
+            JsonObj.Add('description', Item.Description);
+            JsonObj.Add('inventory', Item.Inventory);
+            JsonObj.Add('unitPrice', Item."Unit Price");
+            JsonObj.Add('unitCost', Item."Unit Cost");
+            JsonObj.Add('category', Item."Item Category Code");
+            JsonObj.Add('unitOfMeasure', Item."Base Unit of Measure");
+            JsonArr.Add(JsonObj);
+        until Item.Next() = 0;
+        if not JsonArr.WriteTo(JsonTxt) then begin
+            Message('No se pudo serializar los datos a JSON.');
+            exit;
+        end;
+        if not TryDownloadText(JsonTxt, 'inventario.json') then
+            Message('No se pudo descargar el archivo JSON. Inténtalo de nuevo.');
     end;
 
     procedure ExportItemsAsExcel()
@@ -291,6 +305,10 @@ codeunit 50110 "SC Export Mgt"
         Item: Record Item;
         ExcelBuffer: Record "Excel Buffer" temporary;
     begin
+        if not Item.FindSet() then begin
+            Message('No hay artículos para exportar.');
+            exit;
+        end;
         ExcelBuffer.DeleteAll();
         ExcelBuffer.NewRow();
         AddExcelHeader(ExcelBuffer, 'No.');
@@ -300,29 +318,27 @@ codeunit 50110 "SC Export Mgt"
         AddExcelHeader(ExcelBuffer, 'Coste');
         AddExcelHeader(ExcelBuffer, 'Categoria');
         AddExcelHeader(ExcelBuffer, 'Unidad Medida');
-        if Item.FindSet() then
-            repeat
-                Item.CalcFields(Inventory);
-                ExcelBuffer.NewRow();
-                AddExcelCell(ExcelBuffer, Item."No.");
-                AddExcelCell(ExcelBuffer, Item.Description);
-                ExcelBuffer.AddColumn(Item.Inventory, false, '', false, false, false, '#,##0.##', ExcelBuffer."Cell Type"::Number);
-                ExcelBuffer.AddColumn(Item."Unit Price", false, '', false, false, false, '#,##0.00', ExcelBuffer."Cell Type"::Number);
-                ExcelBuffer.AddColumn(Item."Unit Cost", false, '', false, false, false, '#,##0.00', ExcelBuffer."Cell Type"::Number);
-                AddExcelCell(ExcelBuffer, Item."Item Category Code");
-                AddExcelCell(ExcelBuffer, Item."Base Unit of Measure");
-            until Item.Next() = 0;
-        ExcelBuffer.CreateNewBook('Inventario');
-        ExcelBuffer.WriteSheet('Inventario', CompanyName(), UserId());
-        ExcelBuffer.CloseBook();
-        ExcelBuffer.OpenExcel();
+        repeat
+            if not TryCalcItemInventory(Item) then;
+            ExcelBuffer.NewRow();
+            AddExcelCell(ExcelBuffer, Item."No.");
+            AddExcelCell(ExcelBuffer, Item.Description);
+            ExcelBuffer.AddColumn(Item.Inventory, false, '', false, false, false, '#,##0.##', ExcelBuffer."Cell Type"::Number);
+            ExcelBuffer.AddColumn(Item."Unit Price", false, '', false, false, false, '#,##0.00', ExcelBuffer."Cell Type"::Number);
+            ExcelBuffer.AddColumn(Item."Unit Cost", false, '', false, false, false, '#,##0.00', ExcelBuffer."Cell Type"::Number);
+            AddExcelCell(ExcelBuffer, Item."Item Category Code");
+            AddExcelCell(ExcelBuffer, Item."Base Unit of Measure");
+        until Item.Next() = 0;
+        if not TryOpenExcel(ExcelBuffer, 'Inventario') then
+            Message('No se pudo generar el archivo Excel. Inténtalo de nuevo.');
     end;
 
     // ══════════════════════════════════════════
-    //  HELPERS PRIVADOS
+    //  TRY FUNCTIONS — operaciones con riesgo
     // ══════════════════════════════════════════
 
-    local procedure DownloadText(Content: Text; FileName: Text)
+    [TryFunction]
+    local procedure TryDownloadText(Content: Text; FileName: Text)
     var
         TempBlob: Codeunit "Temp Blob";
         OutStr: OutStream;
@@ -335,6 +351,49 @@ codeunit 50110 "SC Export Mgt"
         FileNameOut := FileName;
         DownloadFromStream(InStr, '', '', '', FileNameOut);
     end;
+
+    [TryFunction]
+    local procedure TryDownloadXML(Root: XmlElement; FileName: Text)
+    var
+        XmlDoc: XmlDocument;
+        TempBlob: Codeunit "Temp Blob";
+        OutStr: OutStream;
+        InStr: InStream;
+        FileNameOut: Text;
+    begin
+        XmlDoc := XmlDocument.Create();
+        XmlDoc.Add(Root);
+        TempBlob.CreateOutStream(OutStr);
+        XmlDoc.WriteTo(OutStr);
+        TempBlob.CreateInStream(InStr);
+        FileNameOut := FileName;
+        DownloadFromStream(InStr, '', '', 'XML Files (*.xml)|*.xml', FileNameOut);
+    end;
+
+    [TryFunction]
+    local procedure TryOpenExcel(var ExcelBuffer: Record "Excel Buffer"; SheetName: Text)
+    begin
+        ExcelBuffer.CreateNewBook(SheetName);
+        ExcelBuffer.WriteSheet(SheetName, CompanyName(), UserId());
+        ExcelBuffer.CloseBook();
+        ExcelBuffer.OpenExcel();
+    end;
+
+    [TryFunction]
+    local procedure TryCalcVendorBalance(var Vendor: Record Vendor)
+    begin
+        Vendor.CalcFields("Balance (LCY)");
+    end;
+
+    [TryFunction]
+    local procedure TryCalcItemInventory(var Item: Record Item)
+    begin
+        Item.CalcFields(Inventory);
+    end;
+
+    // ══════════════════════════════════════════
+    //  HELPERS PRIVADOS
+    // ══════════════════════════════════════════
 
     local procedure EscapeCSV(Value: Text): Text
     begin

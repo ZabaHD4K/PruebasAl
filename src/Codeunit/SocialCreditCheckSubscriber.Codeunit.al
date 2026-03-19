@@ -37,6 +37,7 @@ codeunit 50103 "Social Credit Check Subscriber"
     var
         Customer: Record Customer;
         ConfirmMsg: Label '⚠️ El cliente "%1" tiene un Social Credit muy bajo (%2 puntos).\¿Desea continuar de todas formas?', Comment = '%1=Nombre cliente, %2=Puntos';
+        CancelMsg: Label 'Operación cancelada: el cliente "%1" tiene Social Credit en nivel 🔴 Lista Negra (%2 puntos).\Sube su puntuación antes de crear documentos para este cliente.';
     begin
         if CustomerNo = '' then
             exit;
@@ -46,6 +47,6 @@ codeunit 50103 "Social Credit Check Subscriber"
             exit;
 
         if not Confirm(ConfirmMsg, false, Customer.Name, Customer."Social Credit Points") then
-            Error('Selección cancelada: el cliente "%1" tiene Social Credit en nivel rojo (%2 puntos).', Customer.Name, Customer."Social Credit Points");
+            Error(CancelMsg, Customer.Name, Customer."Social Credit Points");
     end;
 }

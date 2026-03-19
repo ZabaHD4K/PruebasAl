@@ -2,6 +2,13 @@ codeunit 50107 "SC Overdue Notifier"
 {
     [EventSubscriber(ObjectType::Page, Page::"Customer List", OnOpenPageEvent, '', false, false)]
     local procedure OnCustomerListOpen(var Rec: Record Customer)
+    begin
+        // El subscriber nunca debe hacer petar la apertura de la página
+        if not TrySendOverdueNotifications() then;
+    end;
+
+    [TryFunction]
+    local procedure TrySendOverdueNotifications()
     var
         CustLedgEntry: Record "Cust. Ledger Entry";
         Notif: Notification;
@@ -33,9 +40,24 @@ codeunit 50107 "SC Overdue Notifier"
     var
         SalesInvHeader: Record "Sales Invoice Header";
         DocNo: Code[20];
+        NotFoundMsg: Label 'No se encontró la factura contabilizada "%1".\Es posible que sea una factura sin contabilizar o que haya sido eliminada.';
     begin
         DocNo := CopyStr(Notif.GetData('DocNo'), 1, 20);
-        if SalesInvHeader.Get(DocNo) then
-            Page.Run(Page::"Posted Sales Invoice", SalesInvHeader);
+        if DocNo = '' then begin
+            Message('No se pudo identificar el número de factura.');
+            exit;
+        end;
+        if not SalesInvHeader.Get(DocNo) then begin
+            Message(NotFoundMsg, DocNo);
+            exit;
+        end;
+        if not TryOpenInvoicePage(SalesInvHeader) then
+            Message('No se pudo abrir la factura "%1". Inténtalo de nuevo.', DocNo);
+    end;
+
+    [TryFunction]
+    local procedure TryOpenInvoicePage(var SalesInvHeader: Record "Sales Invoice Header")
+    begin
+        Page.Run(Page::"Posted Sales Invoice", SalesInvHeader);
     end;
 }
