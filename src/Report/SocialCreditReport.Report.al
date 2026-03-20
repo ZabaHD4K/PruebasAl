@@ -23,37 +23,18 @@ report 50100 "SC Informe Social Credit"
             column(CountSup; CntSup) { }
             column(CountNegra; CntNegra) { }
 
-            trigger OnPreDataItem()
-            var
-                TempCust: Record Customer;
-                SocialCreditMgt: Codeunit "Social Credit Mgt";
-                RankText: Text[50];
-            begin
-                // Pre-compute totals per rank for the KPI boxes
-                if TempCust.FindSet() then
-                    repeat
-                        TotalCustomers += 1;
-                        RankText := SocialCreditMgt.GetRank(TempCust."Social Credit Points");
-                        case RankText of
-                            'Ciudadano Ejemplar': CntEjemplar += 1;
-                            'Ciudadano Normal': CntNormal += 1;
-                            'Bajo Supervision': CntSup += 1;
-                            'Lista Negra': CntNegra += 1;
-                        end;
-                    until TempCust.Next() = 0;
-            end;
-
             trigger OnAfterGetRecord()
             var
                 SocialCreditMgt: Codeunit "Social Credit Mgt";
             begin
                 SCRankText := SocialCreditMgt.GetRank("Social Credit Points");
                 case SCRankText of
-                    'Ciudadano Ejemplar': SCRankColor := '#16a34a';
-                    'Ciudadano Normal': SCRankColor := '#2563eb';
-                    'Bajo Supervision': SCRankColor := '#d97706';
-                    else SCRankColor := '#dc2626';
+                    'Ciudadano Ejemplar': begin SCRankColor := '#16a34a'; CntEjemplar += 1; end;
+                    'Ciudadano Normal':   begin SCRankColor := '#2563eb'; CntNormal += 1; end;
+                    'Bajo Supervision':  begin SCRankColor := '#d97706'; CntSup += 1; end;
+                    else                 begin SCRankColor := '#dc2626'; CntNegra += 1; end;
                 end;
+                TotalCustomers += 1;
             end;
         }
     }

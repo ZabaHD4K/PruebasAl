@@ -166,7 +166,7 @@
             <Top>1.1cm</Top>
             <Width>5.8cm</Width>
             <Height>0.7cm</Height>
-            <Value>=First(Fields!TotalCount.Value, "DataSet_Result") &amp; " clientes"</Value>
+            <Value>=Last(Fields!TotalCount.Value, "DataSet_Result") &amp; " clientes"</Value>
             <CanGrow>false</CanGrow>
           </Textbox>
           <!-- Decorative bottom accent line -->
@@ -227,7 +227,7 @@
             <Top>0.85cm</Top>
             <Width>4.35cm</Width>
             <Height>1.1cm</Height>
-            <Value>=First(Fields!CountEjemplar.Value, "DataSet_Result")</Value>
+            <Value>=Last(Fields!CountEjemplar.Value, "DataSet_Result")</Value>
             <CanGrow>false</CanGrow>
           </Textbox>
           <Textbox Name="PctEjemplar">
@@ -241,7 +241,7 @@
             <Top>1.75cm</Top>
             <Width>4.35cm</Width>
             <Height>0.3cm</Height>
-            <Value>=Format(Round(First(Fields!CountEjemplar.Value, "DataSet_Result") / IIF(First(Fields!TotalCount.Value, "DataSet_Result") = 0, 1, First(Fields!TotalCount.Value, "DataSet_Result")) * 100, 1), 0, 1) &amp; "%"</Value>
+            <Value>=Format(Round(Last(Fields!CountEjemplar.Value, "DataSet_Result") / IIF(Last(Fields!TotalCount.Value, "DataSet_Result") = 0, 1, Last(Fields!TotalCount.Value, "DataSet_Result")) * 100, 1), 0, 1) &amp; "%"</Value>
             <CanGrow>false</CanGrow>
           </Textbox>
         </ReportItems>
@@ -288,7 +288,7 @@
             <Top>0.85cm</Top>
             <Width>4.35cm</Width>
             <Height>1.1cm</Height>
-            <Value>=First(Fields!CountNormal.Value, "DataSet_Result")</Value>
+            <Value>=Last(Fields!CountNormal.Value, "DataSet_Result")</Value>
             <CanGrow>false</CanGrow>
           </Textbox>
           <Textbox Name="PctNormal">
@@ -302,7 +302,7 @@
             <Top>1.75cm</Top>
             <Width>4.35cm</Width>
             <Height>0.3cm</Height>
-            <Value>=Format(Round(First(Fields!CountNormal.Value, "DataSet_Result") / IIF(First(Fields!TotalCount.Value, "DataSet_Result") = 0, 1, First(Fields!TotalCount.Value, "DataSet_Result")) * 100, 1), 0, 1) &amp; "%"</Value>
+            <Value>=Format(Round(Last(Fields!CountNormal.Value, "DataSet_Result") / IIF(Last(Fields!TotalCount.Value, "DataSet_Result") = 0, 1, Last(Fields!TotalCount.Value, "DataSet_Result")) * 100, 1), 0, 1) &amp; "%"</Value>
             <CanGrow>false</CanGrow>
           </Textbox>
         </ReportItems>
@@ -349,7 +349,7 @@
             <Top>0.85cm</Top>
             <Width>4.35cm</Width>
             <Height>1.1cm</Height>
-            <Value>=First(Fields!CountSup.Value, "DataSet_Result")</Value>
+            <Value>=Last(Fields!CountSup.Value, "DataSet_Result")</Value>
             <CanGrow>false</CanGrow>
           </Textbox>
           <Textbox Name="PctSup">
@@ -363,7 +363,7 @@
             <Top>1.75cm</Top>
             <Width>4.35cm</Width>
             <Height>0.3cm</Height>
-            <Value>=Format(Round(First(Fields!CountSup.Value, "DataSet_Result") / IIF(First(Fields!TotalCount.Value, "DataSet_Result") = 0, 1, First(Fields!TotalCount.Value, "DataSet_Result")) * 100, 1), 0, 1) &amp; "%"</Value>
+            <Value>=Format(Round(Last(Fields!CountSup.Value, "DataSet_Result") / IIF(Last(Fields!TotalCount.Value, "DataSet_Result") = 0, 1, Last(Fields!TotalCount.Value, "DataSet_Result")) * 100, 1), 0, 1) &amp; "%"</Value>
             <CanGrow>false</CanGrow>
           </Textbox>
         </ReportItems>
@@ -410,7 +410,7 @@
             <Top>0.85cm</Top>
             <Width>4.55cm</Width>
             <Height>1.1cm</Height>
-            <Value>=First(Fields!CountNegra.Value, "DataSet_Result")</Value>
+            <Value>=Last(Fields!CountNegra.Value, "DataSet_Result")</Value>
             <CanGrow>false</CanGrow>
           </Textbox>
           <Textbox Name="PctNegra">
@@ -424,7 +424,7 @@
             <Top>1.75cm</Top>
             <Width>4.55cm</Width>
             <Height>0.3cm</Height>
-            <Value>=Format(Round(First(Fields!CountNegra.Value, "DataSet_Result") / IIF(First(Fields!TotalCount.Value, "DataSet_Result") = 0, 1, First(Fields!TotalCount.Value, "DataSet_Result")) * 100, 1), 0, 1) &amp; "%"</Value>
+            <Value>=Format(Round(Last(Fields!CountNegra.Value, "DataSet_Result") / IIF(Last(Fields!TotalCount.Value, "DataSet_Result") = 0, 1, Last(Fields!TotalCount.Value, "DataSet_Result")) * 100, 1), 0, 1) &amp; "%"</Value>
             <CanGrow>false</CanGrow>
           </Textbox>
         </ReportItems>

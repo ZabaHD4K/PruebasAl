@@ -37,6 +37,11 @@ page 50113 "Extension SC"
                     ApplicationArea = All;
                     Caption = 'Ajuste interactivo de puntos mediante un slider JavaScript dinámico.';
                 }
+                label(LblRoleCenter)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Role Center del módulo con Cues por rango, titular y accesos rápidos.';
+                }
             }
             group(ModifiedPages)
             {
@@ -133,6 +138,14 @@ page 50113 "Extension SC"
                     ToolTip = 'Ajusta los puntos de Social Credit de un cliente con un slider interactivo. Se guarda automáticamente al mover.';
                     RunObject = page "SC Slider";
                 }
+                action(RoleCenter)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Role Center SC';
+                    Image = Home;
+                    ToolTip = 'Abre el Role Center personalizado del módulo Social Credit.';
+                    RunObject = page "SC Role Center";
+                }
             }
             group(BCModifiedActions)
             {
@@ -214,6 +227,7 @@ page 50113 "Extension SC"
                 actionref(InformeRef; Informe) { }
                 actionref(ChatRef; Chat) { }
                 actionref(SliderRef; Slider) { }
+                actionref(RoleCenterRef; RoleCenter) { }
             }
             group(PromotedBC)
             {
