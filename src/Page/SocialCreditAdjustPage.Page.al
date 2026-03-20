@@ -164,15 +164,10 @@ page 50101 "Social Credit Adjust"
             Message('No se puede aplicar el ajuste: el cliente tiene %1 puntos y restar %2 daría un resultado negativo.', PointsBefore, AdjustAmount);
             exit;
         end;
-        Customer."Social Credit Points" := PointsBefore + Delta;
-        Customer."Social Credit Label" := SocialCreditMgt.GetLabel(Customer."Social Credit Points");
-        Customer.Modify(true);
-        SocialCreditMgt.LogChange(CustomerNo, CustomerName, PointsBefore, Customer."Social Credit Points", Reason);
+        SocialCreditMgt.AdjustCustomerPoints(CustomerNo, Delta, Reason);
         Reason := '';
         AdjustAmount := 0;
-        CurrentPoints := Customer."Social Credit Points";
-        CurrentLabel := Customer."Social Credit Label";
-        CurrentStyle := SocialCreditMgt.GetStyle(CurrentPoints);
+        LoadCustomer();
         CurrPage.Update(false);
     end;
 }

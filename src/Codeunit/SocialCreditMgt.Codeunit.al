@@ -78,6 +78,22 @@ codeunit 50101 "Social Credit Mgt"
         exit(GetStyle(Customer."Social Credit Points"));
     end;
 
+    procedure AdjustCustomerPoints(CustomerNo: Code[20]; Delta: Integer; Reason: Text[250])
+    var
+        Customer: Record Customer;
+        PointsBefore: Integer;
+    begin
+        Customer.Get(CustomerNo);
+        PointsBefore := Customer."Social Credit Points";
+        if PointsBefore + Delta < 0 then
+            Customer."Social Credit Points" := 0
+        else
+            Customer."Social Credit Points" := PointsBefore + Delta;
+        Customer."Social Credit Label" := GetLabel(Customer."Social Credit Points");
+        Customer.Modify(true);
+        LogChange(CustomerNo, CopyStr(Customer.Name, 1, 100), PointsBefore, Customer."Social Credit Points", Reason);
+    end;
+
     procedure LogChange(CustomerNo: Code[20]; CustomerName: Text[100]; PointsBefore: Integer; PointsAfter: Integer; Reason: Text[250])
     var
         LogEntry: Record "Social Credit Log Entry";
