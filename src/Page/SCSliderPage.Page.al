@@ -80,7 +80,7 @@ page 50114 "SC Slider"
         if Delta = 0 then
             exit;
 
-        SocialCreditMgt.AdjustCustomerPoints(CustomerNo, Delta, 'SliderJS');
+        SocialCreditMgt.AdjustCustomerPoints(CustomerNo, Delta, 'Ajustado via Slider JS');
         CurrentPoints := NewValue;
     end;
 }

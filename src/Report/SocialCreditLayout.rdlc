@@ -1,0 +1,874 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report MustUnderstand="df" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:df="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition/defaultfontfamily">
+  <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
+  <AutoRefresh>0</AutoRefresh>
+  <!-- ═══════════════════════════════════════════════════════════
+       DATA SOURCE
+  ═══════════════════════════════════════════════════════════ -->
+  <DataSources>
+    <DataSource Name="DataSetDataSource">
+      <ConnectionProperties>
+        <DataProvider>Custom</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+    </DataSource>
+  </DataSources>
+  <!-- ═══════════════════════════════════════════════════════════
+       DATASET
+  ═══════════════════════════════════════════════════════════ -->
+  <!-- ═══════════════════════════════════════════════════════════
+       PAGE FOOTER
+  ═══════════════════════════════════════════════════════════ -->
+  <PageFooter>
+    <PrintOnFirstPage>true</PrintOnFirstPage>
+    <PrintOnLastPage>true</PrintOnLastPage>
+    <Height>0.8cm</Height>
+    <ReportItems>
+      <Rectangle Name="FooterLine">
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <TopBorder>
+            <Color>#1e3a5f</Color>
+            <Style>Solid</Style>
+            <Width>1.5pt</Width>
+          </TopBorder>
+        </Style>
+        <Left>0cm</Left>
+        <Top>0cm</Top>
+        <Width>19cm</Width>
+        <Height>0.02cm</Height>
+      </Rectangle>
+      <Textbox Name="FooterLeft">
+        <Style>
+          <FontFamily>Segoe UI</FontFamily>
+          <FontSize>7.5pt</FontSize>
+          <Color>#6b7280</Color>
+          <VerticalAlign>Middle</VerticalAlign>
+        </Style>
+        <Left>0cm</Left>
+        <Top>0.15cm</Top>
+        <Width>10cm</Width>
+        <Height>0.5cm</Height>
+        <Value>Social Credit Extension — Business Central</Value>
+        <CanGrow>false</CanGrow>
+      </Textbox>
+      <Textbox Name="FooterCenter">
+        <Style>
+          <FontFamily>Segoe UI</FontFamily>
+          <FontSize>7.5pt</FontSize>
+          <Color>#6b7280</Color>
+          <TextAlign>Center</TextAlign>
+          <VerticalAlign>Middle</VerticalAlign>
+        </Style>
+        <Left>6cm</Left>
+        <Top>0.15cm</Top>
+        <Width>7cm</Width>
+        <Height>0.5cm</Height>
+        <Value>=Format(Now(), "dd/MM/yyyy HH:mm")</Value>
+        <CanGrow>false</CanGrow>
+      </Textbox>
+      <Textbox Name="FooterRight">
+        <Style>
+          <FontFamily>Segoe UI</FontFamily>
+          <FontSize>7.5pt</FontSize>
+          <Color>#6b7280</Color>
+          <TextAlign>Right</TextAlign>
+          <VerticalAlign>Middle</VerticalAlign>
+        </Style>
+        <Left>14cm</Left>
+        <Top>0.15cm</Top>
+        <Width>5cm</Width>
+        <Height>0.5cm</Height>
+        <Value>="Pág. " &amp; Globals!PageNumber &amp; " / " &amp; Globals!TotalPages</Value>
+        <CanGrow>false</CanGrow>
+      </Textbox>
+    </ReportItems>
+  </PageFooter>
+  <!-- ═══════════════════════════════════════════════════════════
+       BODY
+  ═══════════════════════════════════════════════════════════ -->
+  <Body>
+    <Height>30cm</Height>
+    <Style />
+    <ReportItems>
+      <!-- ── HEADER BANNER ───────────────────────────────────── -->
+      <Rectangle Name="HeaderBanner">
+        <Style>
+          <BackgroundColor>#1e3a5f</BackgroundColor>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+        <Left>0cm</Left>
+        <Top>0cm</Top>
+        <Width>19cm</Width>
+        <Height>2.8cm</Height>
+        <ReportItems>
+          <Textbox Name="TxtTitle">
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <FontSize>22pt</FontSize>
+              <FontWeight>Bold</FontWeight>
+              <Color>White</Color>
+              <VerticalAlign>Middle</VerticalAlign>
+              <PaddingLeft>12pt</PaddingLeft>
+            </Style>
+            <Left>0cm</Left>
+            <Top>0.2cm</Top>
+            <Width>13cm</Width>
+            <Height>1.1cm</Height>
+            <Value>Informe Social Credit</Value>
+            <CanGrow>false</CanGrow>
+          </Textbox>
+          <Textbox Name="TxtSubtitle">
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <FontSize>9.5pt</FontSize>
+              <Color>#93c5fd</Color>
+              <VerticalAlign>Middle</VerticalAlign>
+              <PaddingLeft>12pt</PaddingLeft>
+            </Style>
+            <Left>0cm</Left>
+            <Top>1.4cm</Top>
+            <Width>13cm</Width>
+            <Height>0.7cm</Height>
+            <Value>Puntuaciones y distribución de clientes por rango</Value>
+            <CanGrow>false</CanGrow>
+          </Textbox>
+          <Textbox Name="TxtDate">
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <FontSize>9pt</FontSize>
+              <Color>#93c5fd</Color>
+              <TextAlign>Right</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+              <PaddingRight>10pt</PaddingRight>
+            </Style>
+            <Left>13cm</Left>
+            <Top>0.3cm</Top>
+            <Width>5.8cm</Width>
+            <Height>0.7cm</Height>
+            <Value>=Format(Now(), "dd/MM/yyyy")</Value>
+            <CanGrow>false</CanGrow>
+          </Textbox>
+          <Textbox Name="TxtTotal">
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <FontSize>9pt</FontSize>
+              <Color>#93c5fd</Color>
+              <TextAlign>Right</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+              <PaddingRight>10pt</PaddingRight>
+            </Style>
+            <Left>13cm</Left>
+            <Top>1.1cm</Top>
+            <Width>5.8cm</Width>
+            <Height>0.7cm</Height>
+            <Value>=First(Fields!TotalCount.Value, "DataSet_Result") &amp; " clientes"</Value>
+            <CanGrow>false</CanGrow>
+          </Textbox>
+          <!-- Decorative bottom accent line -->
+          <Rectangle Name="AccentLine">
+            <Style>
+              <BackgroundColor>#3b82f6</BackgroundColor>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+            <Left>0cm</Left>
+            <Top>2.6cm</Top>
+            <Width>19cm</Width>
+            <Height>0.2cm</Height>
+          </Rectangle>
+        </ReportItems>
+      </Rectangle>
+      <!-- ── KPI BOXES ──────────────────────────────────────── -->
+      <!-- Ciudadano Ejemplar -->
+      <Rectangle Name="BoxEjemplar">
+        <Style>
+          <BackgroundColor>#16a34a</BackgroundColor>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+        <Left>0cm</Left>
+        <Top>3.2cm</Top>
+        <Width>4.55cm</Width>
+        <Height>2.1cm</Height>
+        <ReportItems>
+          <Textbox Name="LblEjemplar">
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <FontSize>8.5pt</FontSize>
+              <Color>White</Color>
+              <TextAlign>Center</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+              <PaddingTop>4pt</PaddingTop>
+            </Style>
+            <Left>0.1cm</Left>
+            <Top>0.1cm</Top>
+            <Width>4.35cm</Width>
+            <Height>0.7cm</Height>
+            <Value>Ciudadano Ejemplar</Value>
+            <CanGrow>false</CanGrow>
+          </Textbox>
+          <Textbox Name="ValEjemplar">
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <FontSize>30pt</FontSize>
+              <FontWeight>Bold</FontWeight>
+              <Color>White</Color>
+              <TextAlign>Center</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+            <Left>0.1cm</Left>
+            <Top>0.85cm</Top>
+            <Width>4.35cm</Width>
+            <Height>1.1cm</Height>
+            <Value>=First(Fields!CountEjemplar.Value, "DataSet_Result")</Value>
+            <CanGrow>false</CanGrow>
+          </Textbox>
+          <Textbox Name="PctEjemplar">
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <FontSize>7.5pt</FontSize>
+              <Color>#bbf7d0</Color>
+              <TextAlign>Center</TextAlign>
+            </Style>
+            <Left>0.1cm</Left>
+            <Top>1.75cm</Top>
+            <Width>4.35cm</Width>
+            <Height>0.3cm</Height>
+            <Value>=Format(Round(First(Fields!CountEjemplar.Value, "DataSet_Result") / IIF(First(Fields!TotalCount.Value, "DataSet_Result") = 0, 1, First(Fields!TotalCount.Value, "DataSet_Result")) * 100, 1), 0, 1) &amp; "%"</Value>
+            <CanGrow>false</CanGrow>
+          </Textbox>
+        </ReportItems>
+      </Rectangle>
+      <!-- Ciudadano Normal -->
+      <Rectangle Name="BoxNormal">
+        <Style>
+          <BackgroundColor>#2563eb</BackgroundColor>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+        <Left>4.75cm</Left>
+        <Top>3.2cm</Top>
+        <Width>4.55cm</Width>
+        <Height>2.1cm</Height>
+        <ReportItems>
+          <Textbox Name="LblNormal">
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <FontSize>8.5pt</FontSize>
+              <Color>White</Color>
+              <TextAlign>Center</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+              <PaddingTop>4pt</PaddingTop>
+            </Style>
+            <Left>0.1cm</Left>
+            <Top>0.1cm</Top>
+            <Width>4.35cm</Width>
+            <Height>0.7cm</Height>
+            <Value>Ciudadano Normal</Value>
+            <CanGrow>false</CanGrow>
+          </Textbox>
+          <Textbox Name="ValNormal">
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <FontSize>30pt</FontSize>
+              <FontWeight>Bold</FontWeight>
+              <Color>White</Color>
+              <TextAlign>Center</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+            <Left>0.1cm</Left>
+            <Top>0.85cm</Top>
+            <Width>4.35cm</Width>
+            <Height>1.1cm</Height>
+            <Value>=First(Fields!CountNormal.Value, "DataSet_Result")</Value>
+            <CanGrow>false</CanGrow>
+          </Textbox>
+          <Textbox Name="PctNormal">
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <FontSize>7.5pt</FontSize>
+              <Color>#bfdbfe</Color>
+              <TextAlign>Center</TextAlign>
+            </Style>
+            <Left>0.1cm</Left>
+            <Top>1.75cm</Top>
+            <Width>4.35cm</Width>
+            <Height>0.3cm</Height>
+            <Value>=Format(Round(First(Fields!CountNormal.Value, "DataSet_Result") / IIF(First(Fields!TotalCount.Value, "DataSet_Result") = 0, 1, First(Fields!TotalCount.Value, "DataSet_Result")) * 100, 1), 0, 1) &amp; "%"</Value>
+            <CanGrow>false</CanGrow>
+          </Textbox>
+        </ReportItems>
+      </Rectangle>
+      <!-- Bajo Supervision -->
+      <Rectangle Name="BoxSup">
+        <Style>
+          <BackgroundColor>#d97706</BackgroundColor>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+        <Left>9.5cm</Left>
+        <Top>3.2cm</Top>
+        <Width>4.55cm</Width>
+        <Height>2.1cm</Height>
+        <ReportItems>
+          <Textbox Name="LblSup">
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <FontSize>8.5pt</FontSize>
+              <Color>White</Color>
+              <TextAlign>Center</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+              <PaddingTop>4pt</PaddingTop>
+            </Style>
+            <Left>0.1cm</Left>
+            <Top>0.1cm</Top>
+            <Width>4.35cm</Width>
+            <Height>0.7cm</Height>
+            <Value>Bajo Supervision</Value>
+            <CanGrow>false</CanGrow>
+          </Textbox>
+          <Textbox Name="ValSup">
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <FontSize>30pt</FontSize>
+              <FontWeight>Bold</FontWeight>
+              <Color>White</Color>
+              <TextAlign>Center</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+            <Left>0.1cm</Left>
+            <Top>0.85cm</Top>
+            <Width>4.35cm</Width>
+            <Height>1.1cm</Height>
+            <Value>=First(Fields!CountSup.Value, "DataSet_Result")</Value>
+            <CanGrow>false</CanGrow>
+          </Textbox>
+          <Textbox Name="PctSup">
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <FontSize>7.5pt</FontSize>
+              <Color>#fef3c7</Color>
+              <TextAlign>Center</TextAlign>
+            </Style>
+            <Left>0.1cm</Left>
+            <Top>1.75cm</Top>
+            <Width>4.35cm</Width>
+            <Height>0.3cm</Height>
+            <Value>=Format(Round(First(Fields!CountSup.Value, "DataSet_Result") / IIF(First(Fields!TotalCount.Value, "DataSet_Result") = 0, 1, First(Fields!TotalCount.Value, "DataSet_Result")) * 100, 1), 0, 1) &amp; "%"</Value>
+            <CanGrow>false</CanGrow>
+          </Textbox>
+        </ReportItems>
+      </Rectangle>
+      <!-- Lista Negra -->
+      <Rectangle Name="BoxNegra">
+        <Style>
+          <BackgroundColor>#dc2626</BackgroundColor>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+        <Left>14.25cm</Left>
+        <Top>3.2cm</Top>
+        <Width>4.75cm</Width>
+        <Height>2.1cm</Height>
+        <ReportItems>
+          <Textbox Name="LblNegra">
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <FontSize>8.5pt</FontSize>
+              <Color>White</Color>
+              <TextAlign>Center</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+              <PaddingTop>4pt</PaddingTop>
+            </Style>
+            <Left>0.1cm</Left>
+            <Top>0.1cm</Top>
+            <Width>4.55cm</Width>
+            <Height>0.7cm</Height>
+            <Value>Lista Negra</Value>
+            <CanGrow>false</CanGrow>
+          </Textbox>
+          <Textbox Name="ValNegra">
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <FontSize>30pt</FontSize>
+              <FontWeight>Bold</FontWeight>
+              <Color>White</Color>
+              <TextAlign>Center</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+            <Left>0.1cm</Left>
+            <Top>0.85cm</Top>
+            <Width>4.55cm</Width>
+            <Height>1.1cm</Height>
+            <Value>=First(Fields!CountNegra.Value, "DataSet_Result")</Value>
+            <CanGrow>false</CanGrow>
+          </Textbox>
+          <Textbox Name="PctNegra">
+            <Style>
+              <FontFamily>Segoe UI</FontFamily>
+              <FontSize>7.5pt</FontSize>
+              <Color>#fecaca</Color>
+              <TextAlign>Center</TextAlign>
+            </Style>
+            <Left>0.1cm</Left>
+            <Top>1.75cm</Top>
+            <Width>4.55cm</Width>
+            <Height>0.3cm</Height>
+            <Value>=Format(Round(First(Fields!CountNegra.Value, "DataSet_Result") / IIF(First(Fields!TotalCount.Value, "DataSet_Result") = 0, 1, First(Fields!TotalCount.Value, "DataSet_Result")) * 100, 1), 0, 1) &amp; "%"</Value>
+            <CanGrow>false</CanGrow>
+          </Textbox>
+        </ReportItems>
+      </Rectangle>
+      <!-- ── CHART SECTION TITLE ─────────────────────────────── -->
+      <Textbox Name="TxtChartTitle">
+        <Style>
+          <FontFamily>Segoe UI</FontFamily>
+          <FontSize>11pt</FontSize>
+          <FontWeight>Bold</FontWeight>
+          <Color>#1e3a5f</Color>
+          <VerticalAlign>Middle</VerticalAlign>
+          <BottomBorder>
+            <Color>#1e3a5f</Color>
+            <Style>Solid</Style>
+            <Width>1pt</Width>
+          </BottomBorder>
+          <PaddingBottom>3pt</PaddingBottom>
+        </Style>
+        <Left>0cm</Left>
+        <Top>5.7cm</Top>
+        <Width>19cm</Width>
+        <Height>0.65cm</Height>
+        <Value>Distribucion por Rango</Value>
+        <CanGrow>false</CanGrow>
+      </Textbox>
+      <!-- ── BAR CHART ──────────────────────────────────────── -->
+      <Chart Name="RankChart">
+        <DataSetName>DataSet_Result</DataSetName>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <BackgroundColor>Transparent</BackgroundColor>
+        </Style>
+        <Left>0cm</Left>
+        <Top>6.5cm</Top>
+        <Width>19cm</Width>
+        <Height>5.5cm</Height>
+        <ChartSeries>
+          <ChartSeries Name="Clientes">
+            <Style>
+              <BackgroundColor>#2563eb</BackgroundColor>
+            </Style>
+            <ChartSeriesType>
+              <Type>Column</Type>
+              <Subtype>Plain</Subtype>
+            </ChartSeriesType>
+            <ChartDataPoints>
+              <ChartDataPoint>
+                <ChartDataPointValues>
+                  <Y>=Count(Fields!CustNo.Value)</Y>
+                </ChartDataPointValues>
+                <Style>
+                  <BackgroundColor>=First(Fields!RankColor.Value)</BackgroundColor>
+                </Style>
+                <ChartDataLabel>
+                  <Style>
+                    <FontFamily>Segoe UI</FontFamily>
+                    <FontSize>9pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                    <Color>#1e3a5f</Color>
+                  </Style>
+                  <Visible>true</Visible>
+                  <Label>=Count(Fields!CustNo.Value)</Label>
+                  <Position>Outside</Position>
+                </ChartDataLabel>
+              </ChartDataPoint>
+            </ChartDataPoints>
+            <ChartCategoryHierarchy>
+              <ChartMembers>
+                <ChartMember>
+                  <Group Name="RankCatGroup">
+                    <GroupExpressions>
+                      <GroupExpression>=Fields!SCRank.Value</GroupExpression>
+                    </GroupExpressions>
+                  </Group>
+                  <Label>=Fields!SCRank.Value</Label>
+                </ChartMember>
+              </ChartMembers>
+            </ChartCategoryHierarchy>
+          </ChartSeries>
+        </ChartSeries>
+        <ChartAreas>
+          <ChartArea Name="Default">
+            <Style>
+              <BackgroundColor>#f8fafc</BackgroundColor>
+              <Border>
+                <Color>#e2e8f0</Color>
+                <Style>Solid</Style>
+                <Width>0.5pt</Width>
+              </Border>
+            </Style>
+            <ChartCategoryAxes>
+              <ChartAxis Name="Primary">
+                <Style>
+                  <FontFamily>Segoe UI</FontFamily>
+                  <FontSize>9pt</FontSize>
+                  <Color>#374151</Color>
+                </Style>
+                <MajorGridLines>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                  </Style>
+                </MajorGridLines>
+              </ChartAxis>
+            </ChartCategoryAxes>
+            <ChartValueAxes>
+              <ChartAxis Name="Primary">
+                <Style>
+                  <FontFamily>Segoe UI</FontFamily>
+                  <FontSize>8.5pt</FontSize>
+                  <Color>#6b7280</Color>
+                </Style>
+                <MajorGridLines>
+                  <Style>
+                    <Border>
+                      <Color>#e5e7eb</Color>
+                      <Style>Dashed</Style>
+                      <Width>0.5pt</Width>
+                    </Border>
+                  </Style>
+                </MajorGridLines>
+                <ChartAxisTitle>
+                  <Caption>Numero de Clientes</Caption>
+                  <Style>
+                    <FontFamily>Segoe UI</FontFamily>
+                    <FontSize>8pt</FontSize>
+                    <Color>#6b7280</Color>
+                  </Style>
+                </ChartAxisTitle>
+              </ChartAxis>
+            </ChartValueAxes>
+            <ChartPlotAreas>
+              <ChartPlotArea>
+                <Style>
+                  <BackgroundColor>White</BackgroundColor>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                </Style>
+              </ChartPlotArea>
+            </ChartPlotAreas>
+          </ChartArea>
+        </ChartAreas>
+        <ChartLegends>
+          <ChartLegend Name="DefaultLegend">
+            <Hidden>true</Hidden>
+          </ChartLegend>
+        </ChartLegends>
+        <ChartTitles>
+          <ChartTitle Name="ChartMainTitle">
+            <Caption></Caption>
+          </ChartTitle>
+        </ChartTitles>
+      </Chart>
+      <!-- ── TABLE SECTION TITLE ────────────────────────────── -->
+      <Textbox Name="TxtTableTitle">
+        <Style>
+          <FontFamily>Segoe UI</FontFamily>
+          <FontSize>11pt</FontSize>
+          <FontWeight>Bold</FontWeight>
+          <Color>#1e3a5f</Color>
+          <VerticalAlign>Middle</VerticalAlign>
+          <BottomBorder>
+            <Color>#1e3a5f</Color>
+            <Style>Solid</Style>
+            <Width>1pt</Width>
+          </BottomBorder>
+          <PaddingBottom>3pt</PaddingBottom>
+        </Style>
+        <Left>0cm</Left>
+        <Top>12.3cm</Top>
+        <Width>19cm</Width>
+        <Height>0.65cm</Height>
+        <Value>Listado Completo de Clientes</Value>
+        <CanGrow>false</CanGrow>
+      </Textbox>
+      <!-- ── CUSTOMER TABLE ─────────────────────────────────── -->
+      <Tablix Name="CustomerTable">
+        <DataSetName>DataSet_Result</DataSetName>
+        <Left>0cm</Left>
+        <Top>13.1cm</Top>
+        <Width>19cm</Width>
+        <TablixBody>
+          <TablixColumns>
+            <TablixColumn>
+              <Width>3cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>8cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>2.5cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>5.5cm</Width>
+            </TablixColumn>
+          </TablixColumns>
+          <TablixRows>
+            <!-- Header row -->
+            <TablixRow>
+              <Height>0.65cm</Height>
+              <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="H_No">
+                      <Style>
+                        <FontFamily>Segoe UI</FontFamily>
+                        <FontSize>8.5pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                        <Color>White</Color>
+                        <BackgroundColor>#1e3a5f</BackgroundColor>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <PaddingLeft>6pt</PaddingLeft>
+                      </Style>
+                      <Value>No. Cliente</Value>
+                      <CanGrow>false</CanGrow>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="H_Name">
+                      <Style>
+                        <FontFamily>Segoe UI</FontFamily>
+                        <FontSize>8.5pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                        <Color>White</Color>
+                        <BackgroundColor>#1e3a5f</BackgroundColor>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <PaddingLeft>6pt</PaddingLeft>
+                      </Style>
+                      <Value>Nombre</Value>
+                      <CanGrow>false</CanGrow>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="H_Points">
+                      <Style>
+                        <FontFamily>Segoe UI</FontFamily>
+                        <FontSize>8.5pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                        <Color>White</Color>
+                        <BackgroundColor>#1e3a5f</BackgroundColor>
+                        <TextAlign>Right</TextAlign>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <PaddingRight>8pt</PaddingRight>
+                      </Style>
+                      <Value>Puntos</Value>
+                      <CanGrow>false</CanGrow>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="H_Rank">
+                      <Style>
+                        <FontFamily>Segoe UI</FontFamily>
+                        <FontSize>8.5pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                        <Color>White</Color>
+                        <BackgroundColor>#1e3a5f</BackgroundColor>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <PaddingLeft>6pt</PaddingLeft>
+                      </Style>
+                      <Value>Rango</Value>
+                      <CanGrow>false</CanGrow>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+              </TablixCells>
+            </TablixRow>
+            <!-- Data row -->
+            <TablixRow>
+              <Height>0.55cm</Height>
+              <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="D_No">
+                      <Style>
+                        <FontFamily>Segoe UI</FontFamily>
+                        <FontSize>8pt</FontSize>
+                        <Color>#374151</Color>
+                        <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#f1f5f9", "White")</BackgroundColor>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <PaddingLeft>6pt</PaddingLeft>
+                        <BottomBorder>
+                          <Color>#e2e8f0</Color>
+                          <Style>Solid</Style>
+                          <Width>0.5pt</Width>
+                        </BottomBorder>
+                      </Style>
+                      <Value>=Fields!CustNo.Value</Value>
+                      <CanGrow>false</CanGrow>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="D_Name">
+                      <Style>
+                        <FontFamily>Segoe UI</FontFamily>
+                        <FontSize>8pt</FontSize>
+                        <Color>#374151</Color>
+                        <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#f1f5f9", "White")</BackgroundColor>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <PaddingLeft>6pt</PaddingLeft>
+                        <BottomBorder>
+                          <Color>#e2e8f0</Color>
+                          <Style>Solid</Style>
+                          <Width>0.5pt</Width>
+                        </BottomBorder>
+                      </Style>
+                      <Value>=Fields!CustName.Value</Value>
+                      <CanGrow>false</CanGrow>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="D_Points">
+                      <Style>
+                        <FontFamily>Segoe UI</FontFamily>
+                        <FontSize>8.5pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                        <Color>=Fields!RankColor.Value</Color>
+                        <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#f1f5f9", "White")</BackgroundColor>
+                        <TextAlign>Right</TextAlign>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <PaddingRight>8pt</PaddingRight>
+                        <BottomBorder>
+                          <Color>#e2e8f0</Color>
+                          <Style>Solid</Style>
+                          <Width>0.5pt</Width>
+                        </BottomBorder>
+                      </Style>
+                      <Value>=Fields!SCPoints.Value</Value>
+                      <CanGrow>false</CanGrow>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="D_Rank">
+                      <Style>
+                        <FontFamily>Segoe UI</FontFamily>
+                        <FontSize>8pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                        <Color>=Fields!RankColor.Value</Color>
+                        <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#f1f5f9", "White")</BackgroundColor>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <PaddingLeft>6pt</PaddingLeft>
+                        <BottomBorder>
+                          <Color>#e2e8f0</Color>
+                          <Style>Solid</Style>
+                          <Width>0.5pt</Width>
+                        </BottomBorder>
+                      </Style>
+                      <Value>=Fields!SCRank.Value</Value>
+                      <CanGrow>false</CanGrow>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+              </TablixCells>
+            </TablixRow>
+          </TablixRows>
+        </TablixBody>
+        <TablixColumnHierarchy>
+          <TablixMembers>
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
+          </TablixMembers>
+        </TablixColumnHierarchy>
+        <TablixRowHierarchy>
+          <TablixMembers>
+            <TablixMember>
+              <KeepWithGroup>After</KeepWithGroup>
+              <RepeatOnNewPage>true</RepeatOnNewPage>
+              <KeepTogether>true</KeepTogether>
+            </TablixMember>
+            <TablixMember>
+              <Group Name="Detail" />
+            </TablixMember>
+          </TablixMembers>
+        </TablixRowHierarchy>
+      </Tablix>
+    </ReportItems>
+  </Body>
+  <!-- ═══════════════════════════════════════════════════════════
+       PAGE SETUP  (A4 portrait)
+  ═══════════════════════════════════════════════════════════ -->
+  <Page>
+    <PageHeight>29.7cm</PageHeight>
+    <PageWidth>21cm</PageWidth>
+    <LeftMargin>1cm</LeftMargin>
+    <RightMargin>1cm</RightMargin>
+    <TopMargin>1cm</TopMargin>
+    <BottomMargin>1.5cm</BottomMargin>
+  </Page>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="CustNo">
+          <DataField>CustNo</DataField>
+        </Field>
+        <Field Name="CustName">
+          <DataField>CustName</DataField>
+        </Field>
+        <Field Name="SCPoints">
+          <DataField>SCPoints</DataField>
+        </Field>
+        <Field Name="SCRank">
+          <DataField>SCRank</DataField>
+        </Field>
+        <Field Name="RankColor">
+          <DataField>RankColor</DataField>
+        </Field>
+        <Field Name="TotalCount">
+          <DataField>TotalCount</DataField>
+        </Field>
+        <Field Name="CountEjemplar">
+          <DataField>CountEjemplar</DataField>
+        </Field>
+        <Field Name="CountNormal">
+          <DataField>CountNormal</DataField>
+        </Field>
+        <Field Name="CountSup">
+          <DataField>CountSup</DataField>
+        </Field>
+        <Field Name="CountNegra">
+          <DataField>CountNegra</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

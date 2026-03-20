@@ -70,7 +70,7 @@ Ver sección "Regla de registro" más abajo.
 ## Convenciones del proyecto
 - Prefijo de objetos: `SC` o `Social Credit`
 - Motivo de ajuste automático por morosos: `'Por moroso cabrón'`
-- Motivo de ajuste por slider JS: `'SliderJS'`
+- Motivo de ajuste por slider JS: `'Ajustado via Slider JS'`
 - `ApplicationArea = All` en todos los campos y acciones
 - Nunca modificar `Social Credit Points` directamente en el Customer record fuera de `SocialCreditMgt.AdjustCustomerPoints` — siempre pasar por ese procedimiento para garantizar el log.
 
