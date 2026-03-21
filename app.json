@@ -1,37 +1,58 @@
-﻿{
-    "id":  "db319f5e-fbf9-4fda-bfab-dff378c42e41",
-    "platform":  "27.0.0.0",
-    "version":  "1.0.1.0",
-    "help":  "",
-    "features":  [
-                     "NoImplicitWith"
-                 ],
-    "description":  "Mi primera extension de Business Central",
-    "dependencies":  [
-
-                     ],
-    "logo":  "",
-    "target":  "Cloud",
-    "screenshots":  [
-
-                    ],
-    "idRanges":  [
-                     {
-                         "to":  50149,
-                         "from":  50100
-                     }
-                 ],
-    "brief":  "Hello World AL Extension",
-    "resourceExposurePolicy":  {
-                                   "allowDownloadingSource":  true,
-                                   "allowDebugging":  true,
-                                   "includeSourceInSymbolFile":  true
-                               },
-    "EULA":  "",
-    "privacyStatement":  "",
-    "application":  "27.0.0.0",
-    "name":  "HelloWorldAL",
-    "runtime":  "13.0",
-    "publisher":  "Arbentia",
-    "url":  ""
+{
+    "id": "db319f5e-fbf9-4fda-bfab-dff378c42e41",
+    "name": "Social Credit Management",
+    "publisher": "Arbentia",
+    "version": "1.0.8.0",
+    "brief": "Sistema de puntuación de fiabilidad de clientes integrado en Business Central.",
+    "description": "Social Credit Management extiende Microsoft Dynamics 365 Business Central con un sistema de puntuación de fiabilidad de clientes.\n\nCada cliente dispone de una puntuación (0–∞, inicial 1.000 puntos) que refleja su comportamiento comercial:\n\n- **Ajuste manual** desde la ficha de cliente con registro de motivo.\n- **Ajuste automático** por morosos vía tarea programada.\n- **Historial completo** de cada cambio de puntuación.\n- **Rangos visuales**: Ciudadano Ejemplar (≥1.500), Normal (1.000–1.499), Bajo Supervisión (500–999), Lista Negra (<500).\n- **Validación en documentos de venta**: alerta o bloqueo según el rango del cliente.\n- **Role Center dedicado** con KPIs, titulares y accesos directos.\n- **API REST** para integración con sistemas externos.\n- **Chatbot IA** integrado para consultas en lenguaje natural.\n- **PolyMarket Live**: mercados de predicción en tiempo real.\n\nCompatible con Business Central Online (SaaS). Requiere BC 27.0 o superior.",
+    "privacyStatement": "https://www.arbentia.com/legal/privacidad",
+    "EULA": "https://www.arbentia.com/legal/eula",
+    "help": "https://www.arbentia.com/ayuda/social-credit",
+    "url": "https://www.arbentia.com/productos/social-credit",
+    "logo": "res/logo.png",
+    "screenshots": [
+        "res/screenshots/01-role-center.png",
+        "res/screenshots/02-customer-list.png",
+        "res/screenshots/03-adjust-points.png",
+        "res/screenshots/04-history.png",
+        "res/screenshots/05-sales-order-warning.png"
+    ],
+    "platform": "27.0.0.0",
+    "application": "27.0.0.0",
+    "runtime": "13.0",
+    "target": "Cloud",
+    "features": [
+        "NoImplicitWith",
+        "TranslationFile"
+    ],
+    "idRanges": [
+        {
+            "from": 50100,
+            "to": 50149
+        }
+    ],
+    "dependencies": [
+        {
+            "id": "63ca2fa4-4f03-4f2b-a480-172fef340d3f",
+            "name": "System Application",
+            "publisher": "Microsoft",
+            "version": "27.0.0.0"
+        },
+        {
+            "id": "437dbf0e-84ff-417a-965d-ed2bb9650972",
+            "name": "Base Application",
+            "publisher": "Microsoft",
+            "version": "27.0.0.0"
+        }
+    ],
+    "resourceExposurePolicy": {
+        "allowDownloadingSource": false,
+        "allowDebugging": true,
+        "includeSourceInSymbolFile": false
+    },
+    "contextSensitiveHelpUrl": "https://www.arbentia.com/ayuda/social-credit/",
+    "supportedLocales": [
+        "es-ES",
+        "en-US"
+    ]
 }

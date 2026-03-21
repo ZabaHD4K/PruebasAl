@@ -42,6 +42,11 @@ page 50113 "Extension SC"
                     ApplicationArea = All;
                     Caption = 'Role Center del módulo con Cues por rango, titular y accesos rápidos.';
                 }
+                label(LblPolyMarket)
+                {
+                    ApplicationArea = All;
+                    Caption = 'PolyMarket Live — mercados de predicción en tiempo real con gráficas y auto-actualización JS.';
+                }
             }
             group(ModifiedPages)
             {
@@ -97,12 +102,11 @@ page 50113 "Extension SC"
             group(SCActions)
             {
                 Caption = 'Social Credit';
-                Image = SocialNetwork;
                 action(AjustarPuntos)
                 {
                     ApplicationArea = All;
                     Caption = 'Ajustar puntos';
-                    Image = Adjust;
+                    Image = Edit;
                     ToolTip = 'Abre la página para ajustar manualmente los puntos de Social Credit de un cliente.';
                     RunObject = page "Social Credit Adjust";
                 }
@@ -134,7 +138,7 @@ page 50113 "Extension SC"
                 {
                     ApplicationArea = All;
                     Caption = 'Slider de puntos';
-                    Image = Slider;
+                    Image = Navigate;
                     ToolTip = 'Ajusta los puntos de Social Credit de un cliente con un slider interactivo. Se guarda automáticamente al mover.';
                     RunObject = page "SC Slider";
                 }
@@ -145,6 +149,14 @@ page 50113 "Extension SC"
                     Image = Home;
                     ToolTip = 'Abre el Role Center personalizado del módulo Social Credit.';
                     RunObject = page "SC Role Center";
+                }
+                action(PolyMarket)
+                {
+                    ApplicationArea = All;
+                    Caption = 'PolyMarket Live';
+                    Image = Item;
+                    ToolTip = 'Mercados de predicción en tiempo real con filtros, gráficas y auto-actualización.';
+                    RunObject = page "PolyMarket";
                 }
             }
             group(BCModifiedActions)
@@ -228,6 +240,7 @@ page 50113 "Extension SC"
                 actionref(ChatRef; Chat) { }
                 actionref(SliderRef; Slider) { }
                 actionref(RoleCenterRef; RoleCenter) { }
+                actionref(PolyMarketRef; PolyMarket) { }
             }
             group(PromotedBC)
             {
