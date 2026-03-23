@@ -9,15 +9,7 @@
     "EULA": "https://www.arbentia.com/legal/eula",
     "help": "https://www.arbentia.com/ayuda/social-credit",
     "url": "https://www.arbentia.com/productos/social-credit",
-    "logo": "res/logo.png",
-    "screenshots": [
-        "res/screenshots/01-role-center.png",
-        "res/screenshots/02-customer-list.png",
-        "res/screenshots/03-adjust-points.png",
-        "res/screenshots/04-history.png",
-        "res/screenshots/05-sales-order-warning.png"
-    ],
-    "platform": "27.0.0.0",
+"platform": "27.0.0.0",
     "application": "27.0.0.0",
     "runtime": "13.0",
     "target": "Cloud",
