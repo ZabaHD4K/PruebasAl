@@ -41,6 +41,7 @@ codeunit 50103 "Social Credit Check Subscriber"
     begin
         if CustomerNo = '' then
             exit;
+        Customer.SetLoadFields(Name, "Social Credit Points");
         if not Customer.Get(CustomerNo) then
             exit;
         if Customer."Social Credit Points" >= 500 then

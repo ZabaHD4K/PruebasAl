@@ -5,7 +5,6 @@ page 50118 "PolyMarket"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "PolyMarket Market";
-    SourceTableTemporary = true;
     InsertAllowed = false;
     DeleteAllowed = false;
     ModifyAllowed = false;
@@ -28,6 +27,22 @@ page 50118 "PolyMarket"
                     end;
                 }
             }
+
+            // Indicador de estado: visible mientras carga o si hubo error
+            group(StatusGroup)
+            {
+                ShowCaption = false;
+                Visible = StatusText <> '';
+                field(StatusField; StatusText)
+                {
+                    ApplicationArea = All;
+                    ShowCaption = false;
+                    Editable = false;
+                    StyleExpr = StatusStyle;
+                    ToolTip = 'Estado de la carga de datos desde la API de PolyMarket.';
+                }
+            }
+
             repeater(Markets)
             {
                 field(Featured; Rec.Featured)
@@ -84,7 +99,7 @@ page 50118 "PolyMarket"
                 ToolTip = 'Recarga los mercados desde la API de PolyMarket.';
                 trigger OnAction()
                 begin
-                    LoadData();
+                    EnqueueLoad();
                 end;
             }
             action(ClearSearch)
@@ -107,9 +122,11 @@ page 50118 "PolyMarket"
         }
     }
 
+    // ── Ciclo de vida de la página ───────────────────────────────────────────────
+
     trigger OnOpenPage()
     begin
-        LoadData();
+        EnqueueLoad();
     end;
 
     trigger OnAfterGetRecord()
@@ -134,27 +151,87 @@ page 50118 "PolyMarket"
             NoStyle := 'Favorable';
     end;
 
+    // ── Background Task ──────────────────────────────────────────────────────────
+
+    trigger OnPageBackgroundTaskCompleted(TaskId: Integer; Results: Dictionary of [Text, Text])
+    var
+        Json: Text;
+    begin
+        if TaskId <> BackgroundTaskId then
+            exit;
+
+        StatusText := '';
+        StatusStyle := '';
+
+        if not Results.Get('Json', Json) then begin
+            StatusText := '⚠️ La API no devolvió datos. Pulsa Recargar para intentarlo de nuevo.';
+            StatusStyle := 'Attention';
+            CurrPage.Update(false);
+            exit;
+        end;
+
+        ParseAndLoadData(Json);
+    end;
+
+    trigger OnPageBackgroundTaskError(TaskId: Integer; ErrorCode: Text; ErrorText: Text; ErrorCallStack: Text; var IsHandled: Boolean)
+    begin
+        if TaskId <> BackgroundTaskId then
+            exit;
+
+        StatusText := '❌ Error al contactar con PolyMarket. Pulsa Recargar para intentarlo de nuevo.';
+        StatusStyle := 'Unfavorable';
+        IsHandled := true;
+        CurrPage.Update(false);
+    end;
+
+    // ── Variables ────────────────────────────────────────────────────────────────
+
     var
         SearchText: Text[250];
         QuestionStyle: Text;
         YesStyle: Text;
         NoStyle: Text;
+        BackgroundTaskId: Integer;
+        StatusText: Text;
+        StatusStyle: Text;
 
-    local procedure ApplySearch()
-    begin
-        if SearchText = '' then
-            Rec.SetRange("Search Text")
-        else
-            Rec.SetFilter("Search Text", '@*' + SearchText + '*');
-        CurrPage.Update(false);
-    end;
+    // ── Procedimientos locales ───────────────────────────────────────────────────
 
-    local procedure LoadData()
+    /// <summary>
+    /// Cancela la tarea anterior (si la hay), muestra indicador de carga
+    /// y encola la llamada HTTP en segundo plano.
+    /// La UI queda libre inmediatamente; los datos llegan en OnPageBackgroundTaskCompleted.
+    /// </summary>
+    local procedure EnqueueLoad()
     var
         Setup: Record "PolyMarket Setup";
-        Client: HttpClient;
-        Response: HttpResponseMessage;
-        Json: Text;
+        Params: Dictionary of [Text, Text];
+    begin
+        // Cancelar tarea previa si aún está corriendo
+        if BackgroundTaskId <> 0 then
+            CurrPage.CancelBackgroundTask(BackgroundTaskId);
+
+        StatusText := '⏳ Cargando mercados desde PolyMarket...';
+        StatusStyle := 'StandardAccent';
+        CurrPage.Update(false);
+
+        Setup := Setup.GetOrCreate();
+        Params.Add('ApiUrl', Setup."API Base URL");
+
+        CurrPage.EnqueueBackgroundTask(
+            BackgroundTaskId,
+            Codeunit::"SC PolyMarket BG Task",
+            Params,
+            30000,
+            PageBackgroundTaskErrorLevel::Warning);
+    end;
+
+    /// <summary>
+    /// Parsea el JSON recibido del background task y rellena la tabla temporal.
+    /// Se ejecuta en el hilo principal (puede escribir en Rec).
+    /// </summary>
+    local procedure ParseAndLoadData(Json: Text)
+    var
         JArray: JsonArray;
         JToken: JsonToken;
         JObj: JsonObject;
@@ -166,19 +243,15 @@ page 50118 "PolyMarket"
         QuestionText: Text;
         CategoryText: Text;
     begin
-        Setup := Setup.GetOrCreate();
+        if not JArray.ReadFrom(Json) then begin
+            StatusText := '⚠️ El JSON recibido no tiene el formato esperado.';
+            StatusStyle := 'Attention';
+            CurrPage.Update(false);
+            exit;
+        end;
 
         Rec.Reset();
         Rec.DeleteAll();
-
-        if not Client.Get(Setup."API Base URL" + '/markets?limit=48&closed=false&order=volume&ascending=false', Response) then
-            exit;
-        if not Response.IsSuccessStatusCode then
-            exit;
-
-        Response.Content.ReadAs(Json);
-        if not JArray.ReadFrom(Json) then
-            exit;
 
         EntryNo := 0;
         for i := 0 to JArray.Count - 1 do begin
@@ -225,10 +298,18 @@ page 50118 "PolyMarket"
             Rec.Insert();
         end;
 
-        // Re-aplicar búsqueda si había texto
         if SearchText <> '' then
             Rec.SetFilter("Search Text", '@*' + SearchText + '*');
 
+        CurrPage.Update(false);
+    end;
+
+    local procedure ApplySearch()
+    begin
+        if SearchText = '' then
+            Rec.SetRange("Search Text")
+        else
+            Rec.SetFilter("Search Text", '@*' + SearchText + '*');
         CurrPage.Update(false);
     end;
 

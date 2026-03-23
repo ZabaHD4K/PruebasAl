@@ -16,6 +16,7 @@ codeunit 50107 "SC Overdue Notifier"
         CustLedgEntry.SetRange("Document Type", CustLedgEntry."Document Type"::Invoice);
         CustLedgEntry.SetRange(Open, true);
         CustLedgEntry.SetFilter("Due Date", '<%1', Today());
+        CustLedgEntry.SetLoadFields("Document No.", "Customer Name", "Due Date");
         if not CustLedgEntry.FindSet() then
             exit;
 
