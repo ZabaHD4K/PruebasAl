@@ -47,6 +47,16 @@ page 50113 "Extension SC"
                     ApplicationArea = All;
                     Caption = 'PolyMarket Live — mercados de predicción en tiempo real con gráficas y auto-actualización JS.';
                 }
+                label(LblImportExport)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Importar / Exportar Clientes — carga y descarga en CSV, XML, JSON y Excel con Social Credit automático. Incluye XMLport nativo bidireccional con log de auditoría garantizado.';
+                }
+                label(LblSnake)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Snake — juego clásico de la serpiente integrado en Business Central con JavaScript.';
+                }
             }
             group(ModifiedPages)
             {
@@ -158,6 +168,22 @@ page 50113 "Extension SC"
                     ToolTip = 'Mercados de predicción en tiempo real con filtros, gráficas y auto-actualización.';
                     RunObject = page "PolyMarket";
                 }
+                action(ImportExport)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Importar / Exportar Clientes';
+                    Image = ImportExport;
+                    ToolTip = 'Importa o exporta clientes en CSV, XML, JSON y Excel. Social Credit se inicializa a 1.000 si no viene en el archivo.';
+                    RunObject = page "SC Import Export";
+                }
+                action(Snake)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Snake';
+                    Image = Setup;
+                    ToolTip = 'Abre el juego Snake integrado en Business Central.';
+                    RunObject = page "Snake";
+                }
             }
             group(BCModifiedActions)
             {
@@ -241,6 +267,8 @@ page 50113 "Extension SC"
                 actionref(SliderRef; Slider) { }
                 actionref(RoleCenterRef; RoleCenter) { }
                 actionref(PolyMarketRef; PolyMarket) { }
+                actionref(ImportExportRef; ImportExport) { }
+                actionref(SnakeRef; Snake) { }
             }
             group(PromotedBC)
             {

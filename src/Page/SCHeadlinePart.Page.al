@@ -60,6 +60,7 @@ page 50116 "SC Headline Part"
         CustomerCount: Integer;
     begin
         // Worst customer
+        Customer.SetLoadFields(Name, "Social Credit Label", "Social Credit Points");
         Customer.SetCurrentKey("Social Credit Points");
         Customer.Ascending(true);
         if Customer.FindFirst() then begin
@@ -73,6 +74,7 @@ page 50116 "SC Headline Part"
         end;
 
         // Average points
+        Customer.SetLoadFields("Social Credit Points");
         if Customer.FindSet() then
             repeat
                 TotalPoints += Customer."Social Credit Points";

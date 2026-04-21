@@ -1,0 +1,735 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  XLIFF 1.2 — Social Credit Management Extension
+  Source language : es-ES  (captions in AL source code)
+  Target language : en-US
+  Folder          : Translations/
+  File name       : SocialCreditManagement.en-US.xlf
+
+  IDs follow the AL compiler convention:
+    <ObjectType> <ObjectId> - <ElementType> <ElementId> - Property <PropertyName>
+-->
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file datatype="xml"
+        source-language="es-ES"
+        target-language="en-US"
+        original="SocialCreditManagement">
+    <body>
+      <group id="body">
+
+        <!-- ═══════════════════════════════════════════════════════
+             TABLE 50102 — Social Credit Log Entry
+             ═══════════════════════════════════════════════════════ -->
+
+        <trans-unit id="Table 50102 - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Social Credit Log</source>
+          <target state="translated">Social Credit Log</target>
+          <note from="Developer" annotates="general" priority="2">Caption of table Social Credit Log Entry</note>
+        </trans-unit>
+
+        <trans-unit id="Table 50102 - Field 1 - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Nº Entrada</source>
+          <target state="translated">Entry No.</target>
+          <note from="Developer" annotates="general" priority="2">Field Entry No. on table Social Credit Log Entry</note>
+        </trans-unit>
+
+        <trans-unit id="Table 50102 - Field 2 - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Nº Cliente</source>
+          <target state="translated">Customer No.</target>
+          <note from="Developer" annotates="general" priority="2">Field Customer No. on table Social Credit Log Entry</note>
+        </trans-unit>
+
+        <trans-unit id="Table 50102 - Field 3 - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Nombre</source>
+          <target state="translated">Name</target>
+          <note from="Developer" annotates="general" priority="2">Field Customer Name on table Social Credit Log Entry</note>
+        </trans-unit>
+
+        <trans-unit id="Table 50102 - Field 4 - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Puntos Antes</source>
+          <target state="translated">Points Before</target>
+          <note from="Developer" annotates="general" priority="2">Field Points Before on table Social Credit Log Entry</note>
+        </trans-unit>
+
+        <trans-unit id="Table 50102 - Field 5 - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Puntos Después</source>
+          <target state="translated">Points After</target>
+          <note from="Developer" annotates="general" priority="2">Field Points After on table Social Credit Log Entry</note>
+        </trans-unit>
+
+        <trans-unit id="Table 50102 - Field 6 - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Cambio</source>
+          <target state="translated">Change</target>
+          <note from="Developer" annotates="general" priority="2">Field Change (delta) on table Social Credit Log Entry</note>
+        </trans-unit>
+
+        <trans-unit id="Table 50102 - Field 7 - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Fecha y Hora</source>
+          <target state="translated">Date and Time</target>
+          <note from="Developer" annotates="general" priority="2">Field Log DateTime on table Social Credit Log Entry</note>
+        </trans-unit>
+
+        <trans-unit id="Table 50102 - Field 8 - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Usuario</source>
+          <target state="translated">User ID</target>
+          <note from="Developer" annotates="general" priority="2">Field User ID on table Social Credit Log Entry</note>
+        </trans-unit>
+
+        <trans-unit id="Table 50102 - Field 9 - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Motivo</source>
+          <target state="translated">Reason</target>
+          <note from="Developer" annotates="general" priority="2">Field Reason on table Social Credit Log Entry</note>
+        </trans-unit>
+
+        <!-- ═══════════════════════════════════════════════════════
+             TABLEEXTENSION 50100 — Customer Social Credit Ext
+             ═══════════════════════════════════════════════════════ -->
+
+        <trans-unit id="TableExtension 50100 - Field 50100 - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Social Credit Points</source>
+          <target state="translated">Social Credit Points</target>
+          <note from="Developer" annotates="general" priority="2">SC points field added to the Customer table</note>
+        </trans-unit>
+
+        <trans-unit id="TableExtension 50100 - Field 50101 - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Social Credit</source>
+          <target state="translated">Social Credit</target>
+          <note from="Developer" annotates="general" priority="2">SC label field (status text) added to the Customer table</note>
+        </trans-unit>
+
+        <!-- ═══════════════════════════════════════════════════════
+             PERMISSION SET 50100 — SC - Solo Lectura
+             ═══════════════════════════════════════════════════════ -->
+
+        <trans-unit id="PermissionSet 50100 - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Social Credit - Solo Lectura</source>
+          <target state="translated">Social Credit - Read Only</target>
+          <note from="Developer" annotates="general" priority="2">Caption of permission set SC - Solo Lectura (read-only access)</note>
+        </trans-unit>
+
+        <!-- ═══════════════════════════════════════════════════════
+             PERMISSION SET 50101 — SC - Gestion
+             ═══════════════════════════════════════════════════════ -->
+
+        <trans-unit id="PermissionSet 50101 - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Social Credit - Gestión</source>
+          <target state="translated">Social Credit - Management</target>
+          <note from="Developer" annotates="general" priority="2">Caption of permission set SC - Gestion (full management access)</note>
+        </trans-unit>
+
+        <!-- ═══════════════════════════════════════════════════════
+             PROFILE — SC_ROLE_CENTER
+             ═══════════════════════════════════════════════════════ -->
+
+        <trans-unit id="Profile SC_ROLE_CENTER - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Gestor Social Credit</source>
+          <target state="translated">Social Credit Manager</target>
+          <note from="Developer" annotates="general" priority="2">Display name of the Social Credit Manager profile shown in the profile list</note>
+        </trans-unit>
+
+        <trans-unit id="Profile SC_ROLE_CENTER - Property ProfileDescription"
+                    maxwidth="250" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Perfil para gestores del módulo Social Credit. Muestra el dashboard con Cues por rango, titular del peor cliente y accesos rápidos al módulo.</source>
+          <target state="translated">Profile for Social Credit module managers. Shows the dashboard with Cues by rank, worst-customer headline, and quick links to all module features.</target>
+          <note from="Developer" annotates="general" priority="2">Long description of the SC Manager profile</note>
+        </trans-unit>
+
+        <!-- ═══════════════════════════════════════════════════════
+             PAGE 50117 — SC Role Center
+             ═══════════════════════════════════════════════════════ -->
+
+        <trans-unit id="Page 50117 - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Social Credit</source>
+          <target state="translated">Social Credit</target>
+          <note from="Developer" annotates="general" priority="2">Caption of the SC Role Center page</note>
+        </trans-unit>
+
+        <trans-unit id="Page 50117 - Action GoAjustarPuntos - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Ajustar Puntos</source>
+          <target state="translated">Adjust Points</target>
+          <note from="Developer" annotates="general" priority="2">Role Center action: open Social Credit Adjust page</note>
+        </trans-unit>
+
+        <trans-unit id="Page 50117 - Action GoAjustarPuntos - Property ToolTip"
+                    maxwidth="250" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Ajusta manualmente los puntos de Social Credit de un cliente.</source>
+          <target state="translated">Manually adjust the Social Credit points of a customer.</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50117 - Action GoSlider - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Slider de Puntos</source>
+          <target state="translated">Points Slider</target>
+          <note from="Developer" annotates="general" priority="2">Role Center action: open SC Slider page</note>
+        </trans-unit>
+
+        <trans-unit id="Page 50117 - Action GoSlider - Property ToolTip"
+                    maxwidth="250" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Ajusta los puntos con el slider interactivo.</source>
+          <target state="translated">Adjust points using the interactive slider.</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50117 - Action GoHistorial - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Historial de Cambios</source>
+          <target state="translated">Change History</target>
+          <note from="Developer" annotates="general" priority="2">Role Center action: open Social Credit History page</note>
+        </trans-unit>
+
+        <trans-unit id="Page 50117 - Action GoHistorial - Property ToolTip"
+                    maxwidth="250" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Consulta el log de todos los ajustes de puntos.</source>
+          <target state="translated">View the audit log of all point adjustments.</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50117 - Action GoInforme - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Informe de Puntuaciones</source>
+          <target state="translated">Scores Report</target>
+          <note from="Developer" annotates="general" priority="2">Role Center action: open Social Credit Report page</note>
+        </trans-unit>
+
+        <trans-unit id="Page 50117 - Action GoInforme - Property ToolTip"
+                    maxwidth="250" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Informe completo con gráficas exportable a PDF, Excel y CSV.</source>
+          <target state="translated">Full report with charts, exportable to PDF, Excel, and CSV.</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50117 - Action GoChat - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Chat IA</source>
+          <target state="translated">AI Chat</target>
+          <note from="Developer" annotates="general" priority="2">Role Center action: open SC Chat (AI chatbot) page</note>
+        </trans-unit>
+
+        <trans-unit id="Page 50117 - Action GoChat - Property ToolTip"
+                    maxwidth="250" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Chatbot con IA para consultas sobre Social Credit.</source>
+          <target state="translated">AI-powered chatbot for Social Credit queries.</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50117 - Action GoHub - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Centro de Extension</source>
+          <target state="translated">Extension Hub</target>
+          <note from="Developer" annotates="general" priority="2">Role Center action: open Extension SC hub page</note>
+        </trans-unit>
+
+        <trans-unit id="Page 50117 - Action GoHub - Property ToolTip"
+                    maxwidth="250" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Hub central con todos los accesos de la extensión.</source>
+          <target state="translated">Central hub with all extension features and shortcuts.</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50117 - Group SCSection - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Social Credit</source>
+          <target state="translated">Social Credit</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50117 - Group ClientsSection - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Clientes</source>
+          <target state="translated">Customers</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50117 - Action GoCustomerList - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Lista de Clientes</source>
+          <target state="translated">Customer List</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50117 - Action GoCustomerList - Property ToolTip"
+                    maxwidth="250" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Lista de clientes con columnas de Social Credit.</source>
+          <target state="translated">Customer list with Social Credit columns.</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50117 - Action GoCustomerCard - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Ficha de Cliente</source>
+          <target state="translated">Customer Card</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50117 - Action GoCustomerCard - Property ToolTip"
+                    maxwidth="250" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Ficha de cliente con FactBox de Social Credit.</source>
+          <target state="translated">Customer card with the Social Credit FactBox.</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50117 - Group SalesSection - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Ventas</source>
+          <target state="translated">Sales</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50117 - Action GoSalesOrder - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Pedidos de Venta</source>
+          <target state="translated">Sales Orders</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50117 - Action GoSalesInvoice - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Facturas de Venta</source>
+          <target state="translated">Sales Invoices</target>
+        </trans-unit>
+
+        <!-- ═══════════════════════════════════════════════════════
+             PAGE 50115 — SC Cue Part
+             ═══════════════════════════════════════════════════════ -->
+
+        <trans-unit id="Page 50115 - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Social Credit</source>
+          <target state="translated">Social Credit</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50115 - CueGroup SCCues - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Clientes por rango</source>
+          <target state="translated">Customers by rank</target>
+          <note from="Developer" annotates="general" priority="2">Cue group header on SC Cue Part</note>
+        </trans-unit>
+
+        <trans-unit id="Page 50115 - Field Clientes Ejemplar - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Ciudadano Ejemplar</source>
+          <target state="translated">Exemplary Citizen</target>
+          <note from="Developer" annotates="general" priority="2">Cue: customers with 1500+ SC points</note>
+        </trans-unit>
+
+        <trans-unit id="Page 50115 - Field Clientes Ejemplar - Property ToolTip"
+                    maxwidth="250" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Clientes con 1500 o más puntos de Social Credit.</source>
+          <target state="translated">Customers with 1,500 or more Social Credit points.</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50115 - Field Clientes Normal - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Ciudadano Normal</source>
+          <target state="translated">Normal Citizen</target>
+          <note from="Developer" annotates="general" priority="2">Cue: customers with 1000–1499 SC points</note>
+        </trans-unit>
+
+        <trans-unit id="Page 50115 - Field Clientes Normal - Property ToolTip"
+                    maxwidth="250" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Clientes con entre 1000 y 1499 puntos de Social Credit.</source>
+          <target state="translated">Customers with between 1,000 and 1,499 Social Credit points.</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50115 - Field Clientes Supervision - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bajo Supervision</source>
+          <target state="translated">Under Supervision</target>
+          <note from="Developer" annotates="general" priority="2">Cue: customers with 500–999 SC points</note>
+        </trans-unit>
+
+        <trans-unit id="Page 50115 - Field Clientes Supervision - Property ToolTip"
+                    maxwidth="250" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Clientes con entre 500 y 999 puntos de Social Credit.</source>
+          <target state="translated">Customers with between 500 and 999 Social Credit points.</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50115 - Field Clientes Lista Negra - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Lista Negra</source>
+          <target state="translated">Blacklist</target>
+          <note from="Developer" annotates="general" priority="2">Cue: customers with fewer than 500 SC points</note>
+        </trans-unit>
+
+        <trans-unit id="Page 50115 - Field Clientes Lista Negra - Property ToolTip"
+                    maxwidth="250" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Clientes con menos de 500 puntos de Social Credit.</source>
+          <target state="translated">Customers with fewer than 500 Social Credit points.</target>
+        </trans-unit>
+
+        <!-- ═══════════════════════════════════════════════════════
+             PAGE 50116 — SC Headline Part
+             ═══════════════════════════════════════════════════════ -->
+
+        <trans-unit id="Page 50116 - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Titular Social Credit</source>
+          <target state="translated">Social Credit Headline</target>
+          <note from="Developer" annotates="general" priority="2">Caption of the HeadlinePart page</note>
+        </trans-unit>
+
+        <!-- ═══════════════════════════════════════════════════════
+             PAGE 50100 — Customer Social Credit FactBox
+             ═══════════════════════════════════════════════════════ -->
+
+        <trans-unit id="Page 50100 - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Social Credit</source>
+          <target state="translated">Social Credit</target>
+          <note from="Developer" annotates="general" priority="2">Caption of the SC FactBox shown on Customer Card</note>
+        </trans-unit>
+
+        <trans-unit id="Page 50100 - Field Social Credit Label - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Estado</source>
+          <target state="translated">Status</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50100 - Field Social Credit Points - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Puntos</source>
+          <target state="translated">Points</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50100 - Field SocialCreditRank - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Rango</source>
+          <target state="translated">Rank</target>
+        </trans-unit>
+
+        <!-- ═══════════════════════════════════════════════════════
+             PAGE 50101 — Social Credit Adjust
+             ═══════════════════════════════════════════════════════ -->
+
+        <trans-unit id="Page 50101 - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Ajustar Social Credit</source>
+          <target state="translated">Adjust Social Credit</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50101 - Group CustomerGroup - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Cliente</source>
+          <target state="translated">Customer</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50101 - Field CustomerNo - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Nº Cliente</source>
+          <target state="translated">Customer No.</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50101 - Field CustomerName - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Nombre</source>
+          <target state="translated">Name</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50101 - Group PointsGroup - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Social Credit</source>
+          <target state="translated">Social Credit</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50101 - Field CurrentPoints - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Puntos</source>
+          <target state="translated">Points</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50101 - Field CurrentLabel - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Estado</source>
+          <target state="translated">Status</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50101 - Group AdjustGroup - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Ajuste</source>
+          <target state="translated">Adjustment</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50101 - Field AdjustDirection - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Dirección</source>
+          <target state="translated">Direction</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50101 - Field AdjustDirection - Property ToolTip"
+                    maxwidth="250" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Selecciona si quieres subir o bajar puntos.</source>
+          <target state="translated">Select whether you want to increase or decrease points.</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50101 - Field AdjustAmount - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Cantidad</source>
+          <target state="translated">Amount</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50101 - Field AdjustAmount - Property ToolTip"
+                    maxwidth="250" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Número de puntos a aplicar.</source>
+          <target state="translated">Number of points to apply.</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50101 - Field Reason - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Motivo</source>
+          <target state="translated">Reason</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50101 - Field Reason - Property ToolTip"
+                    maxwidth="250" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Indica el motivo del ajuste.</source>
+          <target state="translated">Enter the reason for the adjustment.</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50101 - Action AplicarAjuste - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Aplicar ajuste</source>
+          <target state="translated">Apply Adjustment</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50101 - Action AplicarAjuste - Property ToolTip"
+                    maxwidth="250" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Aplica el ajuste de puntos al cliente seleccionado.</source>
+          <target state="translated">Applies the point adjustment to the selected customer.</target>
+        </trans-unit>
+
+        <!-- ═══════════════════════════════════════════════════════
+             PAGE 50113 — Extension SC (Hub)
+             ═══════════════════════════════════════════════════════ -->
+
+        <trans-unit id="Page 50113 - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Social Credit - Centro de extensión</source>
+          <target state="translated">Social Credit - Extension Hub</target>
+          <note from="Developer" annotates="general" priority="2">Caption of the Extension SC hub page (50113)</note>
+        </trans-unit>
+
+        <trans-unit id="Page 50113 - Group SocialCreditPages - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Páginas de Social Credit</source>
+          <target state="translated">Social Credit Pages</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50113 - Group ModifiedPages - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Páginas de BC modificadas por la extensión</source>
+          <target state="translated">BC Pages Modified by This Extension</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50113 - Group SCActions - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Social Credit</source>
+          <target state="translated">Social Credit</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50113 - Group BCModifiedActions - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Páginas de BC modificadas</source>
+          <target state="translated">Modified BC Pages</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50113 - Action AjustarPuntos - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Ajustar puntos</source>
+          <target state="translated">Adjust Points</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50113 - Action Historial - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Historial de cambios</source>
+          <target state="translated">Change History</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50113 - Action Informe - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Informe de puntuaciones</source>
+          <target state="translated">Scores Report</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50113 - Action Chat - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Chat IA</source>
+          <target state="translated">AI Chat</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50113 - Action Slider - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Slider de puntos</source>
+          <target state="translated">Points Slider</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50113 - Action RoleCenter - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Role Center SC</source>
+          <target state="translated">SC Role Center</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50113 - Action PolyMarket - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>PolyMarket Live</source>
+          <target state="translated">PolyMarket Live</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50113 - Action ImportExport - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Importar / Exportar Clientes</source>
+          <target state="translated">Import / Export Customers</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50113 - Action ImportExport - Property ToolTip"
+                    maxwidth="250" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Importa o exporta clientes en CSV, XML, JSON y Excel. Social Credit se inicializa a 1.000 si no viene en el archivo.</source>
+          <target state="translated">Import or export customers in CSV, XML, JSON, and Excel. Social Credit defaults to 1,000 if not included in the file.</target>
+        </trans-unit>
+
+        <!-- ═══════════════════════════════════════════════════════
+             PAGE 50119 — SC Import Export
+             ═══════════════════════════════════════════════════════ -->
+
+        <trans-unit id="Page 50119 - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Importar / Exportar Clientes</source>
+          <target state="translated">Import / Export Customers</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50119 - Group ExportGroup - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Exportar clientes</source>
+          <target state="translated">Export customers</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50119 - Group ImportGroup - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Importar clientes</source>
+          <target state="translated">Import customers</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50119 - Action ExportCSV - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Exportar CSV</source>
+          <target state="translated">Export CSV</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50119 - Action ExportXML - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Exportar XML</source>
+          <target state="translated">Export XML</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50119 - Action ExportJSON - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Exportar JSON</source>
+          <target state="translated">Export JSON</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50119 - Action ExportXLS - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Exportar Excel</source>
+          <target state="translated">Export Excel</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50119 - Action ImportCSV - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Importar CSV</source>
+          <target state="translated">Import CSV</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50119 - Action ImportXML - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Importar XML</source>
+          <target state="translated">Import XML</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50119 - Action ImportJSON - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Importar JSON</source>
+          <target state="translated">Import JSON</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50119 - Action ImportXLS - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Importar Excel</source>
+          <target state="translated">Import Excel</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50119 - Action RunXmlport - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Importar / Exportar XML (XMLport)</source>
+          <target state="translated">Import / Export XML (XMLport)</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50119 - Action RunXmlport - Property ToolTip"
+                    maxwidth="250" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Ejecuta el XMLport nativo de BC para importar o exportar clientes en XML con Social Credit. Pregunta la dirección al abrirse.</source>
+          <target state="translated">Runs the native BC XMLport to import or export customers in XML with Social Credit. Prompts for direction when opened.</target>
+        </trans-unit>
+
+        <!-- ═══════════════════════════════════════════════════════
+             XMLPORT 50100 — SC Customer Xmlport
+             ═══════════════════════════════════════════════════════ -->
+
+        <trans-unit id="XmlPort 50100 - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Clientes Social Credit</source>
+          <target state="translated">Social Credit Customers</target>
+          <note from="Developer" annotates="general" priority="2">Caption of the bidirectional XMLport for customer import/export</note>
+        </trans-unit>
+
+        <!-- ═══════════════════════════════════════════════════════
+             PAGE 50118 — PolyMarket Live
+             ═══════════════════════════════════════════════════════ -->
+
+        <trans-unit id="Page 50118 - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>PolyMarket Live</source>
+          <target state="translated">PolyMarket Live</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50118 - Field SearchInput - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Buscar</source>
+          <target state="translated">Search</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50118 - Field SearchInput - Property ToolTip"
+                    maxwidth="250" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Filtra los mercados por nombre o categoría.</source>
+          <target state="translated">Filter markets by name or category.</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50118 - Action Reload - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Recargar ahora</source>
+          <target state="translated">Reload Now</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50118 - Action Reload - Property ToolTip"
+                    maxwidth="250" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Recarga los mercados desde la API de PolyMarket.</source>
+          <target state="translated">Reloads markets from the PolyMarket API.</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50118 - Action ClearSearch - Property Caption"
+                    maxwidth="80" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Limpiar búsqueda</source>
+          <target state="translated">Clear Search</target>
+        </trans-unit>
+
+        <trans-unit id="Page 50118 - Action ClearSearch - Property ToolTip"
+                    maxwidth="250" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Elimina el filtro de búsqueda y muestra todos los mercados.</source>
+          <target state="translated">Removes the search filter and shows all markets.</target>
+        </trans-unit>
+
+      </group>
+    </body>
+  </file>
+</xliff>

@@ -53,7 +53,7 @@ codeunit 50149 "SC Test Suite"
     begin
         AssertEqual('Ciudadano Ejemplar', SocialCreditMgt.GetRank(1500), '>=1500 = Ciudadano Ejemplar');
         AssertEqual('Ciudadano Normal',   SocialCreditMgt.GetRank(1000), '>=1000 = Ciudadano Normal');
-        AssertEqual('Bajo Supervision',   SocialCreditMgt.GetRank(500),  '>=500 = Bajo Supervision');
+        AssertEqual('Bajo Supervisión',   SocialCreditMgt.GetRank(500),  '>=500 = Bajo Supervisión');
         AssertEqual('Lista Negra',        SocialCreditMgt.GetRank(499),  '<500 = Lista Negra');
         AssertEqual('Lista Negra',        SocialCreditMgt.GetRank(0),    '0 = Lista Negra');
     end;
@@ -377,7 +377,7 @@ codeunit 50149 "SC Test Suite"
     var
         No: Code[20];
     begin
-        No := CopyStr(TestCustomerPrefix + Format(Time(), 0, '<Hours24><Minutes><Seconds2>'), 1, 20);
+        No := CopyStr(TestCustomerPrefix + DelChr(CreateGuid(), '=', '{}-'), 1, 20);
         if Customer.Get(No) then
             CleanupTestCustomer(Customer);
 
@@ -400,25 +400,26 @@ codeunit 50149 "SC Test Suite"
 
     local procedure CreateOverdueLedgerEntry(CustomerNo: Code[20]; var CustLedgerEntry: Record "Cust. Ledger Entry")
     var
-        EntryNo: Integer;
+        NextEntryNo: Integer;
     begin
-        CustLedgerEntry.SetLoadFields("Entry No.");
         if CustLedgerEntry.FindLast() then
-            EntryNo := CustLedgerEntry."Entry No." + 1
+            NextEntryNo := CustLedgerEntry."Entry No." + 1
         else
-            EntryNo := 1;
+            NextEntryNo := 1;
 
         CustLedgerEntry.Init();
-        CustLedgerEntry."Entry No."     := EntryNo;
-        CustLedgerEntry."Customer No."  := CustomerNo;
-        CustLedgerEntry."Document Type" := CustLedgerEntry."Document Type"::Invoice;
-        CustLedgerEntry.Open            := true;
-        CustLedgerEntry."Due Date"      := CalcDate('<-1D>', Today());
-        CustLedgerEntry.Insert(true);
+        CustLedgerEntry."Entry No."        := NextEntryNo;
+        CustLedgerEntry."Customer No."     := CustomerNo;
+        CustLedgerEntry."Document Type"    := CustLedgerEntry."Document Type"::Invoice;
+        CustLedgerEntry."Document No."     := 'SCTEST-INV';
+        CustLedgerEntry."Due Date"         := CalcDate('<-1D>', Today());
+        CustLedgerEntry.Open               := true;
+        CustLedgerEntry."Remaining Amount" := 100;
+        CustLedgerEntry.Insert(false);
     end;
 
     local procedure CleanupLedgerEntry(var CustLedgerEntry: Record "Cust. Ledger Entry")
     begin
-        if CustLedgerEntry.Delete(true) then;
+        if CustLedgerEntry.Delete(false) then;
     end;
 }

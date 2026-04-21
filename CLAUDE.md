@@ -20,8 +20,8 @@ Extensión de Business Central (AL) que implementa un sistema de **Social Credit
 | 50101       | Codeunit principal (Social Credit Mgt) |
 | 50106       | Codeunit SC Deduct Morosos |
 
-**Próximo ID libre de página: 50118**
-**Próximo ID libre de tabla: 50106**
+**Próximo ID libre de página: 50119**
+**Próximo ID libre de tabla: 50108**
 
 ## Arquitectura clave
 
@@ -57,6 +57,7 @@ Ver sección "Regla de registro" más abajo.
 | 50115 | SC Cue Part                   | CardPart       | Cues con conteo de clientes por rango    |
 | 50116 | SC Headline Part              | HeadlinePart   | Titular: peor cliente y media de puntos  |
 | 50117 | SC Role Center                | RoleCenter     | Role Center principal del módulo SC      |
+| 50118 | PolyMarket                    | Card           | Mercados de predicción en tiempo real    |
 
 ### PageExtensions sobre páginas estándar de BC
 | ID    | Nombre                        | Extiende              | Qué añade                              |

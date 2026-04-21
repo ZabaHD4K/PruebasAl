@@ -136,6 +136,7 @@ page 50105 "Social Credit Report"
         Rec.DeleteAll();
 
         LineNo := 1;
+        Customer.SetLoadFields("No.", Name, "Social Credit Points", "Social Credit Label");
         Customer.SetCurrentKey("Social Credit Points");
         Customer.Ascending(Ascending);
         if Customer.FindSet() then
@@ -171,6 +172,7 @@ page 50105 "Social Credit Report"
         ExcelBuf.AddColumn('Rango', false, '', true, false, false, '', ExcelBuf."Cell Type"::Text);
         ExcelBuf.AddColumn('Estado', false, '', true, false, false, '', ExcelBuf."Cell Type"::Text);
 
+        Customer.SetLoadFields("No.", Name, "Social Credit Points", "Social Credit Label");
         Customer.SetCurrentKey("Social Credit Points");
         Customer.Ascending(false);
         if Customer.FindSet() then
@@ -212,6 +214,7 @@ page 50105 "Social Credit Report"
         // Header
         OutStr.WriteText('"No. Cliente";"Nombre";"Puntos";"Rango";"Estado"' + CrLf);
 
+        Customer.SetLoadFields("No.", Name, "Social Credit Points", "Social Credit Label");
         Customer.SetCurrentKey("Social Credit Points");
         Customer.Ascending(false);
         if Customer.FindSet() then

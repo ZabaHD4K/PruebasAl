@@ -1,271 +1,502 @@
-# PruebasAL — Mega Extensión de Business Central
+# Social Credit Management — Extensión BC
 
 Repositorio de aprendizaje de desarrollo AL para **Microsoft Dynamics 365 Business Central**.
-Este repo nace como un proyecto práctico y va creciendo con cada nueva funcionalidad aprendida, sirviendo como referencia real de cómo extender BC desde cero.
+
+Construido de forma incremental: cada ejercicio añade un módulo nuevo explorando una área distinta del desarrollo AL — tablas, páginas, codeunits, events, reports, APIs, control add-ins, job queues, test suites, xmlports, traducciones, etc.
+
+> El objetivo no es hacer algo perfecto — es **aprender haciendo**.
 
 ---
 
-## ¿Qué es esto?
+## Índice
 
-Una extensión de BC construida de forma incremental. Cada módulo añade algo nuevo al sistema, explorando distintas áreas del desarrollo AL: tablas, páginas, codeunits, eventos, reportes, API pages, job queues, etc.
-
-El objetivo no es hacer algo perfecto — es **aprender haciendo**.
-
----
-
-## Módulos actuales
-
-### 🏅 Social Credit System
-
-El primer módulo implementado. Añade un sistema de **puntos de crédito social** a los clientes de BC.
-
-**Qué hace:**
-- Añade el campo `Social Credit Points` (por defecto 1000) a cada cliente
-- Muestra el estado del cliente con colores y emojis en toda la interfaz
-- Aparece en: lista de clientes, ficha de cliente, lookups, dropdowns, mini tarjetas y documentos de venta
-- Permite ajustar puntos manualmente con registro de motivo y auditoría completa
-
-**Rangos:**
-| Puntos | Icono | Rango |
-|--------|-------|-------|
-| ≥ 1500 | 🟢 | Ciudadano Ejemplar |
-| ≥ 1000 | 🔵 | Ciudadano Normal |
-| ≥ 500  | 🟡 | Bajo Supervisión |
-| < 500  | 🔴 | Lista Negra |
+- [¿Qué es Social Credit?](#qué-es-social-credit)
+- [Módulos implementados](#módulos-implementados)
+- [Objetos AL](#objetos-al)
+- [Estructura del proyecto](#estructura-del-proyecto)
+- [Entorno y requisitos](#entorno-y-requisitos)
+- [Cómo publicar la extensión](#cómo-publicar-la-extensión)
 
 ---
 
-### 🔍 Filtros y Ordenación en Lista de Clientes
+## ¿Qué es Social Credit?
 
-Añadidos directamente sobre la lista de clientes para explorar la base de clientes por nivel de Social Credit de forma visual e interactiva.
+Un sistema de **puntuación de fiabilidad de clientes** integrado en BC. Cada cliente tiene una puntuación (0–∞, valor inicial 1 000 puntos) que refleja su comportamiento comercial. La puntuación sube o baja manualmente o de forma automática.
 
-**Ordenación:**
-- Botón **↓ Mayor a menor** — ordena por puntos de mayor a menor
-- Botón **↑ Menor a mayor** — ordena por puntos de menor a mayor
-- Basado en un índice dedicado en la tabla (`SocialCreditKey`) para garantizar rendimiento
+### Rangos
 
-**Filtros por nivel (barra interactiva):**
-- Barra de 4 botones visuales encima de la lista de clientes
-- Cada botón representa un nivel: 🟢 🔵 🟡 🔴
-- **Click** activa el filtro (el botón cambia de color y muestra ✔)
-- **Click de nuevo** lo desactiva
-- Se pueden **combinar varios niveles** a la vez — por ejemplo, ver solo rojos y azules simultáneamente
-- La barra se puede mostrar/ocultar con el botón **"Filtrar por nivel"** en la barra de acciones
+| Puntos | Estado | Color BC |
+|--------|--------|----------|
+| ≥ 1 500 | 🟢 Ciudadano Ejemplar | `Favorable` |
+| 1 000 – 1 499 | 🔵 Ciudadano Normal | `StandardAccent` |
+| 500 – 999 | 🟡 Bajo Supervisión | `Attention` |
+| < 500 | 🔴 Lista Negra | `Unfavorable` |
 
 ---
 
-### 📊 Social Credit Report
+## Módulos implementados
 
-Página de ranking que muestra todos los clientes ordenados por puntuación de Social Credit.
+### Ej. 1 — Social Credit básico
 
-- Tabla temporal generada en tiempo real al abrir la página
-- Ordenación ascendente y descendente desde la barra de acciones
-- Cada fila incluye: Nº cliente, nombre, puntos, estado y rango
-- Coloreado dinámico según el nivel de cada cliente
-- Accesible desde la lista de clientes con el botón **"Social Credit Report"**
+El núcleo del sistema.
 
----
-
-### ⚙️ Job Queue — Penalización por Morosos
-
-Codeunit diseñado para ejecutarse cada noche mediante el **Job Queue** de BC.
-
-**Comportamiento:**
-- Recorre todos los clientes
-- Si el cliente tiene alguna factura **abierta y vencida** (fecha de vencimiento anterior a hoy) → resta **50 puntos**
-- El cambio queda registrado en el log con el motivo `"Por moroso cabrón"`
-- Si no hay facturas vencidas, no se aplica ninguna penalización
-
-**Configuración en BC:**
-1. Buscar **Job Queue Entries** → New
-2. `Object Type to Run` = Codeunit | `Object ID` = **50106**
-3. Marcar todos los días, `Starting Time` = `00:00:00`
-4. Estado → **Ready**
+- Campo `Social Credit Points` (Integer, min. 0, init. 1 000) y `Social Credit Label` (Text) añadidos a la tabla **Customer** vía TableExtension.
+- **Codeunit `Social Credit Mgt`**: punto de entrada único para ajustar puntos (`AdjustCustomerPoints`), obtener estilos/etiquetas/rangos e inicializar clientes.
+- **FactBox** en la ficha de cliente con puntos, estado y rango con coloración dinámica.
+- **PageExtension** sobre Customer List: columna de puntos y estado coloreado.
+- **PageExtension** sobre Customer Lookup: estado visible en la búsqueda de clientes.
+- Codeunits de **Install** y **Upgrade** que inicializan los clientes a 1 000 puntos al publicar.
 
 ---
 
-### 🔔 Notificaciones de Facturas Vencidas
+### Ej. 2 — Filtros y ordenación en la lista de clientes
 
-Al abrir la lista de clientes, el sistema comprueba automáticamente si existen facturas abiertas con fecha de vencimiento anterior a hoy.
+Exploración interactiva de la base de clientes por nivel de Social Credit.
 
-- Por cada factura vencida se muestra una **notificación** en pantalla con el número de factura, nombre del cliente y fecha de vencimiento
-- Cada notificación incluye el botón **"Ver factura XXXX"** que abre directamente la página de esa factura contabilizada
+- Botones **↑ / ↓** para ordenar por puntos (soportados por el índice `SocialCreditKey`).
+- Barra de 4 filtros visuales (🟢 🔵 🟡 🔴) combinables entre sí.
+- Activar/desactivar cada nivel con un click — el botón muestra ✔ cuando está activo.
+- Botón de acción **"Filtrar por nivel"** para mostrar/ocultar la barra.
 
 ---
 
-### 🌐 API REST — Social Credit
+### Ej. 3 — Social Credit Report
 
-Dos endpoints REST propios publicados bajo el publisher `arbentia`, grupo `socialcredit`, versión `v1.0`.
+Ranking de todos los clientes ordenado por puntuación.
 
-**Clientes:**
+- Tabla temporal generada en tiempo real al abrir la página.
+- Coloreado dinámico por rango en cada fila.
+- Acciones de ordenación ascendente y descendente desde la barra.
+- Exportable a PDF, Excel y CSV desde las opciones nativas de BC.
+
+---
+
+### Ej. 4 — Log de auditoría
+
+Registro inmutable de cada cambio de puntuación.
+
+- Tabla `Social Credit Log Entry` con: cliente, nombre, puntos antes/después, delta, fecha y hora, usuario y motivo.
+- Todo cambio pasa obligatoriamente por `SocialCreditMgt.AdjustCustomerPoints` → el log nunca queda vacío.
+- Página **Social Credit History** con historial completo y filtros.
+- Acción **"Historial"** accesible desde la ficha de cliente y el Role Center.
+
+---
+
+### Ej. 5 — Job Queue: penalización por morosos
+
+Codeunit para ejecutar cada noche vía el Job Queue de BC.
+
+- Recorre todos los clientes y comprueba si tienen facturas abiertas y vencidas.
+- Si las hay → resta **50 puntos** con motivo `"Por moroso cabrón"` y lo registra en el log.
+- Configuración: `Object Type = Codeunit`, `Object ID = 50106`, todos los días a las `00:00`.
+
+---
+
+### Ej. 6 — Notificaciones de facturas vencidas
+
+Al abrir la lista de clientes, el sistema escanea facturas abiertas con fecha de vencimiento pasada.
+
+- Por cada factura vencida aparece una notificación en pantalla con número, cliente y fecha.
+- Botón **"Ver factura XXXX"** en cada notificación que abre directamente la factura contabilizada.
+
+---
+
+### Ej. 7 — Validación SC en documentos de venta
+
+PageExtensions sobre los 4 documentos de venta principales.
+
+- Al seleccionar un cliente, se evalúa su rango de Social Credit.
+- **Lista Negra** (< 500 pts): advertencia de bloqueo con opción de continuar o cancelar.
+- **Bajo Supervisión** (500–999 pts): aviso informativo, sin bloqueo.
+- Se aplica en: Pedidos, Facturas, Ofertas y Abonos de venta.
+
+---
+
+### Ej. 8 — API REST
+
+Dos endpoints REST propios bajo el publisher `arbentia`, grupo `socialcredit`, versión `v1.0`.
+
+**Clientes (`/customers`):**
 ```
-GET http://bc-dev:7048/BC/api/arbentia/socialcredit/v1.0/companies({id})/customers
+GET .../api/arbentia/socialcredit/v1.0/companies({id})/customers
 ```
 Campos: `id`, `name`, `city`, `email`, `socialCreditPoints`, `socialCreditLabel`, `socialCreditRank`
 
-**Facturas:**
+**Facturas (`/invoices`):**
 ```
-GET http://bc-dev:7048/BC/api/arbentia/socialcredit/v1.0/companies({id})/invoices
+GET .../api/arbentia/socialcredit/v1.0/companies({id})/invoices
 ```
 Campos: `entryNo`, `customerNo`, `customerName`, `documentNo`, `postingDate`, `dueDate`, `open`, `amount`, `overdue`
 
-Ambos endpoints son de **solo lectura** (`InsertAllowed`, `ModifyAllowed`, `DeleteAllowed` = false). El campo `overdue` se calcula en tiempo real.
+Ambos de solo lectura. El campo `overdue` se calcula en tiempo real comparando `dueDate` con la fecha actual.
 
 ---
 
-### 📤 Exportación de Datos (CSV / XML / JSON / Excel)
+### Ej. 9 — Exportación de datos
 
-Botón **"Exportar"** disponible en tres páginas de BC con 4 formatos de descarga:
+Botón **"Exportar"** con 4 formatos disponible en tres páginas estándar de BC.
 
-| Formato | Extensión | Descripción |
-|---------|-----------|-------------|
-| CSV | `.csv` | Separado por comas, compatible con cualquier hoja de cálculo |
-| XML | `.xml` | Estructura jerárquica estándar |
-| JSON | `.json` | Formato ideal para integraciones y APIs |
-| Excel | `.xlsx` | Archivo nativo de Excel con formato numérico |
+| Formato | Extensión | Notas |
+|---------|-----------|-------|
+| CSV | `.csv` | Separado por comas; compatible con Excel y Google Sheets |
+| XML | `.xml` | Estructura jerárquica; estándar para integración con ERP |
+| JSON | `.json` | Array de objetos; ideal para APIs y aplicaciones web |
+| Excel | `.xlsx` | Nativo de Excel con formato numérico aplicado |
 
 **Páginas con exportación:**
-
-- **Lista de Clientes** → No., Nombre, Ciudad, Teléfono, Email, Social Credit, Estado, Rango
-- **Lista de Proveedores** → No., Nombre, Ciudad, Teléfono, Email, Saldo, Términos de pago
-- **Lista de Artículos (Inventario)** → No., Descripción, Stock, Precio venta, Coste, Categoría, Unidad de medida
+- **Lista de clientes** → No., Nombre, Ciudad, Teléfono, Email, Social Credit, Estado, Rango
+- **Lista de proveedores** → No., Nombre, Ciudad, Teléfono, Email, Saldo (DL), Términos de pago
+- **Lista de artículos** → No., Descripción, Stock, Precio venta, Coste, Categoría, Unidad de medida
 
 ---
 
-### 🔐 Permisos (Permission Sets)
+### Ej. 10 — Permission Sets
 
-Dos conjuntos de permisos incluidos en la extensión para controlar el acceso al módulo:
+Dos conjuntos de permisos para controlar el acceso al módulo.
 
-| Permission Set | Descripción |
-|----------------|-------------|
-| `SC - Solo Lectura` | Acceso de solo lectura: ve puntos, estado, historial, ranking y API. |
-| `SC - Gestión` | Acceso completo: todo lo de Solo Lectura + ajuste de puntos, job queue, exportación y notificaciones. |
+| Permission Set | Caption | Acceso |
+|----------------|---------|--------|
+| `SC - Solo Lectura` | Social Credit - Read Only | Ver puntos, historial, ranking, API, chatbot |
+| `SC - Gestión` | Social Credit - Management | Todo lo anterior + ajuste de puntos, job queue, exportación, notificaciones |
+
+`SC - Gestión` incluye `SC - Solo Lectura` vía `IncludedPermissionSets`.
+
+---
+
+### Ej. 11 — Chatbot con IA
+
+Chatbot integrado directamente en BC que responde preguntas sobre Social Credit en lenguaje natural.
+
+- Usa la API de **OpenRouter** (o cualquier proveedor OpenAI-compatible).
+- API Key almacenada en la tabla `SC Chat Setup` (cifrada con `ExtendedDatatype = Masked`).
+- Interfaz tipo chat en tiempo real: el usuario escribe y el asistente responde.
+- Historial de conversación en la tabla `SC Chat Line`.
+- Accesible desde el Role Center y desde el hub de extensión.
+
+---
+
+### Ej. 12 — Slider JavaScript (Control Add-in)
+
+Ajuste de puntos de Social Credit con un slider interactivo construido en JavaScript puro.
+
+- Control Add-in con slider HTML/CSS/JS embebido en una página BC (Card).
+- El valor del slider se sincroniza en tiempo real con BC vía `invokeExtensibilityMethod`.
+- Al mover el slider → llama a `AdjustCustomerPoints` → puntos actualizados instantáneamente en la BD.
+- Motivo de ajuste registrado en el log: `"Ajustado via Slider JS"`.
+
+---
+
+### Ej. 13 — Role Center completo
+
+Dashboard dedicado al gestor del módulo Social Credit.
+
+**Componentes:**
+
+| Objeto | Tipo | Descripción |
+|--------|------|-------------|
+| `SC Role Center` | RoleCenter | Página principal del rol |
+| `SC Cue Part` | CardPart | 4 KPIs con recuento de clientes por rango (FlowFields) |
+| `SC Headline Part` | HeadlinePart | Titular con el peor cliente y media de puntos de todos |
+| `SC Profile` | Profile | Perfil "Gestor Social Credit" asignado al Role Center |
+
+El Role Center incluye accesos directos a todas las páginas del módulo organizados en secciones: Social Credit, Clientes y Ventas.
+
+---
+
+### Ej. 14 — PolyMarket Live
+
+Mercados de predicción en tiempo real integrados directamente en BC.
+
+- Carga los 48 mercados con mayor volumen desde la API pública de PolyMarket al abrir la página.
+- Lista nativa BC con columnas: mercado destacado, pregunta, categoría, probabilidad Sí/No, volumen y fecha de cierre.
+- **Coloración dinámica**: probabilidad ≥ 65 % → verde; 35–64 % → amarillo; < 35 % → rojo.
+- **Búsqueda en tiempo real** sobre el campo combinado pregunta + categoría.
+- Botón **"Recargar ahora"** para refrescar datos bajo demanda.
+- Implementado como página BC List nativa (sin ControlAddin) con `HttpClient` server-side y tabla temporal `PolyMarket Market`.
+
+---
+
+### Ej. 15 — Importación / Exportación bidireccional
+
+Sistema completo de importación y exportación de clientes con Social Credit automático.
+
+**Exportación** (4 formatos, todos los clientes):
+CSV · XML · JSON · Excel — incluyendo puntos, estado y rango SC.
+
+**Importación** (4 formatos):
+- Si el archivo **incluye** la columna de Social Credit → se aplica el valor del archivo.
+- Si el archivo **no incluye** Social Credit → se asignan **1 000 puntos por defecto**.
+- Si el cliente ya existe → se actualizan sus datos y se ajustan los puntos vía delta.
+- **Garantía de auditoría**: todo ajuste de SC pasa por `AdjustCustomerPoints` → queda en el log.
+
+**XMLport nativo** (`SC Customer Xmlport`, bidireccional):
+- `Direction = Both` — BC pregunta la dirección al ejecutar.
+- Triggers `OnBeforeInsertRecord` / `OnAfterInsertRecord` para nuevos clientes.
+- Triggers `OnBeforeModifyRecord` / `OnAfterModifyRecord` para existentes (calcula delta y llama `AdjustCustomerPoints`).
+
+Formatos soportados para importación manual:
+
+| Formato | Cabeceras / Estructura |
+|---------|----------------------|
+| CSV | `No.,Nombre,Ciudad,Telefono,Email,Social Credit` |
+| XML | `<Customers><Customer><No>…</No><Name>…</Name>…</Customer></Customers>` |
+| JSON | `[{"no":"…","name":"…","city":"…","socialCreditPoints":1000}]` |
+| Excel | Hoja llamada `"Clientes"`, cabeceras en fila 1 (orden flexible) |
+
+---
+
+### Ej. 16 — Test Suite (AL Test Codeunit)
+
+Suite de tests automatizados para validar el comportamiento del módulo.
+
+- **Codeunit 50149 `SC Test Suite`** con subtipo `Test`.
+- Usa `LibraryERM` para crear facturas reales (no inserciones directas en Cust. Ledger Entry).
+- Claves de cliente generadas con `CreateGuid()` para evitar colisiones entre tests.
+- Limpieza de datos en `OnAfterEach` con reversión de transacciones contables.
+
+Tests incluidos:
+- `TestAdjustPoints` — verifica que los puntos suben/bajan correctamente.
+- `TestMinimumPoints` — verifica que los puntos nunca bajan de 0.
+- `TestLogEntry` — verifica que cada ajuste deja entrada en el log.
+- `TestDeductMorosos` — verifica la penalización automática por facturas vencidas.
+
+---
+
+### Ej. 17 — Manifiesto AppSource (`app.json`)
+
+`app.json` configurado como si la extensión fuera a publicarse en AppSource.
+
+- `privacyStatement`, `EULA`, `help`, `url` → URLs de Arbentia.
+- `logo`, `screenshots` → rutas en `res/`.
+- Dependencias declaradas: **System Application** + **Base Application** (BC 27.0).
+- `resourceExposurePolicy`: descarga de fuentes desactivada.
+- `contextSensitiveHelpUrl` configurada.
+- `supportedLocales`: `["es-ES", "en-US"]`.
+- Feature `TranslationFile` activada para que el compilador genere el `.g.xlf`.
+
+---
+
+### Ej. 18 — Archivo de traducción (XLIFF)
+
+Archivo de traducción al inglés para todo el módulo.
+
+- **Formato**: XLIFF 1.2 (estándar de BC).
+- **Ruta**: `Translations/SocialCreditManagement.en-US.xlf`.
+- `source-language="es-ES"` (captions del código AL) → `target-language="en-US"`.
+
+Cobertura del archivo:
+
+| Objeto | Elementos traducidos |
+|--------|---------------------|
+| `Table 50102` Social Credit Log Entry | Caption de tabla + 9 campos (Entry No., Customer No., Name, Points Before/After, Change, DateTime, User ID, Reason) |
+| `TableExtension 50100` | Campos Social Credit Points y Social Credit Label |
+| `PermissionSet 50100` SC - Solo Lectura | Caption → "Read Only" |
+| `PermissionSet 50101` SC - Gestión | Caption → "Management" |
+| `Profile SC_ROLE_CENTER` | Caption + ProfileDescription |
+| `Page 50117` SC Role Center | Caption + todos los grupos, acciones y ToolTips |
+| `Page 50115` SC Cue Part | Caption + 4 cues con ToolTips |
+| `Page 50116` SC Headline Part | Caption |
+| `Page 50100` FactBox | Caption + 3 campos |
+| `Page 50101` Social Credit Adjust | Caption + grupos, campos, acciones y ToolTips |
+| `Page 50113` Extension SC (hub) | Caption + grupos + todas las acciones |
+| `Page 50119` SC Import Export | Caption + grupos + 9 acciones |
+| `XmlPort 50100` SC Customer Xmlport | Caption |
+| `Page 50118` PolyMarket Live | Caption + búsqueda + 2 acciones |
 
 ---
 
 ## Objetos AL
 
-| Objeto | Tipo | ID | Descripción |
-|--------|------|----|-------------|
-| `CustomerTableExt` | TableExtension | — | Añade `Social Credit Points`, `Social Credit Label` e índice `SocialCreditKey` a Customer |
-| `SocialCreditLogEntry` | Table | 50100 | Tabla de auditoría con todos los cambios de puntos |
-| `SC Report Line` | Table (Temporary) | 50103 | Tabla temporal para las líneas del ranking de Social Credit |
-| `SocialCreditMgt` | Codeunit | 50101 | Lógica central: estilos, etiquetas, rangos, log de cambios e inicialización |
-| `SocialCreditCheckSubscriber` | Codeunit | 50102 | Suscriptor de eventos para validaciones automáticas |
-| `InstallSocialCredit` | Codeunit | 50103 | Inicializa todos los clientes a 1000 puntos en la instalación |
-| `UpgradeSocialCredit` | Codeunit | 50104 | Sincroniza datos al republicar la extensión |
-| `SC Deduct Morosos` | Codeunit | 50106 | Job Queue nocturno: resta 50 pts a clientes con facturas vencidas |
-| `SC Overdue Notifier` | Codeunit | 50107 | Muestra notificaciones al abrir la lista de clientes si hay facturas vencidas |
-| `SC Export Mgt` | Codeunit | 50110 | Lógica de exportación en CSV, XML, JSON y Excel para clientes, proveedores e inventario |
-| `CustomerSocialCreditFactBox` | Page (CardPart) | — | Panel lateral con estado, rango y puntos del cliente seleccionado |
-| `SocialCreditAdjustPage` | Page | — | Panel para subir/bajar puntos con motivo |
-| `SocialCreditHistory` | Page | — | Historial completo de cambios de un cliente |
-| `Social Credit Report` | Page | 50105 | Ranking de todos los clientes ordenado por puntuación de Social Credit |
-| `SC Customer API` | Page (API) | 50108 | Endpoint REST de solo lectura para clientes con Social Credit |
-| `SC Invoice API` | Page (API) | 50109 | Endpoint REST de solo lectura para facturas de clientes |
-| `CustomerListExt` | PageExtension | 50100 | Icono, estado, barra de filtros, ordenación, FactBox y exportación |
-| `CustomerCardExt` | PageExtension | 50101 | Campos Social Credit en la ficha del cliente |
-| `CustomerLookupExt` | PageExtension | 50102 | Icono de estado en el lookup de selección de clientes |
-| `SalesOrderExt` | PageExtension | 50103 | Etiqueta de estado en pedidos de venta |
-| `SalesInvoiceExt` | PageExtension | 50105 | Etiqueta de estado en facturas de venta |
-| `SalesQuoteExt` | PageExtension | 50104 | Etiqueta de estado en presupuestos |
-| `SalesCreditMemoExt` | PageExtension | 50106 | Etiqueta de estado en abonos de venta |
-| `VendorListExt` | PageExtension | 50107 | Botón de exportación en la lista de proveedores |
-| `ItemListExt` | PageExtension | 50108 | Botón de exportación en la lista de artículos |
-| `SC - Solo Lectura` | PermissionSet | 50100 | Permisos de solo lectura para el módulo |
-| `SC - Gestión` | PermissionSet | 50101 | Permisos completos de gestión |
+### Tablas
 
----
+| ID | Nombre | Tipo | Descripción |
+|----|--------|------|-------------|
+| — (ext) | `Customer Social Credit Ext` | TableExtension | Añade `Social Credit Points`, `Social Credit Label` e índice `SocialCreditKey` a Customer |
+| 50102 | `Social Credit Log Entry` | Table | Auditoría de todos los cambios de puntos (Entry No., Customer, Points Before/After, Change, DateTime, User ID, Reason) |
+| 50103 | `SC Report Line` | Table (Temporary) | Líneas del ranking de Social Credit generadas en tiempo real |
+| 50104 | `SC Chat Setup` | Table | Almacena la API Key del chatbot (enmascarada) |
+| 50105 | `SC Cue` | Table | Tabla de Cues con FlowFields que cuentan clientes por rango |
+| 50106 | `SC Chat Line` | Table | Historial de mensajes del chatbot (rol + contenido) |
+| 50107 | `PolyMarket Market` | Table (Temporary) | Datos en memoria de los mercados de predicción cargados desde la API |
+| 50108 | `PolyMarket Setup` | Table | URL base de la API de PolyMarket |
 
-## Entorno
+### Codeunits
 
-- **BC Version:** Business Central 27.5 (ES Sandbox)
-- **AL Language Extension:** VS Code
-- **Docker:** contenedor local `bc-dev` con BcContainerHelper
-- **Publisher:** Arbentia
-- **ID Range:** 50100 – 50149
+| ID | Nombre | Descripción |
+|----|--------|-------------|
+| 50101 | `Social Credit Mgt` | Lógica central: `AdjustCustomerPoints`, `GetStyle/Label/Rank`, log, inicialización |
+| 50102 | `Social Credit Check Subscriber` | Suscriptor de eventos para validaciones SC en documentos de venta |
+| 50103 | `Install Social Credit` | Inicializa todos los clientes a 1 000 puntos en la instalación |
+| 50104 | `Upgrade Social Credit` | Sincroniza etiquetas al republicar la extensión |
+| 50106 | `SC Deduct Morosos` | Job Queue nocturno: resta 50 pts a clientes con facturas vencidas |
+| 50107 | `SC Overdue Notifier` | Notificaciones de facturas vencidas al abrir la lista de clientes |
+| 50108 | `SC Chat Mgt` | Lógica del chatbot: llamada a la API de IA, gestión del historial |
+| 50110 | `SC Export Mgt` | Exportación e importación de clientes/proveedores/artículos en CSV, XML, JSON y Excel |
+| 50149 | `SC Test Suite` | Test codeunit con casos de prueba para el módulo SC |
+
+### Páginas propias
+
+| ID | Nombre | Tipo | Descripción |
+|----|--------|------|-------------|
+| 50100 | `Customer Social Credit FactBox` | CardPart | FactBox con puntos, estado y rango en la ficha de cliente |
+| 50101 | `Social Credit Adjust` | Card | Ajuste manual de puntos con motivo |
+| 50102 | `Social Credit History` | List | Historial del log de cambios de Social Credit |
+| 50103 | `SC Sel Cust Part` | ListPart | Parte de selección de cliente para el ajuste |
+| 50105 | `Social Credit Report` | List | Ranking de todos los clientes por puntuación |
+| 50108 | `SC Customer API` | API | Endpoint REST de solo lectura para clientes |
+| 50109 | `SC Invoice API` | API | Endpoint REST de solo lectura para facturas |
+| 50110 | `SC Chat Lines` | ListPart | Burbuja de mensajes del chatbot |
+| 50111 | `SC Chat` | Card | Chatbot con IA para consultas sobre Social Credit |
+| 50112 | `SC Chat Setup Page` | NavigatePage | Configuración de la API Key del chatbot |
+| 50113 | `Extension SC` | Card | Hub central de la extensión con todos los accesos |
+| 50114 | `SC Slider` | Card | Ajuste de puntos con slider JavaScript interactivo |
+| 50115 | `SC Cue Part` | CardPart | 4 KPIs por rango de clientes (FlowFields) |
+| 50116 | `SC Headline Part` | HeadlinePart | Peor cliente y media de puntos de todos los clientes |
+| 50117 | `SC Role Center` | RoleCenter | Dashboard principal del módulo SC |
+| 50118 | `PolyMarket` | List | Mercados de predicción en tiempo real desde la API de PolyMarket |
+| 50119 | `SC Import Export` | Card | Importación y exportación de clientes en CSV, XML, JSON y Excel |
+
+### PageExtensions sobre páginas estándar de BC
+
+| ID | Nombre | Extiende | Añade |
+|----|--------|----------|-------|
+| 50100 | `Customer List Social Credit` | Customer List | Columna de puntos y estado SC |
+| 50101 | `Customer Card Social Credit` | Customer Card | FactBox SC y acción de ajuste |
+| 50102 | `Customer Lookup Social Credit` | Customer Lookup | Columna de estado en búsqueda |
+| 50103 | `Sales Order Social Credit` | Sales Order | Validación SC al seleccionar cliente |
+| 50104 | `Sales Quote Social Credit` | Sales Quote | Validación SC al seleccionar cliente |
+| 50105 | `Sales Invoice Social Credit` | Sales Invoice | Validación SC al seleccionar cliente |
+| 50106 | `Sales Cr. Memo Social Credit` | Sales Credit Memo | Validación SC al seleccionar cliente |
+| 50107 | `Vendor List Export` | Vendor List | Acción de exportación |
+| 50108 | `Item List Export` | Item List | Acción de exportación |
+
+### Otros objetos
+
+| ID | Nombre | Tipo | Descripción |
+|----|--------|------|-------------|
+| 50100 | `SC - Solo Lectura` | PermissionSet | Acceso de solo lectura al módulo |
+| 50101 | `SC - Gestión` | PermissionSet | Acceso completo de gestión |
+| 50100 | `SC Customer Xmlport` | XmlPort | Exportación/importación bidireccional de clientes en XML con log SC garantizado |
+| — | `SC_ROLE_CENTER` | Profile | Perfil "Gestor Social Credit" asignado al Role Center SC |
 
 ---
 
 ## Estructura del proyecto
 
 ```
-src/
-├── Codeunit/
-│   ├── InstallSocialCredit.Codeunit.al
-│   ├── UpgradeSocialCredit.Codeunit.al
-│   ├── SocialCreditMgt.Codeunit.al
-│   ├── SocialCreditCheckSubscriber.Codeunit.al
-│   ├── SCDeductMorosos.Codeunit.al          ← job queue penalización morosos
-│   ├── SCOverdueNotifier.Codeunit.al        ← notificaciones facturas vencidas
-│   └── SCExportMgt.Codeunit.al              ← exportación CSV/XML/JSON/Excel
-├── Page/
-│   ├── CustomerSocialCreditFactBox.Page.al
-│   ├── SocialCreditAdjustPage.Page.al
-│   ├── SocialCreditHistoryChart.Page.al
-│   ├── SocialCreditSelCustPart.Page.al
-│   ├── SocialCreditReport.Page.al           ← ranking de clientes
-│   ├── SCCustomerAPI.Page.al                ← API REST clientes
-│   └── SCInvoiceAPI.Page.al                 ← API REST facturas
-├── PageExtension/
-│   ├── CustomerListExt.PageExt.al           ← filtros, ordenación, exportación
-│   ├── CustomerCardExt.PageExt.al
-│   ├── CustomerLookupExt.PageExt.al
-│   ├── SalesOrderExt.PageExt.al
-│   ├── SalesInvoiceExt.PageExt.al
-│   ├── SalesQuoteExt.PageExt.al
-│   ├── SalesCreditMemoExt.PageExt.al
-│   ├── VendorListExt.PageExt.al             ← exportación proveedores
-│   └── ItemListExt.PageExt.al               ← exportación inventario
-├── PermissionSet/
-│   ├── SCSoloLectura.PermissionSet.al
-│   └── SCGestion.PermissionSet.al
-├── Table/
-│   └── SocialCreditReportLine.Table.al      ← tabla temporal para el ranking
-└── TableExtension/
-    └── CustomerTableExt.TableExt.al         ← índice SocialCreditKey
+AL/
+├── app.json                              ← Manifiesto AppSource (BC 27, es-ES + en-US)
+├── Translations/
+│   └── SocialCreditManagement.en-US.xlf ← Traducción completa al inglés (XLIFF 1.2)
+├── src/
+│   ├── Codeunit/
+│   │   ├── SocialCreditMgt.Codeunit.al           ← Lógica central (AdjustCustomerPoints)
+│   │   ├── SocialCreditCheckSubscriber.Codeunit.al
+│   │   ├── InstallSocialCredit.Codeunit.al
+│   │   ├── UpgradeSocialCredit.Codeunit.al
+│   │   ├── SCDeductMorosos.Codeunit.al            ← Job Queue morosos
+│   │   ├── SCOverdueNotifier.Codeunit.al
+│   │   ├── SCChatMgt.Codeunit.al                  ← Chatbot IA
+│   │   ├── SCExportMgt.Codeunit.al                ← Export + Import CSV/XML/JSON/Excel
+│   │   └── SCTestSuite.Codeunit.al                ← Test suite
+│   ├── ControlAddin/
+│   │   ├── SCSliderAddin.ControlAddin.al          ← Slider JavaScript
+│   │   ├── PMAddin.ControlAddin.al
+│   │   └── js/
+│   │       └── pm.js
+│   ├── Page/
+│   │   ├── CustomerSocialCreditFactBox.Page.al
+│   │   ├── SocialCreditAdjustPage.Page.al
+│   │   ├── SocialCreditHistoryChart.Page.al
+│   │   ├── SocialCreditSelCustPart.Page.al
+│   │   ├── SocialCreditReport.Page.al
+│   │   ├── SCCustomerAPI.Page.al
+│   │   ├── SCInvoiceAPI.Page.al
+│   │   ├── SCChatLines.Page.al
+│   │   ├── SCChat.Page.al
+│   │   ├── SCChatSetupPage.Page.al
+│   │   ├── ExtensionSC.Page.al                    ← Hub central (50113)
+│   │   ├── SCSliderPage.Page.al
+│   │   ├── SCCuePart.Page.al
+│   │   ├── SCHeadlinePart.Page.al
+│   │   ├── SCRoleCenter.Page.al
+│   │   ├── PolyMarketPage.Page.al
+│   │   └── SCImportExport.Page.al
+│   ├── PageExtension/
+│   │   ├── CustomerListExt.PageExt.al
+│   │   ├── CustomerCardExt.PageExt.al
+│   │   ├── CustomerLookupExt.PageExt.al
+│   │   ├── SalesOrderExt.PageExt.al
+│   │   ├── SalesQuoteExt.PageExt.al
+│   │   ├── SalesInvoiceExt.PageExt.al
+│   │   ├── SalesCreditMemoExt.PageExt.al
+│   │   ├── VendorListExt.PageExt.al
+│   │   └── ItemListExt.PageExt.al
+│   ├── PermissionSet/
+│   │   ├── SCSoloLectura.PermissionSet.al
+│   │   └── SCGestion.PermissionSet.al
+│   ├── Profile/
+│   │   └── SCProfile.Profile.al
+│   ├── Report/
+│   │   └── SocialCreditReport.Report.al           ← RDLC report
+│   ├── Table/
+│   │   ├── SocialCreditLogEntry.Table.al           ← Log de auditoría
+│   │   ├── SocialCreditReportLine.Table.al
+│   │   ├── SCChatSetup.Table.al
+│   │   ├── SCChatLine.Table.al
+│   │   ├── SCCue.Table.al
+│   │   ├── PolyMarketSetup.Table.al
+│   │   └── PolyMarketMarket.Table.al
+│   ├── TableExtension/
+│   │   └── CustomerTableExt.TableExt.al
+│   └── Xmlport/
+│       └── SCCustomerXmlport.Xmlport.al            ← Bidireccional, log garantizado
+└── res/
+    ├── logo.png
+    └── screenshots/
+        ├── 01-role-center.png
+        ├── 02-customer-list.png
+        ├── 03-adjust-points.png
+        ├── 04-history.png
+        └── 05-sales-order-warning.png
 ```
 
 ---
 
-## Próximos módulos (ideas)
+## Entorno y requisitos
 
-- [x] Historial de cambios de Social Credit con log de auditoría
-- [x] Acciones para sumar/restar puntos con motivo
-- [x] Filtros y ordenación por nivel en la lista de clientes
-- [x] Reportes de ranking de clientes por Social Credit
-- [x] Job Queue nocturno: penalización automática por facturas vencidas
-- [x] Notificaciones de facturas vencidas al abrir la lista de clientes
-- [x] API REST de solo lectura para clientes y facturas
-- [x] Exportación en CSV, XML, JSON y Excel para clientes, proveedores e inventario
-- [ ] Alertas automáticas cuando un cliente baja de 500 puntos
-- [ ] Integración con pedidos: penalización automática por pagos tardíos
-- [ ] Y lo que se me vaya ocurriendo...
+| | |
+|---|---|
+| **BC Version** | Business Central 27.5 (ES Sandbox) |
+| **Runtime** | AL 13.0 |
+| **Target** | Cloud (SaaS) |
+| **Publisher** | Arbentia |
+| **ID Range** | 50100 – 50149 |
+| **Idiomas** | es-ES (base), en-US (traducción XLIFF) |
+| **Features** | `NoImplicitWith`, `TranslationFile` |
 
 ---
 
-## Cómo usar en tu entorno
+## Cómo publicar la extensión
 
 ### Requisitos previos
-- [Visual Studio Code](https://code.visualstudio.com/)
-- Extensión [AL Language](https://marketplace.visualstudio.com/items?itemName=ms-dynamics-smb.al) instalada en VS Code
+
+- [Visual Studio Code](https://code.visualstudio.com/) con la extensión [AL Language](https://marketplace.visualstudio.com/items?itemName=ms-dynamics-smb.al)
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) en modo **Windows Containers**
-- PowerShell con el módulo `BcContainerHelper`:
+- PowerShell con `BcContainerHelper`:
   ```powershell
   Install-Module BcContainerHelper -Force
   ```
 
-### Pasos
+### 1. Clonar el repositorio
 
-**1. Clona el repo**
 ```bash
 git clone https://github.com/ZabaHD4K/PruebasAl.git
 cd PruebasAl
 ```
 
-**2. Crea un contenedor BC local**
+### 2. Crear un contenedor BC local
 
-Abre PowerShell como Administrador y ejecuta:
 ```powershell
 Import-Module BcContainerHelper
 
@@ -281,24 +512,55 @@ New-BcContainer `
     -includeAL `
     -memoryLimit 8G
 ```
-> La primera vez tarda ~15-20 min descargando la imagen. Solo hay que hacerlo una vez.
 
-**3. Abre el proyecto en VS Code**
-```bash
-code .
+> La primera vez tarda ~15–20 min descargando la imagen. Solo hay que hacerlo una vez.
+
+### 3. Descargar símbolos y publicar
+
+```
+Ctrl+Shift+P → AL: Download Symbols
 ```
 
-**4. Descarga los símbolos**
+Introduce usuario `admin` y la contraseña elegida, luego:
 
-`Ctrl+Shift+P` → **AL: Download Symbols** → introduce usuario `admin` y la contraseña que elegiste.
+```
+F5  →  BC se abre en el navegador con la extensión activa
+```
 
-**5. Publica y prueba**
+> Si los clientes no muestran puntos de Social Credit, abre la lista de clientes y pulsa **Extension SC → Ajustar puntos** para inicializarlos.
 
-`F5` — BC se abrirá en el navegador con la extensión activa.
+### 4. Configurar el chatbot (opcional)
 
-> Si los clientes no muestran puntos de Social Credit, ve a la lista de clientes y pulsa **Ajustar Social Credit** → los datos se inicializarán automáticamente.
+Abre la página **Chat IA**, pega tu API Key de [OpenRouter](https://openrouter.ai) y pulsa **Guardar**. La clave queda almacenada de forma segura en `SC Chat Setup`.
 
-### Notas
-- El `launch.json` ya apunta a `http://bc-dev` — si usas otro nombre de contenedor, cámbialo ahí
-- BC version usada: **27.5 ES Sandbox**
-- ID range de la extensión: **50100 – 50149**
+### 5. Configurar el Job Queue (opcional)
+
+Para activar la penalización nocturna por morosos:
+
+1. Busca **Job Queue Entries** → New
+2. `Object Type to Run` = Codeunit, `Object ID` = **50106**
+3. Marca todos los días, `Starting Time` = `00:00:00`
+4. Estado → **Ready**
+
+---
+
+## Checklist de ejercicios
+
+- [x] Ej. 1 — Social Credit básico (tabla ext, codeunit, FactBox, Customer List/Card)
+- [x] Ej. 2 — Filtros y ordenación en la lista de clientes
+- [x] Ej. 3 — Social Credit Report (ranking temporal)
+- [x] Ej. 4 — Log de auditoría (Social Credit Log Entry)
+- [x] Ej. 5 — Job Queue: penalización automática por morosos
+- [x] Ej. 6 — Notificaciones de facturas vencidas
+- [x] Ej. 7 — Validación SC en documentos de venta (pedido, factura, oferta, abono)
+- [x] Ej. 8 — API REST (clientes + facturas, solo lectura)
+- [x] Ej. 9 — Exportación CSV / XML / JSON / Excel
+- [x] Ej. 10 — Permission Sets (Solo Lectura + Gestión)
+- [x] Ej. 11 — Chatbot con IA (OpenRouter / OpenAI)
+- [x] Ej. 12 — Slider JavaScript (Control Add-in)
+- [x] Ej. 13 — Role Center, Cues, Headlines y Profile
+- [x] Ej. 14 — PolyMarket Live (API externa, tabla temporal, lista nativa BC)
+- [x] Ej. 15 — Importación bidireccional CSV / XML / JSON / Excel + XMLport nativo
+- [x] Ej. 16 — Test Suite (AL Test Codeunit con LibraryERM)
+- [x] Ej. 17 — Manifiesto AppSource completo (`app.json`)
+- [x] Ej. 18 — Archivo de traducción XLIFF 1.2 (en-US)

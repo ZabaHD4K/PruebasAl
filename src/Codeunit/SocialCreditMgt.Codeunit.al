@@ -1,45 +1,71 @@
 codeunit 50101 "Social Credit Mgt"
 {
-    procedure GetStyle(Points: Integer): Text
+    /// <summary>
+    /// Devuelve el valor del enum "SC Rank" para los puntos dados.
+    /// Delega en el proveedor activo — por defecto "SC Default Rank Provider",
+    /// sustituible por extensiones vía OnGetRankProvider.
+    /// </summary>
+    procedure GetSCRank(Points: Integer): Enum "SC Rank"
     begin
-        case true of
-            Points >= 1500:
-                exit('Favorable');
-            Points >= 1000:
-                exit('StandardAccent');
-            Points >= 500:
-                exit('Attention');
-            else
-                exit('Unfavorable');
-        end;
+        exit(GetRankProvider().GetRank(Points));
+    end;
+
+    procedure GetStyle(Points: Integer): Text
+    var
+        Provider: Interface "ISC Rank Provider";
+    begin
+        Provider := GetRankProvider();
+        exit(Provider.GetStyle(Provider.GetRank(Points)));
     end;
 
     procedure GetLabel(Points: Integer): Text[50]
+    var
+        Provider: Interface "ISC Rank Provider";
     begin
-        case true of
-            Points >= 1500:
-                exit('🟢 (' + Format(Points) + ')');
-            Points >= 1000:
-                exit('🔵 (' + Format(Points) + ')');
-            Points >= 500:
-                exit('🟡 (' + Format(Points) + ')');
-            else
-                exit('🔴 (' + Format(Points) + ')');
-        end;
+        Provider := GetRankProvider();
+        exit(Provider.GetLabel(Provider.GetRank(Points), Points));
     end;
 
+    /// <summary>
+    /// Devuelve el nombre legible del rango.
+    /// Usa Format(enum) para obtener el Caption del valor — de este modo
+    /// cualquier enumextension con su propio Caption queda automáticamente soportado.
+    /// </summary>
     procedure GetRank(Points: Integer): Text[50]
     begin
-        case true of
-            Points >= 1500:
-                exit('Ciudadano Ejemplar');
-            Points >= 1000:
-                exit('Ciudadano Normal');
-            Points >= 500:
-                exit('Bajo Supervision');
-            else
-                exit('Lista Negra');
-        end;
+        exit(CopyStr(Format(GetRankProvider().GetRank(Points)), 1, 50));
+    end;
+
+    /// <summary>
+    /// Punto de extensión: permite a otras extensiones sustituir el proveedor
+    /// de rangos completo sin modificar este codeunit.
+    ///
+    /// Uso:
+    ///   [EventSubscriber(ObjectType::Codeunit, Codeunit::"Social Credit Mgt",
+    ///                    'OnGetRankProvider', '', false, false)]
+    ///   local procedure MyProviderSubscriber(
+    ///       var Provider: Interface "ISC Rank Provider"; var IsHandled: Boolean)
+    ///   var
+    ///       MyProvider: Codeunit "My Rank Provider";
+    ///   begin
+    ///       Provider := MyProvider;
+    ///       IsHandled := true;
+    ///   end;
+    /// </summary>
+    [IntegrationEvent(false, false)]
+    procedure OnGetRankProvider(var Provider: Interface "ISC Rank Provider"; var IsHandled: Boolean)
+    begin
+    end;
+
+    local procedure GetRankProvider(): Interface "ISC Rank Provider"
+    var
+        DefaultProvider: Codeunit "SC Default Rank Provider";
+        Provider: Interface "ISC Rank Provider";
+        IsHandled: Boolean;
+    begin
+        Provider := DefaultProvider;
+        OnGetRankProvider(Provider, IsHandled);
+        exit(Provider);
     end;
 
     procedure GetCustomerLabel(CustomerNo: Code[20]): Text[50]
@@ -48,6 +74,7 @@ codeunit 50101 "Social Credit Mgt"
     begin
         if CustomerNo = '' then
             exit('');
+        Customer.SetLoadFields("Social Credit Points");
         if not Customer.Get(CustomerNo) then
             exit('');
         exit(GetLabel(Customer."Social Credit Points"));
@@ -57,6 +84,7 @@ codeunit 50101 "Social Credit Mgt"
     var
         Customer: Record Customer;
     begin
+        Customer.SetLoadFields("No.", "Social Credit Points", "Social Credit Label");
         if not Customer.FindSet(true) then
             exit;
         repeat
@@ -73,6 +101,7 @@ codeunit 50101 "Social Credit Mgt"
     begin
         if CustomerNo = '' then
             exit('');
+        Customer.SetLoadFields("Social Credit Points");
         if not Customer.Get(CustomerNo) then
             exit('');
         exit(GetStyle(Customer."Social Credit Points"));
@@ -83,6 +112,7 @@ codeunit 50101 "Social Credit Mgt"
         Customer: Record Customer;
         PointsBefore: Integer;
     begin
+        Customer.SetLoadFields("No.", Name, "Social Credit Points", "Social Credit Label");
         Customer.Get(CustomerNo);
         PointsBefore := Customer."Social Credit Points";
         if PointsBefore + Delta < 0 then

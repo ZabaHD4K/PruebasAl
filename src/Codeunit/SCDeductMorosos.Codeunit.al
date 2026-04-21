@@ -9,6 +9,7 @@ codeunit 50106 "SC Deduct Morosos"
         Processed: Integer;
         Errors: Integer;
     begin
+        Customer.SetLoadFields("No.");
         if not Customer.FindSet(true) then
             exit;
 

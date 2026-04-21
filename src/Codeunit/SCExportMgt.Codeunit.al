@@ -9,6 +9,7 @@ codeunit 50110 "SC Export Mgt"
         Customer: Record Customer;
         Content: TextBuilder;
     begin
+        Customer.SetLoadFields("No.", Name, City, "Phone No.", "E-Mail", "Social Credit Points", "Social Credit Label");
         if not Customer.FindSet() then begin
             Message('No hay clientes para exportar.');
             exit;
@@ -34,6 +35,7 @@ codeunit 50110 "SC Export Mgt"
         Customer: Record Customer;
         Root: XmlElement;
     begin
+        Customer.SetLoadFields("No.", Name, City, "Phone No.", "E-Mail", "Social Credit Points", "Social Credit Label");
         if not Customer.FindSet() then begin
             Message('No hay clientes para exportar.');
             exit;
@@ -53,6 +55,7 @@ codeunit 50110 "SC Export Mgt"
         JsonObj: JsonObject;
         JsonTxt: Text;
     begin
+        Customer.SetLoadFields("No.", Name, City, "Phone No.", "E-Mail", "Social Credit Points", "Social Credit Label");
         if not Customer.FindSet() then begin
             Message('No hay clientes para exportar.');
             exit;
@@ -82,6 +85,7 @@ codeunit 50110 "SC Export Mgt"
         Customer: Record Customer;
         ExcelBuffer: Record "Excel Buffer" temporary;
     begin
+        Customer.SetLoadFields("No.", Name, City, "Phone No.", "E-Mail", "Social Credit Points", "Social Credit Label");
         if not Customer.FindSet() then begin
             Message('No hay clientes para exportar.');
             exit;
@@ -120,6 +124,7 @@ codeunit 50110 "SC Export Mgt"
         Vendor: Record Vendor;
         Content: TextBuilder;
     begin
+        Vendor.SetLoadFields("No.", Name, City, "Phone No.", "E-Mail", "Payment Terms Code");
         if not Vendor.FindSet() then begin
             Message('No hay proveedores para exportar.');
             exit;
@@ -145,6 +150,7 @@ codeunit 50110 "SC Export Mgt"
         Vendor: Record Vendor;
         Root: XmlElement;
     begin
+        Vendor.SetLoadFields("No.", Name, City, "Phone No.", "E-Mail", "Payment Terms Code");
         if not Vendor.FindSet() then begin
             Message('No hay proveedores para exportar.');
             exit;
@@ -165,6 +171,7 @@ codeunit 50110 "SC Export Mgt"
         JsonObj: JsonObject;
         JsonTxt: Text;
     begin
+        Vendor.SetLoadFields("No.", Name, City, "Phone No.", "E-Mail", "Payment Terms Code");
         if not Vendor.FindSet() then begin
             Message('No hay proveedores para exportar.');
             exit;
@@ -194,6 +201,7 @@ codeunit 50110 "SC Export Mgt"
         Vendor: Record Vendor;
         ExcelBuffer: Record "Excel Buffer" temporary;
     begin
+        Vendor.SetLoadFields("No.", Name, City, "Phone No.", "E-Mail", "Payment Terms Code");
         if not Vendor.FindSet() then begin
             Message('No hay proveedores para exportar.');
             exit;
@@ -231,6 +239,7 @@ codeunit 50110 "SC Export Mgt"
         Item: Record Item;
         Content: TextBuilder;
     begin
+        Item.SetLoadFields("No.", Description, "Unit Price", "Unit Cost", "Item Category Code", "Base Unit of Measure");
         if not Item.FindSet() then begin
             Message('No hay artículos para exportar.');
             exit;
@@ -256,6 +265,7 @@ codeunit 50110 "SC Export Mgt"
         Item: Record Item;
         Root: XmlElement;
     begin
+        Item.SetLoadFields("No.", Description, "Unit Price", "Unit Cost", "Item Category Code", "Base Unit of Measure");
         if not Item.FindSet() then begin
             Message('No hay artículos para exportar.');
             exit;
@@ -276,6 +286,7 @@ codeunit 50110 "SC Export Mgt"
         JsonObj: JsonObject;
         JsonTxt: Text;
     begin
+        Item.SetLoadFields("No.", Description, "Unit Price", "Unit Cost", "Item Category Code", "Base Unit of Measure");
         if not Item.FindSet() then begin
             Message('No hay artículos para exportar.');
             exit;
@@ -305,6 +316,7 @@ codeunit 50110 "SC Export Mgt"
         Item: Record Item;
         ExcelBuffer: Record "Excel Buffer" temporary;
     begin
+        Item.SetLoadFields("No.", Description, "Unit Price", "Unit Cost", "Item Category Code", "Base Unit of Measure");
         if not Item.FindSet() then begin
             Message('No hay artículos para exportar.');
             exit;
@@ -465,6 +477,399 @@ codeunit 50110 "SC Export Mgt"
     local procedure AddExcelCell(var ExcelBuffer: Record "Excel Buffer"; CellValue: Text)
     begin
         ExcelBuffer.AddColumn(CellValue, false, '', false, false, false, '', ExcelBuffer."Cell Type"::Text);
+    end;
+
+    // ══════════════════════════════════════════
+    //  IMPORTAR CLIENTES
+    // ══════════════════════════════════════════
+
+    procedure ImportCustomersFromCSV()
+    var
+        InStr: InStream;
+        FileName: Text;
+        Line: Text;
+        Fields: array[10] of Text;
+        FieldCount: Integer;
+        IsHeader: Boolean;
+        Imported: Integer;
+        Errors: Integer;
+        Points: Integer;
+        Cr: Char;
+        Lf: Char;
+    begin
+        Cr := 13;
+        Lf := 10;
+        if not UploadIntoStream('Importar clientes (CSV)', '', 'CSV Files (*.csv)|*.csv', FileName, InStr) then
+            exit;
+
+        IsHeader := true;
+        Imported := 0;
+        Errors := 0;
+
+        while not InStr.EOS() do begin
+            InStr.ReadText(Line);
+            Line := DelChr(Line, '>', Cr);
+            Line := DelChr(Line, '>', Lf);
+            if Line = '' then
+                continue;
+            if IsHeader then begin
+                IsHeader := false;
+                continue;
+            end;
+
+            ParseCsvLine(Line, Fields, FieldCount);
+            if FieldCount < 2 then begin
+                Errors += 1;
+                continue;
+            end;
+
+            Points := -1;
+            if (FieldCount >= 6) and (Fields[6] <> '') then
+                if not Evaluate(Points, Fields[6]) then
+                    Points := -1;
+
+            if ProcessImportedCustomer(
+                CopyStr(Fields[1], 1, 20),
+                CopyStr(Fields[2], 1, 100),
+                CopyStr(Fields[3], 1, 30),
+                CopyStr(Fields[4], 1, 30),
+                CopyStr(Fields[5], 1, 80),
+                Points)
+            then
+                Imported += 1
+            else
+                Errors += 1;
+        end;
+
+        Message('%1 clientes importados correctamente. %2 filas omitidas.', Imported, Errors);
+    end;
+
+    procedure ImportCustomersFromXML()
+    var
+        InStr: InStream;
+        FileName: Text;
+        ContentBuf: TextBuilder;
+        Line: Text;
+        XmlDoc: XmlDocument;
+        RootElem: XmlElement;
+        CustomerNodes: XmlNodeList;
+        CustomerNode: XmlNode;
+        CustElem: XmlElement;
+        TempNode: XmlNode;
+        Imported: Integer;
+        Errors: Integer;
+        No: Code[20];
+        Name: Text[100];
+        City: Text[30];
+        Phone: Text[30];
+        Email: Text[80];
+        Points: Integer;
+        PointsText: Text;
+    begin
+        if not UploadIntoStream('Importar clientes (XML)', '', 'XML Files (*.xml)|*.xml', FileName, InStr) then
+            exit;
+
+        while not InStr.EOS() do begin
+            InStr.ReadText(Line);
+            ContentBuf.Append(Line);
+        end;
+
+        if not XmlDocument.ReadFrom(ContentBuf.ToText(), XmlDoc) then begin
+            Message('El archivo XML no tiene un formato válido.');
+            exit;
+        end;
+
+        XmlDoc.GetRoot(RootElem);
+        if not RootElem.SelectNodes('Customer', CustomerNodes) then begin
+            Message('No se encontraron elementos <Customer> en el XML.');
+            exit;
+        end;
+
+        Imported := 0;
+        Errors := 0;
+
+        foreach CustomerNode in CustomerNodes do begin
+            CustElem := CustomerNode.AsXmlElement();
+            No := '';
+            Name := '';
+            City := '';
+            Phone := '';
+            Email := '';
+            Points := -1;
+
+            if CustElem.SelectSingleNode('No', TempNode) then
+                No := CopyStr(TempNode.AsXmlElement().InnerText(), 1, 20);
+            if CustElem.SelectSingleNode('Name', TempNode) then
+                Name := CopyStr(TempNode.AsXmlElement().InnerText(), 1, 100);
+            if CustElem.SelectSingleNode('City', TempNode) then
+                City := CopyStr(TempNode.AsXmlElement().InnerText(), 1, 30);
+            if CustElem.SelectSingleNode('Phone', TempNode) then
+                Phone := CopyStr(TempNode.AsXmlElement().InnerText(), 1, 30);
+            if CustElem.SelectSingleNode('Email', TempNode) then
+                Email := CopyStr(TempNode.AsXmlElement().InnerText(), 1, 80);
+            if CustElem.SelectSingleNode('SocialCreditPoints', TempNode) then begin
+                PointsText := TempNode.AsXmlElement().InnerText();
+                if PointsText <> '' then
+                    if not Evaluate(Points, PointsText) then
+                        Points := -1;
+            end;
+
+            if ProcessImportedCustomer(No, Name, City, Phone, Email, Points) then
+                Imported += 1
+            else
+                Errors += 1;
+        end;
+
+        Message('%1 clientes importados correctamente. %2 filas omitidas.', Imported, Errors);
+    end;
+
+    procedure ImportCustomersFromJSON()
+    var
+        InStr: InStream;
+        FileName: Text;
+        ContentBuf: TextBuilder;
+        Line: Text;
+        JArr: JsonArray;
+        JToken: JsonToken;
+        JObj: JsonObject;
+        JVal: JsonToken;
+        Imported: Integer;
+        Errors: Integer;
+        No: Code[20];
+        Name: Text[100];
+        City: Text[30];
+        Phone: Text[30];
+        Email: Text[80];
+        Points: Integer;
+    begin
+        if not UploadIntoStream('Importar clientes (JSON)', '', 'JSON Files (*.json)|*.json', FileName, InStr) then
+            exit;
+
+        while not InStr.EOS() do begin
+            InStr.ReadText(Line);
+            ContentBuf.Append(Line);
+        end;
+
+        if not JArr.ReadFrom(ContentBuf.ToText()) then begin
+            Message('El archivo JSON no tiene un formato válido (se espera un array [ ]).');
+            exit;
+        end;
+
+        Imported := 0;
+        Errors := 0;
+
+        foreach JToken in JArr do begin
+            JObj := JToken.AsObject();
+            No := '';
+            Name := '';
+            City := '';
+            Phone := '';
+            Email := '';
+            Points := -1;
+
+            if JObj.Get('no', JVal) then
+                No := CopyStr(JVal.AsValue().AsText(), 1, 20);
+            if JObj.Get('name', JVal) then
+                Name := CopyStr(JVal.AsValue().AsText(), 1, 100);
+            if JObj.Get('city', JVal) then
+                City := CopyStr(JVal.AsValue().AsText(), 1, 30);
+            if JObj.Get('phone', JVal) then
+                Phone := CopyStr(JVal.AsValue().AsText(), 1, 30);
+            if JObj.Get('email', JVal) then
+                Email := CopyStr(JVal.AsValue().AsText(), 1, 80);
+            if JObj.Get('socialCreditPoints', JVal) then
+                Points := JVal.AsValue().AsInteger();
+
+            if ProcessImportedCustomer(No, Name, City, Phone, Email, Points) then
+                Imported += 1
+            else
+                Errors += 1;
+        end;
+
+        Message('%1 clientes importados correctamente. %2 filas omitidas.', Imported, Errors);
+    end;
+
+    procedure ImportCustomersFromXLS()
+    var
+        ExcelBuffer: Record "Excel Buffer" temporary;
+        InStr: InStream;
+        FileName: Text;
+        MaxRow: Integer;
+        Row: Integer;
+        Col: Integer;
+        NoCol: Integer;
+        NameCol: Integer;
+        CityCol: Integer;
+        PhoneCol: Integer;
+        EmailCol: Integer;
+        PointsCol: Integer;
+        Header: Text;
+        Imported: Integer;
+        Errors: Integer;
+        No: Code[20];
+        Name: Text[100];
+        City: Text[30];
+        Phone: Text[30];
+        Email: Text[80];
+        Points: Integer;
+    begin
+        if not UploadIntoStream('Importar clientes (Excel)', '', 'Excel Files (*.xlsx)|*.xlsx', FileName, InStr) then
+            exit;
+
+        ExcelBuffer.DeleteAll();
+        ExcelBuffer.OpenBookStream(InStr, 'Clientes');
+        ExcelBuffer.ReadSheet();
+
+        // Detectar columnas por cabecera (flexible ante reordenaciones)
+        NoCol := 1; NameCol := 2; CityCol := 3;
+        PhoneCol := 4; EmailCol := 5; PointsCol := 6;
+
+        for Col := 1 to 10 do
+            if ExcelBuffer.Get(1, Col) then begin
+                Header := ExcelBuffer."Cell Value as Text";
+                case Header of
+                    'No.':           NoCol := Col;
+                    'Nombre':        NameCol := Col;
+                    'Ciudad':        CityCol := Col;
+                    'Telefono':      PhoneCol := Col;
+                    'Email':         EmailCol := Col;
+                    'Social Credit': PointsCol := Col;
+                end;
+            end;
+
+        MaxRow := 0;
+        if ExcelBuffer.FindLast() then
+            MaxRow := ExcelBuffer."Row No.";
+
+        Imported := 0;
+        Errors := 0;
+
+        for Row := 2 to MaxRow do begin
+            No := '';
+            Name := '';
+            City := '';
+            Phone := '';
+            Email := '';
+            Points := -1;
+
+            if ExcelBuffer.Get(Row, NoCol) then
+                No := CopyStr(ExcelBuffer."Cell Value as Text", 1, 20);
+            if ExcelBuffer.Get(Row, NameCol) then
+                Name := CopyStr(ExcelBuffer."Cell Value as Text", 1, 100);
+            if ExcelBuffer.Get(Row, CityCol) then
+                City := CopyStr(ExcelBuffer."Cell Value as Text", 1, 30);
+            if ExcelBuffer.Get(Row, PhoneCol) then
+                Phone := CopyStr(ExcelBuffer."Cell Value as Text", 1, 30);
+            if ExcelBuffer.Get(Row, EmailCol) then
+                Email := CopyStr(ExcelBuffer."Cell Value as Text", 1, 80);
+            if ExcelBuffer.Get(Row, PointsCol) then
+                if not Evaluate(Points, ExcelBuffer."Cell Value as Text") then
+                    Points := -1;
+
+            if ProcessImportedCustomer(No, Name, City, Phone, Email, Points) then
+                Imported += 1
+            else
+                Errors += 1;
+        end;
+
+        Message('%1 clientes importados correctamente. %2 filas omitidas.', Imported, Errors);
+    end;
+
+    // ══════════════════════════════════════════
+    //  HELPERS PRIVADOS — IMPORTACIÓN
+    // ══════════════════════════════════════════
+
+    /// <summary>
+    /// Crea o actualiza un cliente importado.
+    /// Si SocialCreditPts es -1 (campo ausente en el archivo) inicializa a 1000.
+    /// Si SocialCreditPts es 0 se respeta (cliente en Lista Negra).
+    /// </summary>
+    local procedure ProcessImportedCustomer(No: Code[20]; Name: Text[100]; City: Text[30]; Phone: Text[30]; Email: Text[80]; SocialCreditPts: Integer): Boolean
+    var
+        Customer: Record Customer;
+        IsNew: Boolean;
+        OriginalPoints: Integer;
+        TargetPoints: Integer;
+        Delta: Integer;
+    begin
+        if No = '' then
+            exit(false);
+
+        TargetPoints := SocialCreditPts;
+        if TargetPoints < 0 then
+            TargetPoints := 1000;
+
+        Customer.SetLoadFields("No.", Name, City, "Phone No.", "E-Mail", "Social Credit Points");
+        IsNew := not Customer.Get(No);
+        if IsNew then begin
+            Customer.Init();
+            Customer."No." := No;
+        end else
+            OriginalPoints := Customer."Social Credit Points";
+
+        if Name <> '' then
+            Customer.Name := Name;
+        if City <> '' then
+            Customer.City := City;
+        if Phone <> '' then
+            Customer."Phone No." := Phone;
+        if Email <> '' then
+            Customer."E-Mail" := Email;
+
+        if IsNew then begin
+            Customer.Insert(true);
+            SocialCreditMgt.AdjustCustomerPoints(Customer."No.", TargetPoints, 'Importación');
+        end else begin
+            Customer.Modify(true);
+            Delta := TargetPoints - OriginalPoints;
+            if Delta <> 0 then
+                SocialCreditMgt.AdjustCustomerPoints(Customer."No.", Delta, 'Importación');
+        end;
+
+        exit(true);
+    end;
+
+    local procedure ParseCsvLine(Line: Text; var Fields: array[10] of Text; var Count: Integer)
+    var
+        Pos: Integer;
+        LineLen: Integer;
+        InQuote: Boolean;
+        FieldBuf: TextBuilder;
+        Ch: Text[1];
+    begin
+        Count := 0;
+        InQuote := false;
+        LineLen := StrLen(Line);
+        Pos := 1;
+
+        while Pos <= LineLen do begin
+            Ch := CopyStr(Line, Pos, 1);
+            case true of
+                InQuote and (Ch = '"') and (Pos < LineLen) and (CopyStr(Line, Pos + 1, 1) = '"'):
+                    begin
+                        FieldBuf.Append('"');
+                        Pos += 1;
+                    end;
+                InQuote and (Ch = '"'):
+                    InQuote := false;
+                not InQuote and (Ch = '"'):
+                    InQuote := true;
+                not InQuote and (Ch = ','):
+                    begin
+                        Count += 1;
+                        if Count <= ArrayLen(Fields) then
+                            Fields[Count] := FieldBuf.ToText();
+                        Clear(FieldBuf);
+                    end;
+                else
+                    FieldBuf.Append(Ch);
+            end;
+            Pos += 1;
+        end;
+
+        Count += 1;
+        if Count <= ArrayLen(Fields) then
+            Fields[Count] := FieldBuf.ToText();
     end;
 
     var

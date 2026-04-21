@@ -59,6 +59,7 @@ page 50114 "SC Slider"
             CurrentPoints := 0;
             exit;
         end;
+        Customer.SetLoadFields(Name, "Social Credit Points");
         Customer.Get(CustomerNo);
         CustomerName := Customer.Name;
         CurrentPoints := Customer."Social Credit Points";
@@ -74,6 +75,7 @@ page 50114 "SC Slider"
         if CustomerNo = '' then
             exit;
 
+        Customer.SetLoadFields("Social Credit Points");
         Customer.Get(CustomerNo);
         Delta := NewValue - Customer."Social Credit Points";
 
