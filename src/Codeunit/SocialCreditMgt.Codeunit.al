@@ -1,5 +1,8 @@
 codeunit 50101 "Social Credit Mgt"
 {
+    InherentEntitlements = X;
+    InherentPermissions = X;
+
     /// <summary>
     /// Devuelve el valor del enum "SC Rank" para los puntos dados.
     /// Delega en el proveedor activo — por defecto "SC Default Rank Provider",

@@ -1,5 +1,8 @@
 codeunit 50110 "SC Export Mgt"
 {
+    InherentEntitlements = X;
+    InherentPermissions = X;
+
     // ══════════════════════════════════════════
     //  CLIENTES
     // ══════════════════════════════════════════
@@ -510,35 +513,32 @@ codeunit 50110 "SC Export Mgt"
             InStr.ReadText(Line);
             Line := DelChr(Line, '>', Cr);
             Line := DelChr(Line, '>', Lf);
-            if Line = '' then
-                continue;
-            if IsHeader then begin
-                IsHeader := false;
-                continue;
-            end;
+            if Line <> '' then
+                if IsHeader then
+                    IsHeader := false
+                else begin
+                    ParseCsvLine(Line, Fields, FieldCount);
+                    if FieldCount < 2 then
+                        Errors += 1
+                    else begin
+                        Points := -1;
+                        if (FieldCount >= 6) and (Fields[6] <> '') then
+                            if not Evaluate(Points, Fields[6]) then
+                                Points := -1;
 
-            ParseCsvLine(Line, Fields, FieldCount);
-            if FieldCount < 2 then begin
-                Errors += 1;
-                continue;
-            end;
-
-            Points := -1;
-            if (FieldCount >= 6) and (Fields[6] <> '') then
-                if not Evaluate(Points, Fields[6]) then
-                    Points := -1;
-
-            if ProcessImportedCustomer(
-                CopyStr(Fields[1], 1, 20),
-                CopyStr(Fields[2], 1, 100),
-                CopyStr(Fields[3], 1, 30),
-                CopyStr(Fields[4], 1, 30),
-                CopyStr(Fields[5], 1, 80),
-                Points)
-            then
-                Imported += 1
-            else
-                Errors += 1;
+                        if ProcessImportedCustomer(
+                            CopyStr(Fields[1], 1, 20),
+                            CopyStr(Fields[2], 1, 100),
+                            CopyStr(Fields[3], 1, 30),
+                            CopyStr(Fields[4], 1, 30),
+                            CopyStr(Fields[5], 1, 80),
+                            Points)
+                        then
+                            Imported += 1
+                        else
+                            Errors += 1;
+                    end;
+                end;
         end;
 
         Message('%1 clientes importados correctamente. %2 filas omitidas.', Imported, Errors);

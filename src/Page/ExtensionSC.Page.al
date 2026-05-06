@@ -9,278 +9,41 @@ page 50113 "Extension SC"
     {
         area(Content)
         {
-            group(SocialCreditPages)
+            usercontrol(HubAddin; "SC Hub Addin")
             {
-                Caption = 'Páginas de Social Credit';
-                label(LblAdjust)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Ajustar puntos de Social Credit a un cliente.';
-                }
-                label(LblHistory)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Historial de cambios de puntos por cliente.';
-                }
-                label(LblReport)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Informe general de puntuaciones de clientes.';
-                }
-                label(LblChat)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Chatbot con IA para consultas de Social Credit.';
-                }
-                label(LblSlider)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Ajuste interactivo de puntos mediante un slider JavaScript dinámico.';
-                }
-                label(LblRoleCenter)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Role Center del módulo con Cues por rango, titular y accesos rápidos.';
-                }
-                label(LblPolyMarket)
-                {
-                    ApplicationArea = All;
-                    Caption = 'PolyMarket Live — mercados de predicción en tiempo real con gráficas y auto-actualización JS.';
-                }
-                label(LblImportExport)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Importar / Exportar Clientes — carga y descarga en CSV, XML, JSON y Excel con Social Credit automático. Incluye XMLport nativo bidireccional con log de auditoría garantizado.';
-                }
-                label(LblSnake)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Snake — juego clásico de la serpiente integrado en Business Central con JavaScript.';
-                }
-            }
-            group(ModifiedPages)
-            {
-                Caption = 'Páginas de BC modificadas por la extensión';
-                label(LblCustomerList)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Lista de clientes — columna de puntos y estado SC añadidos.';
-                }
-                label(LblCustomerCard)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Ficha de cliente — FactBox y acciones SC añadidas.';
-                }
-                label(LblSalesOrder)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Pedido de venta — validación SC al seleccionar cliente.';
-                }
-                label(LblSalesQuote)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Oferta de venta — validación SC al seleccionar cliente.';
-                }
-                label(LblSalesInvoice)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Factura de venta — validación SC al seleccionar cliente.';
-                }
-                label(LblSalesCrMemo)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Abono de venta — validación SC al seleccionar cliente.';
-                }
-                label(LblVendorList)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Lista de proveedores — acción de exportación añadida.';
-                }
-                label(LblItemList)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Lista de productos — acción de exportación añadida.';
-                }
-            }
-        }
-    }
+                ApplicationArea = All;
 
-    actions
-    {
-        area(Processing)
-        {
-            group(SCActions)
-            {
-                Caption = 'Social Credit';
-                action(AjustarPuntos)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Ajustar puntos';
-                    Image = Edit;
-                    ToolTip = 'Abre la página para ajustar manualmente los puntos de Social Credit de un cliente.';
-                    RunObject = page "Social Credit Adjust";
-                }
-                action(Historial)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Historial de cambios';
-                    Image = History;
-                    ToolTip = 'Abre el historial de todos los cambios de puntos de Social Credit.';
-                    RunObject = page "Social Credit History";
-                }
-                action(Informe)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Informe de puntuaciones';
-                    Image = Report;
-                    ToolTip = 'Abre el informe general de puntuaciones de Social Credit.';
-                    RunObject = page "Social Credit Report";
-                }
-                action(Chat)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Chat IA';
-                    Image = Comment;
-                    ToolTip = 'Abre el chatbot con IA para consultas de Social Credit.';
-                    RunObject = page "SC Chat";
-                }
-                action(Slider)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Slider de puntos';
-                    Image = Navigate;
-                    ToolTip = 'Ajusta los puntos de Social Credit de un cliente con un slider interactivo. Se guarda automáticamente al mover.';
-                    RunObject = page "SC Slider";
-                }
-                action(RoleCenter)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Role Center SC';
-                    Image = Home;
-                    ToolTip = 'Abre el Role Center personalizado del módulo Social Credit.';
-                    RunObject = page "SC Role Center";
-                }
-                action(PolyMarket)
-                {
-                    ApplicationArea = All;
-                    Caption = 'PolyMarket Live';
-                    Image = Item;
-                    ToolTip = 'Mercados de predicción en tiempo real con filtros, gráficas y auto-actualización.';
-                    RunObject = page "PolyMarket";
-                }
-                action(ImportExport)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Importar / Exportar Clientes';
-                    Image = ImportExport;
-                    ToolTip = 'Importa o exporta clientes en CSV, XML, JSON y Excel. Social Credit se inicializa a 1.000 si no viene en el archivo.';
-                    RunObject = page "SC Import Export";
-                }
-                action(Snake)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Snake';
-                    Image = Setup;
-                    ToolTip = 'Abre el juego Snake integrado en Business Central.';
-                    RunObject = page "Snake";
-                }
-            }
-            group(BCModifiedActions)
-            {
-                Caption = 'Páginas de BC modificadas';
-                Image = Setup;
-                action(Clientes)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Lista de clientes';
-                    Image = Customer;
-                    ToolTip = 'Abre la lista de clientes con las columnas de Social Credit.';
-                    RunObject = page "Customer List";
-                }
-                action(FichaCliente)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Ficha de cliente';
-                    Image = Customer;
-                    ToolTip = 'Abre la ficha de cliente con el FactBox de Social Credit.';
-                    RunObject = page "Customer Card";
-                }
-                action(PedidoVenta)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Pedidos de venta';
-                    Image = Order;
-                    ToolTip = 'Abre los pedidos de venta con validación de Social Credit.';
-                    RunObject = page "Sales Order List";
-                }
-                action(OfertaVenta)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Ofertas de venta';
-                    Image = Quote;
-                    ToolTip = 'Abre las ofertas de venta con validación de Social Credit.';
-                    RunObject = page "Sales Quotes";
-                }
-                action(FacturaVenta)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Facturas de venta';
-                    Image = Invoice;
-                    ToolTip = 'Abre las facturas de venta con validación de Social Credit.';
-                    RunObject = page "Sales Invoice List";
-                }
-                action(AbonoVenta)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Abonos de venta';
-                    Image = CreditMemo;
-                    ToolTip = 'Abre los abonos de venta con validación de Social Credit.';
-                    RunObject = page "Sales Credit Memos";
-                }
-                action(Proveedores)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Lista de proveedores';
-                    Image = Vendor;
-                    ToolTip = 'Abre la lista de proveedores con la acción de exportación.';
-                    RunObject = page "Vendor List";
-                }
-                action(Productos)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Lista de productos';
-                    Image = Item;
-                    ToolTip = 'Abre la lista de productos con la acción de exportación.';
-                    RunObject = page "Item List";
-                }
-            }
-        }
-        area(Promoted)
-        {
-            group(PromotedSC)
-            {
-                Caption = 'Social Credit';
-                actionref(AjustarPuntosRef; AjustarPuntos) { }
-                actionref(HistorialRef; Historial) { }
-                actionref(InformeRef; Informe) { }
-                actionref(ChatRef; Chat) { }
-                actionref(SliderRef; Slider) { }
-                actionref(RoleCenterRef; RoleCenter) { }
-                actionref(PolyMarketRef; PolyMarket) { }
-                actionref(ImportExportRef; ImportExport) { }
-                actionref(SnakeRef; Snake) { }
-            }
-            group(PromotedBC)
-            {
-                Caption = 'BC Modificadas';
-                actionref(ClientesRef; Clientes) { }
-                actionref(FichaClienteRef; FichaCliente) { }
-                actionref(PedidoVentaRef; PedidoVenta) { }
-                actionref(OfertaVentaRef; OfertaVenta) { }
-                actionref(FacturaVentaRef; FacturaVenta) { }
-                actionref(AbonoVentaRef; AbonoVenta) { }
-                actionref(ProveedoresRef; Proveedores) { }
-                actionref(ProductosRef; Productos) { }
+                trigger OnReady()
+                begin
+                end;
+
+                trigger OnNavigate(Target: Text)
+                begin
+                    case Target of
+                        'adjust':       Page.Run(50101);
+                        'history':      Page.Run(50102);
+                        'report':       Page.Run(50105);
+                        'customers':    Page.Run(50105);
+                        'chat':         Page.Run(50111);
+                        'slider':       Page.Run(50114);
+                        'polymarket':   Page.Run(50118);
+                        'importexport': Page.Run(50119);
+                        'snake':        Page.Run(50120);
+                        'pysnake':      Page.Run(50122);
+                        'ej1task':      Page.Run(50123);
+                        'spaceinvaders': Page.Run(50124);
+                        'ej2lista':     Page.Run(50127);
+                        'ej7lista':     Page.Run(50128);
+                        'customerlist': Page.Run(22);
+                        'customercard': Page.Run(21);
+                        'salesorder':   Page.Run(9305);
+                        'salesquote':   Page.Run(9300);
+                        'salesinvoice': Page.Run(9301);
+                        'salescrmemo':  Page.Run(9302);
+                        'vendors':      Page.Run(27);
+                        'items':        Page.Run(31);
+                    end;
+                end;
             }
         }
     }

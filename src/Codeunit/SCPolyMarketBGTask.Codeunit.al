@@ -6,6 +6,9 @@
 /// </summary>
 codeunit 50115 "SC PolyMarket BG Task"
 {
+    InherentEntitlements = X;
+    InherentPermissions = X;
+
     trigger OnRun()
     var
         Params: Dictionary of [Text, Text];

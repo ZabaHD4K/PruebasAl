@@ -33,6 +33,7 @@
     canvas.height = H;
     canvas.style.cssText =
         'display:block;margin:0 auto;border-radius:10px;' +
+        'width:' + W + 'px;height:' + H + 'px;' +
         'box-shadow:0 0 36px 4px rgba(0,255,136,0.18),0 0 0 2px ' + C.border + ';' +
         'outline:none;cursor:default;';
     canvas.setAttribute('tabindex', '0');
@@ -40,7 +41,8 @@
     var host = document.getElementById('controlAddIn') || document.body;
     host.style.cssText =
         'display:flex;justify-content:center;align-items:center;' +
-        'background:#0a0a12;height:100%;padding:12px;box-sizing:border-box;';
+        'background:#0a0a12;min-height:' + (H + 24) + 'px;width:100%;' +
+        'padding:12px;box-sizing:border-box;';
     host.appendChild(canvas);
     canvas.focus();
 

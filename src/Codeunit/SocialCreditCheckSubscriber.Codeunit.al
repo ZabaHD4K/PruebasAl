@@ -1,5 +1,8 @@
 codeunit 50103 "Social Credit Check Subscriber"
 {
+    InherentEntitlements = X;
+    InherentPermissions = X;
+
     // Suscriptor que intercepta la validación del cliente en cualquier documento.
     // Si el cliente tiene Social Credit en rojo (<500 puntos), pide confirmación.
     // Si el usuario cancela, se lanza un Error para revertir la selección.

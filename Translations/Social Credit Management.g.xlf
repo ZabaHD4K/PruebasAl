@@ -3,6 +3,131 @@
   <file datatype="xml" source-language="en-US" target-language="en-US" original="Social Credit Management">
     <body>
       <group id="body">
+        <trans-unit id="Table 2350830581 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Task</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Tarea"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EJ1 Task - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2350830581 - Field 3461834954 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Description</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Descripción"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EJ1 Task - Field Description - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2350830581 - Field 4200184881 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>No.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Nº"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EJ1 Task - Field No. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2350830581 - Field 513339096 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Status</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Estado"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EJ1 Task - Field Status - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3266151970 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Task Header</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Cabecera Tarea"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EJ2 Cabecera Tarea - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3266151970 - Field 1475260075 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Description</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Descripción"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EJ2 Cabecera Tarea - Field Descripcion - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3266151970 - Field 2950845476 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Status</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Estado"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EJ2 Cabecera Tarea - Field Estado - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3266151970 - Field 3986100409 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Hours Spent</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Horas Dedicadas"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EJ2 Cabecera Tarea - Field Horas Dedicadas - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3266151970 - Field 1813300504 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Task No.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="No. Tarea"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EJ2 Cabecera Tarea - Field No. Tarea - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3266151970 - Field 832676011 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Task Type</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Tipo Tarea"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EJ2 Cabecera Tarea - Field Tipo Tarea - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3266151970 - Field 707561268 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Created By</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Usuario Creación"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EJ2 Cabecera Tarea - Field Usuario Creacion - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1637594339 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Task Line</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Línea Tarea"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EJ2 Linea Tarea - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1637594339 - Method 2451657066 - NamedType 190061054" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Cannot add lines to a completed task.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="No se pueden añadir líneas en una tarea Terminada."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EJ2 Linea Tarea - Method OnInsert - NamedType ErrTerminadaLbl</note>
+        </trans-unit>
+        <trans-unit id="Table 1637594339 - Field 1475260075 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Description</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Descripción"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EJ2 Linea Tarea - Field Descripcion - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1637594339 - Field 3986100409 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Hours Spent</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Horas Dedicadas"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EJ2 Linea Tarea - Field Horas Dedicadas - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1637594339 - Field 2816808176 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Line No.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Línea Tarea"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EJ2 Linea Tarea - Field Linea Tarea - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1637594339 - Field 1813300504 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Task No.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="No. Tarea"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EJ2 Linea Tarea - Field No. Tarea - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1637594339 - Field 1579239943 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Done</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Terminada"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EJ2 Linea Tarea - Field Terminada - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1637594339 - Field 832676011 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Task Type</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Tipo Tarea"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EJ2 Linea Tarea - Field Tipo Tarea - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2916568691 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Cliente Local</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EJ7 Cliente Local - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2916568691 - Field 2448074151 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>No. Cliente Genérico</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EJ7 Cliente Local - Field No. Cliente Generico - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2916568691 - Field 3392499490 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>No. Cliente Local</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EJ7 Cliente Local - Field No. Cliente Local - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2916568691 - Field 814966011 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Nombre</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EJ7 Cliente Local - Field Nombre - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2916568691 - Field 2324039237 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Nombre Cliente Genérico</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EJ7 Cliente Local - Field Nombre Cliente Generico - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2916568691 - Field 723249794 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Última Factura</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table EJ7 Cliente Local - Field Ultima Factura - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Table 2392310006 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Mercado PolyMarket</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -303,295 +428,315 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Customer Social Credit FactBox - Control SocialCreditRank - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 3596405657 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Task Card</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Ficha de tarea"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ1 Task Card - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3596405657 - Control 2445482498 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>General</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ1 Task Card - Control General - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3596405657 - Control 3461834954 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies a short description of the task.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Especifica una breve descripción de la tarea."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ1 Task Card - Control Description - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3596405657 - Control 3461834954 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Description</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Descripción"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ1 Task Card - Control Description - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3596405657 - Control 4200184881 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the unique identifier of the task.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Especifica el identificador único de la tarea."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ1 Task Card - Control No. - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3596405657 - Control 4200184881 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>No.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Nº"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ1 Task Card - Control No. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3596405657 - Control 513339096 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the current progress status of the task.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Especifica el estado de progreso actual de la tarea."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ1 Task Card - Control Status - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3596405657 - Control 513339096 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Status</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Estado"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ1 Task Card - Control Status - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3596405657 - Action 4106049324 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sets the task status to Completed.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Establece el estado de la tarea como Completada."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ1 Task Card - Action MarkCompleted - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3596405657 - Action 4106049324 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Mark as Completed</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Marcar como completada"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ1 Task Card - Action MarkCompleted - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3596405657 - Action 4106049324 - Method 1377591017 - NamedType 1581249758" size-unit="char" translate="yes" xml:space="preserve">
+          <source>This task is already marked as Completed.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Esta tarea ya está marcada como Completada."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ1 Task Card - Action MarkCompleted - Method OnAction - NamedType AlreadyCompletedMsg</note>
+        </trans-unit>
+        <trans-unit id="Page 3596405657 - Action 4106049324 - Method 1377591017 - NamedType 1345511884" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Task "%1" has been marked as Completed.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="La tarea %1 ha sido marcada como Completada."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ1 Task Card - Action MarkCompleted - Method OnAction - NamedType MarkedCompletedMsg</note>
+        </trans-unit>
+        <trans-unit id="Page 3502605578 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Task Lines</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Líneas de Tarea"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ2 Linea Tarea Subpage - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3502605578 - Control 1475260075 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies a description of the work done in this line.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Especifica una descripción del trabajo realizado en esta línea."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ2 Linea Tarea Subpage - Control Descripcion - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3502605578 - Control 3986100409 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the hours spent on this line.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Especifica las horas dedicadas a esta línea."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ2 Linea Tarea Subpage - Control Horas Dedicadas - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3502605578 - Control 2816808176 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the auto-generated line number (increments by 10,000).</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Especifica el número de línea autogenerado (incrementos de 10.000)."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ2 Linea Tarea Subpage - Control Linea Tarea - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3502605578 - Control 1813300504 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the task number inherited from the header.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Especifica el número de tarea heredado de la cabecera."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ2 Linea Tarea Subpage - Control No. Tarea - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3502605578 - Control 1579239943 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Indicates whether this line has been completed.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Indica si esta línea ha sido completada."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ2 Linea Tarea Subpage - Control Terminada - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3502605578 - Control 832676011 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the task type inherited from the header.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Especifica el tipo de tarea heredado de la cabecera."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ2 Linea Tarea Subpage - Control Tipo Tarea - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3502605578 - Action 886025211 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Marks the task as completed when all lines are done and the task is in progress.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Marca la tarea como Terminada cuando todas las líneas están completadas y la tarea está En curso."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ2 Linea Tarea Subpage - Action TerminarTarea - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3502605578 - Action 886025211 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Complete Task</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Terminar Tarea"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ2 Linea Tarea Subpage - Action TerminarTarea - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3502605578 - Action 886025211 - Method 1377591017 - NamedType 579647356" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Cannot complete a task that is not in progress.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="No se puede dar por Terminada una tarea que no está en curso."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ2 Linea Tarea Subpage - Action TerminarTarea - Method OnAction - NamedType ErrNotInProgressLbl</note>
+        </trans-unit>
+        <trans-unit id="Page 3502605578 - Action 886025211 - Method 1377591017 - NamedType 3155599065" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Cannot complete the task because not all lines are finished.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="No se puede dar por terminada la tarea porque no están terminadas todas sus líneas."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ2 Linea Tarea Subpage - Action TerminarTarea - Method OnAction - NamedType ErrLinesNotDoneLbl</note>
+        </trans-unit>
+        <trans-unit id="Page 3502605578 - Action 886025211 - Method 1377591017 - NamedType 3430149255" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The task is already completed.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="La tarea ya está actualmente terminada."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ2 Linea Tarea Subpage - Action TerminarTarea - Method OnAction - NamedType MsgAlreadyDoneLbl</note>
+        </trans-unit>
+        <trans-unit id="Page 3857035002 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Task List</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Lista Tareas"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ2 Lista Tareas - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3857035002 - Control 1475260075 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies a short description of the task.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Especifica una breve descripción de la tarea."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ2 Lista Tareas - Control Descripcion - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3857035002 - Control 2950845476 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the current status of the task: Notified, In Progress or Completed.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Especifica el estado actual de la tarea: Notificada, En curso o Terminada."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ2 Lista Tareas - Control Estado - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3857035002 - Control 3986100409 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the total hours spent on this task, calculated from all its lines.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Especifica el total de horas dedicadas a esta tarea, calculado de todas sus líneas."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ2 Lista Tareas - Control Horas Dedicadas - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3857035002 - Control 1813300504 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the unique identifier of the task.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Especifica el identificador único de la tarea."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ2 Lista Tareas - Control No. Tarea - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3857035002 - Control 832676011 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the type of the task: Incident or Inquiry.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Especifica el tipo de tarea: Incidencia o Consulta."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ2 Lista Tareas - Control Tipo Tarea - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3857035002 - Control 707561268 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the user who created this task.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Especifica el usuario que creó esta tarea."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ2 Lista Tareas - Control Usuario Creacion - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3345511318 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Task Card</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Ficha de Tarea"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ2 Tarea Card - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3345511318 - Control 2445482498 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>General</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ2 Tarea Card - Control General - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3345511318 - Control 1475260075 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies a short description of the task.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Especifica una breve descripción de la tarea."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ2 Tarea Card - Control Descripcion - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3345511318 - Control 2950845476 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the current status of the task: Notified, In Progress or Completed.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Especifica el estado actual de la tarea: Notificada, En curso o Terminada."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ2 Tarea Card - Control Estado - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3345511318 - Control 3986100409 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the total hours spent on this task, calculated from all its lines.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Especifica el total de horas dedicadas a esta tarea, calculado de todas sus líneas."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ2 Tarea Card - Control Horas Dedicadas - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3345511318 - Control 1813300504 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the unique identifier of the task.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Especifica el identificador único de la tarea."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ2 Tarea Card - Control No. Tarea - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3345511318 - Control 832676011 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the type of the task: Incident or Inquiry.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Especifica el tipo de tarea: Incidencia o Consulta."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ2 Tarea Card - Control Tipo Tarea - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3345511318 - Control 707561268 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the user who created this task.</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Especifica el usuario que creó esta tarea."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ2 Tarea Card - Control Usuario Creacion - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3345511318 - Control 1169880445 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Lines</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Líneas"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ2 Tarea Card - Control LineasPart - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2071764455 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Ficha Cliente Local</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ7 Cliente Local Card - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2071764455 - Control 2445482498 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>General</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ7 Cliente Local Card - Control General - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2071764455 - Control 2448074151 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Especifica el cliente de BC asociado. Al cambiarlo se actualiza la última factura.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ7 Cliente Local Card - Control No. Cliente Generico - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2071764455 - Control 3392499490 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Especifica el código del cliente local.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ7 Cliente Local Card - Control No. Cliente Local - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2071764455 - Control 814966011 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Especifica el nombre del cliente local.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ7 Cliente Local Card - Control Nombre - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2071764455 - Control 2324039237 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Nombre del cliente de BC asociado (calculado automáticamente).</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ7 Cliente Local Card - Control Nombre Cliente Generico - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2071764455 - Control 723249794 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Última factura de venta registrada para el cliente de BC asociado.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ7 Cliente Local Card - Control Ultima Factura - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2071764455 - Action 1810105646 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Crea una copia de este cliente local añadiendo "-COPIA" al número y al nombre.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ7 Cliente Local Card - Action CopiarCliente - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2071764455 - Action 1810105646 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Copiar cliente</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ7 Cliente Local Card - Action CopiarCliente - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2071764455 - Action 1810105646 - Method 1377591017 - NamedType 2126343653" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Ya existe un cliente local con el número "%1". Elimínalo antes de volver a copiar.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ7 Cliente Local Card - Action CopiarCliente - Method OnAction - NamedType AlreadyExistsErr</note>
+        </trans-unit>
+        <trans-unit id="Page 2071764455 - Action 1810105646 - Method 1377591017 - NamedType 650040146" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Cliente copiado correctamente con número "%1".</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ7 Cliente Local Card - Action CopiarCliente - Method OnAction - NamedType CopiadoMsg</note>
+        </trans-unit>
+        <trans-unit id="Page 2071764455 - Action 3440541435 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Genera el informe de clientes locales en PDF.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ7 Cliente Local Card - Action Imprimir - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2071764455 - Action 3440541435 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Imprimir</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ7 Cliente Local Card - Action Imprimir - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2071764455 - Action 3237275731 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Muestra los pedidos de venta del cliente genérico asociado.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ7 Cliente Local Card - Action VerPedidos - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2071764455 - Action 3237275731 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Ver Pedidos</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ7 Cliente Local Card - Action VerPedidos - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 4253112152 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Clientes Locales</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ7 Clientes Locales - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 4253112152 - Control 2448074151 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Especifica el cliente de BC asociado.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ7 Clientes Locales - Control No. Cliente Generico - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 4253112152 - Control 3392499490 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Especifica el código del cliente local.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ7 Clientes Locales - Control No. Cliente Local - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 4253112152 - Control 814966011 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Especifica el nombre del cliente local.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ7 Clientes Locales - Control Nombre - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 4253112152 - Control 2324039237 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Nombre del cliente de BC asociado (calculado).</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ7 Clientes Locales - Control Nombre Cliente Generico - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 4253112152 - Control 723249794 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Última factura de venta del cliente de BC asociado.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page EJ7 Clientes Locales - Control Ultima Factura - Property ToolTip</note>
+        </trans-unit>
         <trans-unit id="Page 1139467979 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Social Credit - Centro de extensión</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Control 518567899 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Páginas de BC modificadas por la extensión</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Control ModifiedPages - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Control 1323272198 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Ficha de cliente — FactBox y acciones SC añadidas.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Control LblCustomerCard - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Control 963541600 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Lista de clientes — columna de puntos y estado SC añadidos.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Control LblCustomerList - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Control 3489259463 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Lista de productos — acción de exportación añadida.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Control LblItemList - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Control 2047354323 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Abono de venta — validación SC al seleccionar cliente.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Control LblSalesCrMemo - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Control 3697789981 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Factura de venta — validación SC al seleccionar cliente.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Control LblSalesInvoice - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Control 1537763520 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Pedido de venta — validación SC al seleccionar cliente.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Control LblSalesOrder - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Control 320186100 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Oferta de venta — validación SC al seleccionar cliente.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Control LblSalesQuote - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Control 2135783848 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Lista de proveedores — acción de exportación añadida.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Control LblVendorList - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Control 4092118234 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Páginas de Social Credit</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Control SocialCreditPages - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Control 1826555305 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Ajustar puntos de Social Credit a un cliente.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Control LblAdjust - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Control 3374650864 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Chatbot con IA para consultas de Social Credit.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Control LblChat - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Control 507790972 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Historial de cambios de puntos por cliente.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Control LblHistory - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Control 3609306797 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Importar / Exportar Clientes — carga y descarga en CSV, XML, JSON y Excel con Social Credit automático. Incluye XMLport nativo bidireccional con log de auditoría garantizado.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Control LblImportExport - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Control 1080145456 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>PolyMarket Live — mercados de predicción en tiempo real con gráficas y auto-actualización JS.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Control LblPolyMarket - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Control 1047447696 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Informe general de puntuaciones de clientes.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Control LblReport - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Control 1205916631 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Role Center del módulo con Cues por rango, titular y accesos rápidos.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Control LblRoleCenter - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Control 3804221785 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Ajuste interactivo de puntos mediante un slider JavaScript dinámico.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Control LblSlider - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Control 178936140 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Snake — juego clásico de la serpiente integrado en Business Central con JavaScript.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Control LblSnake - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 3607739895 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Páginas de BC modificadas</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action BCModifiedActions - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 2981941575 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Abre los abonos de venta con validación de Social Credit.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action AbonoVenta - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 2981941575 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Abonos de venta</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action AbonoVenta - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 3130836633 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Abre la lista de clientes con las columnas de Social Credit.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action Clientes - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 3130836633 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Lista de clientes</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action Clientes - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 1060641354 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Abre las facturas de venta con validación de Social Credit.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action FacturaVenta - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 1060641354 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Facturas de venta</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action FacturaVenta - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 981021499 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Abre la ficha de cliente con el FactBox de Social Credit.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action FichaCliente - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 981021499 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Ficha de cliente</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action FichaCliente - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 3294286469 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Abre las ofertas de venta con validación de Social Credit.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action OfertaVenta - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 3294286469 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Ofertas de venta</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action OfertaVenta - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 1592351597 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Abre los pedidos de venta con validación de Social Credit.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action PedidoVenta - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 1592351597 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Pedidos de venta</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action PedidoVenta - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 2867993921 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Abre la lista de productos con la acción de exportación.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action Productos - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 2867993921 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Lista de productos</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action Productos - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 852059264 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Abre la lista de proveedores con la acción de exportación.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action Proveedores - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 852059264 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Lista de proveedores</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action Proveedores - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 4196414767 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Social Credit</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action SCActions - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 3767592979 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Abre la página para ajustar manualmente los puntos de Social Credit de un cliente.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action AjustarPuntos - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 3767592979 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Ajustar puntos</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action AjustarPuntos - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 3050346346 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Abre el chatbot con IA para consultas de Social Credit.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action Chat - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 3050346346 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Chat IA</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action Chat - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 1415161545 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Abre el historial de todos los cambios de puntos de Social Credit.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action Historial - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 1415161545 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Historial de cambios</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action Historial - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 1215086979 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Importa o exporta clientes en CSV, XML, JSON y Excel. Social Credit se inicializa a 1.000 si no viene en el archivo.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action ImportExport - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 1215086979 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Importar / Exportar Clientes</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action ImportExport - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 4217411560 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Abre el informe general de puntuaciones de Social Credit.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action Informe - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 4217411560 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Informe de puntuaciones</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action Informe - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 2229485866 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Mercados de predicción en tiempo real con filtros, gráficas y auto-actualización.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action PolyMarket - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 2229485866 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>PolyMarket Live</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action PolyMarket - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 2134858097 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Abre el Role Center personalizado del módulo Social Credit.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action RoleCenter - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 2134858097 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Role Center SC</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action RoleCenter - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 1902522751 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Ajusta los puntos de Social Credit de un cliente con un slider interactivo. Se guarda automáticamente al mover.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action Slider - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 1902522751 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Slider de puntos</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action Slider - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 84757862 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Abre el juego Snake integrado en Business Central.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action Snake - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 84757862 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Snake</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action Snake - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 333937149 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>BC Modificadas</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action PromotedBC - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1139467979 - Action 310649038 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Social Credit</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Extension SC - Action PromotedSC - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2229485866 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>PolyMarket Live</source>
@@ -668,75 +813,15 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page PolyMarket - Action Reload - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 3514726061 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>PySnake</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page PySnake - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 760379450 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Chat IA</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page SC Chat - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 760379450 - Control 2646444459 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source> </source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page SC Chat - Control ChatGroup - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 760379450 - Control 596088661 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source> </source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page SC Chat - Control ChatLines - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 760379450 - Control 1291493688 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source> </source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page SC Chat - Control InputRow - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 760379450 - Control 2843277616 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source> </source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page SC Chat - Control SendBtn - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 760379450 - Control 2943295505 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Escribe tu mensaje aquí.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page SC Chat - Control UserInput - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 760379450 - Control 2943295505 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source> </source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page SC Chat - Control UserInput - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 760379450 - Control 2495166380 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Configurar API Key</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page SC Chat - Control SetupGroup - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 760379450 - Control 2293178051 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Pega tu clave de OpenRouter u OpenAI y pulsa Guardar.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page SC Chat - Control ApiKeyInput - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 760379450 - Control 2293178051 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>API Key</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page SC Chat - Control ApiKeyInput - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 760379450 - Action 1749560995 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Cambiar API Key</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page SC Chat - Action ChangeApiKey - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 760379450 - Action 4072480921 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Limpiar chat</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page SC Chat - Action ClearChat - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 760379450 - Action 21016282 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Guardar</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page SC Chat - Action SaveApiKey - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 760379450 - Action 3538006607 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Enviar</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page SC Chat - Action SendMsg - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2270735853 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Chat</source>
@@ -857,6 +942,11 @@
           <source>socialCreditRank</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page SC Customer API - Control socialCreditRank - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3384691394 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>SC Customer List</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page SC Customer List - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 3409747803 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Titular Social Credit</source>
@@ -1248,6 +1338,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page SC Slider - Control SliderGroup - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 280524480 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Space Invaders</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page SC Space Invaders - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 84757862 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Snake</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -1379,49 +1474,14 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page Social Credit History - Control User ID - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 1305159732 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Social Credit Report</source>
+          <source>Clientes — Social Credit</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Social Credit Report - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1305159732 - Control 1171137197 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Nombre</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Social Credit Report - Control Customer Name - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1305159732 - Control 4190130733 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Nº Cliente</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Social Credit Report - Control Customer No. - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1305159732 - Control 4082700034 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Rango</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Social Credit Report - Control SC Rank - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1305159732 - Control 827932980 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Social Credit</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Social Credit Report - Control Social Credit Label - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1305159732 - Control 253884659 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Puntos</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Social Credit Report - Control Social Credit Points - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1305159732 - Action 2265367614 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Exporta el listado de Social Credit a un fichero CSV separado por punto y coma.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Social Credit Report - Action ExportCsv - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 1305159732 - Action 2265367614 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Exportar CSV</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Social Credit Report - Action ExportCsv - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1305159732 - Action 2857238821 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Exporta el listado de Social Credit a un fichero Excel (.xlsx).</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Social Credit Report - Action ExportExcel - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 1305159732 - Action 2857238821 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Exportar Excel</source>
@@ -1429,7 +1489,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page Social Credit Report - Action ExportExcel - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 1305159732 - Action 3473013125 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Genera el informe con gráficas en formato PDF listo para imprimir.</source>
+          <source>Genera el informe en formato PDF.</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Social Credit Report - Action PrintPdf - Property ToolTip</note>
         </trans-unit>
@@ -1438,25 +1498,10 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Social Credit Report - Action PrintPdf - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 1305159732 - Action 4164615901 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Ordena de menor a mayor puntuación de Social Credit.</source>
+        <trans-unit id="Report 4253112152 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Clientes Locales</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Social Credit Report - Action SortAsc - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 1305159732 - Action 4164615901 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>↑ Menor a mayor</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Social Credit Report - Action SortAsc - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 1305159732 - Action 475492181 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Ordena de mayor a menor puntuación de Social Credit.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Social Credit Report - Action SortDesc - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 1305159732 - Action 475492181 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>↓ Mayor a menor</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Social Credit Report - Action SortDesc - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report EJ7 Clientes Locales - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 4122309926 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Informe Social Credit</source>
@@ -1777,6 +1822,46 @@
           <source>Perfil para gestores del módulo Social Credit. Muestra el dashboard con Cues por rango, titular del peor cliente y accesos rápidos al módulo.</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Profile SC_ROLE_CENTER - Property ProfileDescription</note>
+        </trans-unit>
+        <trans-unit id="Enum 1428636249 - EnumValue 3665605423 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Completed</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Completada"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum EJ1 Task Status - EnumValue Completed - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 1428636249 - EnumValue 356416822 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>In Progress</source>
+          <note from="Developer" annotates="general" priority="2">ESP="En progreso"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum EJ1 Task Status - EnumValue InProgress - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 1428636249 - EnumValue 4259830144 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Open</source>
+          <note from="Developer" annotates="general" priority="2">ESP="Abierta"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum EJ1 Task Status - EnumValue Open - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 594899058 - EnumValue 1330362613 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>En curso</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum EJ2 Estado Tarea - EnumValue EnCurso - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 594899058 - EnumValue 3680971608 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Notificada</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum EJ2 Estado Tarea - EnumValue Notificada - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 594899058 - EnumValue 1579239943 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Terminada</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum EJ2 Estado Tarea - EnumValue Terminada - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 2708830192 - EnumValue 3534783775 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Consulta</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum EJ2 Tipo Tarea - EnumValue Consulta - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 2708830192 - EnumValue 1073784203 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Incidencia</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum EJ2 Tipo Tarea - EnumValue Incidencia - Property Caption</note>
         </trans-unit>
         <trans-unit id="Enum 4082700034 - EnumValue 3913720868 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Ciudadano Ejemplar</source>

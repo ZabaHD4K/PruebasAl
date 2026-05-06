@@ -1,5 +1,8 @@
 codeunit 50104 "SC Chat Mgt"
 {
+    InherentEntitlements = X;
+    InherentPermissions = X;
+
     procedure IsConfigured(): Boolean
     var
         Setup: Record "SC Chat Setup";
@@ -114,8 +117,14 @@ codeunit 50104 "SC Chat Mgt"
         end;
 
         JChoices.Get(0, JChoice);
-        JChoice.AsObject().Get('message', JMessage);
-        JMessage.AsObject().Get('content', JContent);
+        if not JChoice.AsObject().Get('message', JMessage) then begin
+            Response := '❌ Formato de respuesta inesperado (sin message).';
+            exit(false);
+        end;
+        if not JMessage.AsObject().Get('content', JContent) then begin
+            Response := '❌ Formato de respuesta inesperado (sin content).';
+            exit(false);
+        end;
         Response := JContent.AsValue().AsText();
         exit(true);
     end;

@@ -25,3 +25,4 @@ scripts/
 
 # Archivos de credenciales
 credenciales.txt
+.env

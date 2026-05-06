@@ -8,6 +8,9 @@
 /// </summary>
 codeunit 50116 "SC Default Rank Provider" implements "ISC Rank Provider"
 {
+    InherentEntitlements = X;
+    InherentPermissions = X;
+
     Access = Internal;
 
     /// <summary>

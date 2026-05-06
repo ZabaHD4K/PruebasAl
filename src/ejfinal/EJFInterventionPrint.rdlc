@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report MustUnderstand="df" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:df="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition/defaultfontfamily">
+  <df:DefaultFontFamily>
+    <df:EastAsiaFontFamily>Segoe UI</df:EastAsiaFontFamily>
+    <df:BidiScriptFontFamily>Segoe UI</df:BidiScriptFontFamily>
+  </df:DefaultFontFamily>
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSetDataSource">
+      <ConnectionProperties>
+        <DataProvider>None</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:DataSourceID>ejf-intervention-print-datasource</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="CompanyName"><DataField>CompanyName</DataField></Field>
+        <Field Name="CompanyAddress"><DataField>CompanyAddress</DataField></Field>
+        <Field Name="CompanyCity"><DataField>CompanyCity</DataField></Field>
+        <Field Name="CompanyPhone"><DataField>CompanyPhone</DataField></Field>
+        <Field Name="ReportDateCol"><DataField>ReportDateCol</DataField></Field>
+        <Field Name="HeaderNo"><DataField>HeaderNo</DataField></Field>
+        <Field Name="HeaderDescription"><DataField>HeaderDescription</DataField></Field>
+        <Field Name="CustomerNo"><DataField>CustomerNo</DataField></Field>
+        <Field Name="CustomerName"><DataField>CustomerName</DataField></Field>
+        <Field Name="RequestedDate"><DataField>RequestedDate</DataField></Field>
+        <Field Name="PlannedDate"><DataField>PlannedDate</DataField></Field>
+        <Field Name="HeaderStatus"><DataField>HeaderStatus</DataField></Field>
+        <Field Name="HeaderCity"><DataField>HeaderCity</DataField></Field>
+        <Field Name="HeaderPhone"><DataField>HeaderPhone</DataField></Field>
+        <Field Name="TotalHours"><DataField>TotalHours</DataField></Field>
+        <Field Name="TotalAmount"><DataField>TotalAmount</DataField></Field>
+        <Field Name="LineDescription"><DataField>LineDescription</DataField></Field>
+        <Field Name="LineQuantity"><DataField>LineQuantity</DataField></Field>
+        <Field Name="LineHours"><DataField>LineHours</DataField></Field>
+        <Field Name="LineUnitCost"><DataField>LineUnitCost</DataField></Field>
+        <Field Name="LineAmount"><DataField>LineAmount</DataField></Field>
+        <Field Name="LineBillable"><DataField>LineBillable</DataField></Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <ReportItems>
+          <Tablix Name="InterventionTablix">
+            <TablixBody>
+              <TablixColumns>
+                <TablixColumn><Width>7cm</Width></TablixColumn>
+                <TablixColumn><Width>2cm</Width></TablixColumn>
+                <TablixColumn><Width>2cm</Width></TablixColumn>
+                <TablixColumn><Width>3cm</Width></TablixColumn>
+                <TablixColumn><Width>3cm</Width></TablixColumn>
+                <TablixColumn><Width>2cm</Width></TablixColumn>
+              </TablixColumns>
+              <TablixRows>
+                <!-- Fila 1: Cabecera de empresa (span 6 cols) -->
+                <TablixRow>
+                  <Height>1.2cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="CompanyHeader">
+                          <CanGrow>true</CanGrow>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!CompanyName.Value</Value>
+                                  <Style><FontFamily>Segoe UI</FontFamily><FontSize>14pt</FontSize><FontWeight>Bold</FontWeight><Color>#1F4E79</Color></Style>
+                                </TextRun>
+                              </TextRuns>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!CompanyAddress.Value &amp; "  " &amp; Fields!CompanyCity.Value &amp; "  |  Tel: " &amp; Fields!CompanyPhone.Value</Value>
+                                  <Style><FontFamily>Segoe UI</FontFamily><FontSize>8pt</FontSize><Color>#444444</Color></Style>
+                                </TextRun>
+                              </TextRuns>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border><Style>None</Style></Border>
+                            <BorderBottom><Color>#1F4E79</Color><Style>Solid</Style><Width>2pt</Width></BorderBottom>
+                            <PaddingBottom>4pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                      <ColSpan>4</ColSpan>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="ReportDateLabel">
+                          <CanGrow>true</CanGrow>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Fecha informe:</Value>
+                                  <Style><FontFamily>Segoe UI</FontFamily><FontSize>8pt</FontSize><Color>#666666</Color></Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style><TextAlign>Right</TextAlign></Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Format(Fields!ReportDateCol.Value, "d")</Value>
+                                  <Style><FontFamily>Segoe UI</FontFamily><FontSize>9pt</FontSize><FontWeight>Bold</FontWeight></Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style><TextAlign>Right</TextAlign></Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style><Border><Style>None</Style></Border><BorderBottom><Color>#1F4E79</Color><Style>Solid</Style><Width>2pt</Width></BorderBottom></Style>
+                        </Textbox>
+                      </CellContents>
+                      <ColSpan>2</ColSpan>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <!-- Fila 2: Título + Nº + Estado -->
+                <TablixRow>
+                  <Height>0.8cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="DocTitle">
+                          <CanGrow>true</CanGrow>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>PARTE DE INTERVENCIÓN</Value>
+                                  <Style><FontFamily>Segoe UI</FontFamily><FontSize>12pt</FontSize><FontWeight>Bold</FontWeight><Color>#1F4E79</Color></Style>
+                                </TextRun>
+                              </TextRuns>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style><Border><Style>None</Style></Border><PaddingTop>6pt</PaddingTop></Style>
+                        </Textbox>
+                      </CellContents>
+                      <ColSpan>2</ColSpan>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="DocNoLabel">
+                          <CanGrow>true</CanGrow>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Nº: </Value>
+                                  <Style><FontFamily>Segoe UI</FontFamily><FontSize>9pt</FontSize><Color>#666666</Color></Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Fields!HeaderNo.Value</Value>
+                                  <Style><FontFamily>Segoe UI</FontFamily><FontSize>9pt</FontSize><FontWeight>Bold</FontWeight></Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style><TextAlign>Right</TextAlign></Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style><Border><Style>None</Style></Border><PaddingTop>6pt</PaddingTop></Style>
+                        </Textbox>
+                      </CellContents>
+                      <ColSpan>2</ColSpan>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="DocStatusLabel">
+                          <CanGrow>true</CanGrow>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!HeaderStatus.Value</Value>
+                                  <Style><FontFamily>Segoe UI</FontFamily><FontSize>9pt</FontSize><FontWeight>Bold</FontWeight></Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style><TextAlign>Right</TextAlign></Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style><Border><Style>None</Style></Border><PaddingTop>6pt</PaddingTop></Style>
+                        </Textbox>
+                      </CellContents>
+                      <ColSpan>2</ColSpan>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <!-- Fila 3: Datos del documento -->
+                <TablixRow>
+                  <Height>0.6cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="DescLabel">
+                          <CanGrow>true</CanGrow>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Descripción: </Value>
+                                  <Style><FontFamily>Segoe UI</FontFamily><FontSize>8pt</FontSize><Color>#666666</Color></Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Fields!HeaderDescription.Value</Value>
+                                  <Style><FontFamily>Segoe UI</FontFamily><FontSize>8pt</FontSize></Style>
+                                </TextRun>
+                              </TextRuns>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style><Border><Style>None</Style></Border><BackgroundColor>#F2F2F2</BackgroundColor><PaddingLeft>4pt</PaddingLeft><PaddingTop>3pt</PaddingTop><PaddingBottom>3pt</PaddingBottom></Style>
+                        </Textbox>
+                      </CellContents>
+                      <ColSpan>4</ColSpan>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="ReqDateLabel">
+                          <CanGrow>true</CanGrow>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>F. Solicitud: </Value>
+                                  <Style><FontFamily>Segoe UI</FontFamily><FontSize>8pt</FontSize><Color>#666666</Color></Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Format(Fields!RequestedDate.Value, "d")</Value>
+                                  <Style><FontFamily>Segoe UI</FontFamily><FontSize>8pt</FontSize></Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style><TextAlign>Right</TextAlign></Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style><Border><Style>None</Style></Border><BackgroundColor>#F2F2F2</BackgroundColor><PaddingRight>4pt</PaddingRight><PaddingTop>3pt</PaddingTop><PaddingBottom>3pt</PaddingBottom></Style>
+                        </Textbox>
+                      </CellContents>
+                      <ColSpan>2</ColSpan>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <!-- Fila 4: Cliente + F. Planificada -->
+                <TablixRow>
+                  <Height>0.6cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="CustLabel">
+                          <CanGrow>true</CanGrow>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Cliente: </Value>
+                                  <Style><FontFamily>Segoe UI</FontFamily><FontSize>8pt</FontSize><Color>#666666</Color></Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Fields!CustomerNo.Value &amp; "  " &amp; Fields!CustomerName.Value</Value>
+                                  <Style><FontFamily>Segoe UI</FontFamily><FontSize>8pt</FontSize></Style>
+                                </TextRun>
+                              </TextRuns>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style><Border><Style>None</Style></Border><PaddingLeft>4pt</PaddingLeft><PaddingTop>3pt</PaddingTop><PaddingBottom>3pt</PaddingBottom></Style>
+                        </Textbox>
+                      </CellContents>
+                      <ColSpan>4</ColSpan>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="PlannedDateLabel">
+                          <CanGrow>true</CanGrow>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>F. Planificada: </Value>
+                                  <Style><FontFamily>Segoe UI</FontFamily><FontSize>8pt</FontSize><Color>#666666</Color></Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Format(Fields!PlannedDate.Value, "d")</Value>
+                                  <Style><FontFamily>Segoe UI</FontFamily><FontSize>8pt</FontSize></Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style><TextAlign>Right</TextAlign></Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style><Border><Style>None</Style></Border><PaddingRight>4pt</PaddingRight><PaddingTop>3pt</PaddingTop><PaddingBottom>3pt</PaddingBottom></Style>
+                        </Textbox>
+                      </CellContents>
+                      <ColSpan>2</ColSpan>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <!-- Fila 5: Cabeceras de columnas de líneas -->
+                <TablixRow>
+                  <Height>0.6cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="H_Desc">
+                          <CanGrow>true</CanGrow>
+                          <Paragraphs><Paragraph><TextRuns><TextRun><Value>Descripción</Value><Style><FontWeight>Bold</FontWeight><Color>White</Color><FontFamily>Segoe UI</FontFamily><FontSize>9pt</FontSize></Style></TextRun></TextRuns></Paragraph></Paragraphs>
+                          <Style><BackgroundColor>#1F4E79</BackgroundColor><Border><Color>#FFFFFF</Color><Style>Solid</Style></Border><PaddingLeft>4pt</PaddingLeft><PaddingTop>3pt</PaddingTop><PaddingBottom>3pt</PaddingBottom></Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="H_Qty">
+                          <CanGrow>true</CanGrow>
+                          <Paragraphs><Paragraph><TextRuns><TextRun><Value>Cantidad</Value><Style><FontWeight>Bold</FontWeight><Color>White</Color><FontFamily>Segoe UI</FontFamily><FontSize>9pt</FontSize></Style></TextRun></TextRuns><Style><TextAlign>Right</TextAlign></Style></Paragraph></Paragraphs>
+                          <Style><BackgroundColor>#1F4E79</BackgroundColor><Border><Color>#FFFFFF</Color><Style>Solid</Style></Border><PaddingRight>4pt</PaddingRight><PaddingTop>3pt</PaddingTop><PaddingBottom>3pt</PaddingBottom></Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="H_Hours">
+                          <CanGrow>true</CanGrow>
+                          <Paragraphs><Paragraph><TextRuns><TextRun><Value>Horas</Value><Style><FontWeight>Bold</FontWeight><Color>White</Color><FontFamily>Segoe UI</FontFamily><FontSize>9pt</FontSize></Style></TextRun></TextRuns><Style><TextAlign>Right</TextAlign></Style></Paragraph></Paragraphs>
+                          <Style><BackgroundColor>#1F4E79</BackgroundColor><Border><Color>#FFFFFF</Color><Style>Solid</Style></Border><PaddingRight>4pt</PaddingRight><PaddingTop>3pt</PaddingTop><PaddingBottom>3pt</PaddingBottom></Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="H_UnitCost">
+                          <CanGrow>true</CanGrow>
+                          <Paragraphs><Paragraph><TextRuns><TextRun><Value>Coste Unit.</Value><Style><FontWeight>Bold</FontWeight><Color>White</Color><FontFamily>Segoe UI</FontFamily><FontSize>9pt</FontSize></Style></TextRun></TextRuns><Style><TextAlign>Right</TextAlign></Style></Paragraph></Paragraphs>
+                          <Style><BackgroundColor>#1F4E79</BackgroundColor><Border><Color>#FFFFFF</Color><Style>Solid</Style></Border><PaddingRight>4pt</PaddingRight><PaddingTop>3pt</PaddingTop><PaddingBottom>3pt</PaddingBottom></Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="H_Amount">
+                          <CanGrow>true</CanGrow>
+                          <Paragraphs><Paragraph><TextRuns><TextRun><Value>Importe</Value><Style><FontWeight>Bold</FontWeight><Color>White</Color><FontFamily>Segoe UI</FontFamily><FontSize>9pt</FontSize></Style></TextRun></TextRuns><Style><TextAlign>Right</TextAlign></Style></Paragraph></Paragraphs>
+                          <Style><BackgroundColor>#1F4E79</BackgroundColor><Border><Color>#FFFFFF</Color><Style>Solid</Style></Border><PaddingRight>4pt</PaddingRight><PaddingTop>3pt</PaddingTop><PaddingBottom>3pt</PaddingBottom></Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="H_Billable">
+                          <CanGrow>true</CanGrow>
+                          <Paragraphs><Paragraph><TextRuns><TextRun><Value>Facturable</Value><Style><FontWeight>Bold</FontWeight><Color>White</Color><FontFamily>Segoe UI</FontFamily><FontSize>9pt</FontSize></Style></TextRun></TextRuns><Style><TextAlign>Center</TextAlign></Style></Paragraph></Paragraphs>
+                          <Style><BackgroundColor>#1F4E79</BackgroundColor><Border><Color>#FFFFFF</Color><Style>Solid</Style></Border><PaddingTop>3pt</PaddingTop><PaddingBottom>3pt</PaddingBottom></Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <!-- Fila 6: Detalle de línea -->
+                <TablixRow>
+                  <Height>0.6cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="D_Desc">
+                          <CanGrow>true</CanGrow>
+                          <Paragraphs><Paragraph><TextRuns><TextRun><Value>=Fields!LineDescription.Value</Value><Style><FontFamily>Segoe UI</FontFamily><FontSize>9pt</FontSize></Style></TextRun></TextRuns></Paragraph></Paragraphs>
+                          <Style><Border><Color>#D9D9D9</Color><Style>Solid</Style></Border><BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#EBF3FB", "White")</BackgroundColor><PaddingLeft>4pt</PaddingLeft><PaddingTop>3pt</PaddingTop><PaddingBottom>3pt</PaddingBottom></Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="D_Qty">
+                          <CanGrow>true</CanGrow>
+                          <Paragraphs><Paragraph><TextRuns><TextRun><Value>=Fields!LineQuantity.Value</Value><Style><FontFamily>Segoe UI</FontFamily><FontSize>9pt</FontSize></Style></TextRun></TextRuns><Style><TextAlign>Right</TextAlign></Style></Paragraph></Paragraphs>
+                          <Style><Border><Color>#D9D9D9</Color><Style>Solid</Style></Border><BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#EBF3FB", "White")</BackgroundColor><PaddingRight>4pt</PaddingRight><PaddingTop>3pt</PaddingTop><PaddingBottom>3pt</PaddingBottom></Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="D_Hours">
+                          <CanGrow>true</CanGrow>
+                          <Paragraphs><Paragraph><TextRuns><TextRun><Value>=Fields!LineHours.Value</Value><Style><FontFamily>Segoe UI</FontFamily><FontSize>9pt</FontSize></Style></TextRun></TextRuns><Style><TextAlign>Right</TextAlign></Style></Paragraph></Paragraphs>
+                          <Style><Border><Color>#D9D9D9</Color><Style>Solid</Style></Border><BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#EBF3FB", "White")</BackgroundColor><PaddingRight>4pt</PaddingRight><PaddingTop>3pt</PaddingTop><PaddingBottom>3pt</PaddingBottom></Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="D_UnitCost">
+                          <CanGrow>true</CanGrow>
+                          <Paragraphs><Paragraph><TextRuns><TextRun><Value>=Fields!LineUnitCost.Value</Value><Style><FontFamily>Segoe UI</FontFamily><FontSize>9pt</FontSize></Style></TextRun></TextRuns><Style><TextAlign>Right</TextAlign></Style></Paragraph></Paragraphs>
+                          <Style><Border><Color>#D9D9D9</Color><Style>Solid</Style></Border><BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#EBF3FB", "White")</BackgroundColor><PaddingRight>4pt</PaddingRight><PaddingTop>3pt</PaddingTop><PaddingBottom>3pt</PaddingBottom></Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="D_Amount">
+                          <CanGrow>true</CanGrow>
+                          <Paragraphs><Paragraph><TextRuns><TextRun><Value>=Fields!LineAmount.Value</Value><Style><FontFamily>Segoe UI</FontFamily><FontSize>9pt</FontSize></Style></TextRun></TextRuns><Style><TextAlign>Right</TextAlign></Style></Paragraph></Paragraphs>
+                          <Style><Border><Color>#D9D9D9</Color><Style>Solid</Style></Border><BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#EBF3FB", "White")</BackgroundColor><PaddingRight>4pt</PaddingRight><PaddingTop>3pt</PaddingTop><PaddingBottom>3pt</PaddingBottom></Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="D_Billable">
+                          <CanGrow>true</CanGrow>
+                          <Paragraphs><Paragraph><TextRuns><TextRun><Value>=Fields!LineBillable.Value</Value><Style><FontFamily>Segoe UI</FontFamily><FontSize>9pt</FontSize></Style></TextRun></TextRuns><Style><TextAlign>Center</TextAlign></Style></Paragraph></Paragraphs>
+                          <Style><Border><Color>#D9D9D9</Color><Style>Solid</Style></Border><BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#EBF3FB", "White")</BackgroundColor><PaddingTop>3pt</PaddingTop><PaddingBottom>3pt</PaddingBottom></Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <!-- Fila 7: Totales -->
+                <TablixRow>
+                  <Height>0.6cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TotalLabel">
+                          <CanGrow>true</CanGrow>
+                          <Paragraphs><Paragraph><TextRuns><TextRun><Value>TOTALES</Value><Style><FontFamily>Segoe UI</FontFamily><FontSize>9pt</FontSize><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns></Paragraph></Paragraphs>
+                          <Style><Border><Style>None</Style></Border><BorderTop><Color>#1F4E79</Color><Style>Solid</Style><Width>1pt</Width></BorderTop><PaddingLeft>4pt</PaddingLeft><PaddingTop>3pt</PaddingTop><PaddingBottom>3pt</PaddingBottom></Style>
+                        </Textbox>
+                      </CellContents>
+                      <ColSpan>2</ColSpan>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TotalHoursVal">
+                          <CanGrow>true</CanGrow>
+                          <Paragraphs><Paragraph><TextRuns><TextRun><Value>=Fields!TotalHours.Value</Value><Style><FontFamily>Segoe UI</FontFamily><FontSize>9pt</FontSize><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style><TextAlign>Right</TextAlign></Style></Paragraph></Paragraphs>
+                          <Style><Border><Style>None</Style></Border><BorderTop><Color>#1F4E79</Color><Style>Solid</Style><Width>1pt</Width></BorderTop><PaddingRight>4pt</PaddingRight><PaddingTop>3pt</PaddingTop><PaddingBottom>3pt</PaddingBottom></Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TotalAmountLabel">
+                          <CanGrow>true</CanGrow>
+                          <Paragraphs><Paragraph><TextRuns><TextRun><Value>Importe total:</Value><Style><FontFamily>Segoe UI</FontFamily><FontSize>9pt</FontSize><Color>#666666</Color></Style></TextRun></TextRuns><Style><TextAlign>Right</TextAlign></Style></Paragraph></Paragraphs>
+                          <Style><Border><Style>None</Style></Border><BorderTop><Color>#1F4E79</Color><Style>Solid</Style><Width>1pt</Width></BorderTop><PaddingRight>4pt</PaddingRight><PaddingTop>3pt</PaddingTop><PaddingBottom>3pt</PaddingBottom></Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TotalAmountVal">
+                          <CanGrow>true</CanGrow>
+                          <Paragraphs><Paragraph><TextRuns><TextRun><Value>=Fields!TotalAmount.Value</Value><Style><FontFamily>Segoe UI</FontFamily><FontSize>9pt</FontSize><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style><TextAlign>Right</TextAlign></Style></Paragraph></Paragraphs>
+                          <Style><Border><Style>None</Style></Border><BorderTop><Color>#1F4E79</Color><Style>Solid</Style><Width>1pt</Width></BorderTop><PaddingRight>4pt</PaddingRight><PaddingTop>3pt</PaddingTop><PaddingBottom>3pt</PaddingBottom></Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TotalBillable">
+                          <CanGrow>true</CanGrow>
+                          <Paragraphs><Paragraph><TextRuns><TextRun><Value></Value></TextRun></TextRuns></Paragraph></Paragraphs>
+                          <Style><Border><Style>None</Style></Border><BorderTop><Color>#1F4E79</Color><Style>Solid</Style><Width>1pt</Width></BorderTop></Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+              </TablixRows>
+            </TablixBody>
+            <TablixColumnHierarchy>
+              <TablixMembers>
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+              </TablixMembers>
+            </TablixColumnHierarchy>
+            <TablixRowHierarchy>
+              <TablixMembers>
+                <!-- Grupo por documento -->
+                <TablixMember>
+                  <Group Name="HeaderGroup">
+                    <GroupExpressions>
+                      <GroupExpression>=Fields!HeaderNo.Value</GroupExpression>
+                    </GroupExpressions>
+                  </Group>
+                  <TablixMembers>
+                    <!-- Fila 1: Empresa (estática - group header) -->
+                    <TablixMember>
+                      <KeepWithGroup>After</KeepWithGroup>
+                      <RepeatOnNewPage>true</RepeatOnNewPage>
+                      <KeepTogether>true</KeepTogether>
+                    </TablixMember>
+                    <!-- Fila 2: Título + Nº -->
+                    <TablixMember>
+                      <KeepWithGroup>After</KeepWithGroup>
+                      <RepeatOnNewPage>true</RepeatOnNewPage>
+                    </TablixMember>
+                    <!-- Fila 3: Descripción + F.Solicitud -->
+                    <TablixMember>
+                      <KeepWithGroup>After</KeepWithGroup>
+                      <RepeatOnNewPage>true</RepeatOnNewPage>
+                    </TablixMember>
+                    <!-- Fila 4: Cliente + F.Planificada -->
+                    <TablixMember>
+                      <KeepWithGroup>After</KeepWithGroup>
+                      <RepeatOnNewPage>true</RepeatOnNewPage>
+                    </TablixMember>
+                    <!-- Fila 5: Cabeceras columnas (estática) -->
+                    <TablixMember>
+                      <KeepWithGroup>After</KeepWithGroup>
+                      <RepeatOnNewPage>true</RepeatOnNewPage>
+                      <KeepTogether>true</KeepTogether>
+                    </TablixMember>
+                    <!-- Fila 6: Detalle de líneas (grupo de datos) -->
+                    <TablixMember>
+                      <Group Name="LineDetails">
+                        <DataElementName>Detail</DataElementName>
+                      </Group>
+                    </TablixMember>
+                    <!-- Fila 7: Totales (estática - group footer) -->
+                    <TablixMember>
+                      <KeepWithGroup>Before</KeepWithGroup>
+                    </TablixMember>
+                  </TablixMembers>
+                </TablixMember>
+              </TablixMembers>
+            </TablixRowHierarchy>
+            <DataSetName>DataSet_Result</DataSetName>
+            <Top>0cm</Top>
+            <Left>0cm</Left>
+            <Height>4.8cm</Height>
+            <Width>19cm</Width>
+            <Style><Border><Style>None</Style></Border></Style>
+          </Tablix>
+        </ReportItems>
+        <Height>6cm</Height>
+        <Style />
+      </Body>
+      <Width>29.7cm</Width>
+      <Page>
+        <PageFooter>
+          <PrintOnFirstPage>true</PrintOnFirstPage>
+          <PrintOnLastPage>true</PrintOnLastPage>
+          <ReportItems>
+            <Textbox Name="PageNumber">
+              <CanGrow>true</CanGrow>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=Globals!PageNumber &amp; " / " &amp; Globals!TotalPages</Value>
+                      <Style><FontFamily>Segoe UI</FontFamily><FontSize>8pt</FontSize><Color>#666666</Color></Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style><TextAlign>Right</TextAlign></Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>0.1cm</Top>
+              <Left>0cm</Left>
+              <Height>0.4cm</Height>
+              <Width>26cm</Width>
+              <Style><Border><Style>None</Style></Border></Style>
+            </Textbox>
+          </ReportItems>
+          <Height>0.6cm</Height>
+          <Style><Border><Style>None</Style></Border></Style>
+        </PageFooter>
+        <PageHeight>21cm</PageHeight>
+        <PageWidth>29.7cm</PageWidth>
+        <LeftMargin>1.5cm</LeftMargin>
+        <RightMargin>1.5cm</RightMargin>
+        <TopMargin>1.5cm</TopMargin>
+        <BottomMargin>1.5cm</BottomMargin>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Language>es-ES</Language>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>ejf-intervention-print-2026</rd:ReportID>
+</Report>

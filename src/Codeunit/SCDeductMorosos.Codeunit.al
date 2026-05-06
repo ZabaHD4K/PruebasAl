@@ -1,6 +1,8 @@
 codeunit 50106 "SC Deduct Morosos"
 {
     Subtype = Normal;
+    InherentEntitlements = X;
+    InherentPermissions = X;
     TableNo = "Job Queue Entry";
 
     trigger OnRun()

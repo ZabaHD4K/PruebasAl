@@ -20,7 +20,7 @@ Extensión de Business Central (AL) que implementa un sistema de **Social Credit
 | 50101       | Codeunit principal (Social Credit Mgt) |
 | 50106       | Codeunit SC Deduct Morosos |
 
-**Próximo ID libre de página: 50119**
+**Próximo ID libre de página: 50123**
 **Próximo ID libre de tabla: 50108**
 
 ## Arquitectura clave

@@ -1,5 +1,8 @@
 codeunit 50107 "SC Overdue Notifier"
 {
+    InherentEntitlements = X;
+    InherentPermissions = X;
+
     [EventSubscriber(ObjectType::Page, Page::"Customer List", OnOpenPageEvent, '', false, false)]
     local procedure OnCustomerListOpen(var Rec: Record Customer)
     begin

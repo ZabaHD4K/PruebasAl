@@ -155,7 +155,7 @@ page 50119 "SC Import Export"
                 {
                     ApplicationArea = All;
                     Caption = 'Importar CSV';
-                    Image = ImportFile;
+                    Image = Import;
                     ToolTip = 'Carga clientes desde un archivo CSV. Cabeceras: No.,Nombre,Ciudad,Telefono,Email,Social Credit';
                     trigger OnAction()
                     var
@@ -168,7 +168,7 @@ page 50119 "SC Import Export"
                 {
                     ApplicationArea = All;
                     Caption = 'Importar XML';
-                    Image = ImportFile;
+                    Image = XMLFile;
                     ToolTip = 'Carga clientes desde un archivo XML con estructura <Customers><Customer>…</Customer></Customers>.';
                     trigger OnAction()
                     var
@@ -181,7 +181,7 @@ page 50119 "SC Import Export"
                 {
                     ApplicationArea = All;
                     Caption = 'Importar JSON';
-                    Image = ImportFile;
+                    Image = Web;
                     ToolTip = 'Carga clientes desde un archivo JSON con estructura de array [{"no":"…","name":"…",…}].';
                     trigger OnAction()
                     var
@@ -194,7 +194,7 @@ page 50119 "SC Import Export"
                 {
                     ApplicationArea = All;
                     Caption = 'Importar Excel';
-                    Image = ImportFile;
+                    Image = Excel;
                     ToolTip = 'Carga clientes desde un archivo Excel (.xlsx). La hoja debe llamarse "Clientes".';
                     trigger OnAction()
                     var
